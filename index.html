@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <title>RRG dMRV Site</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="./imgs/logo.png">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="pages/index.css">
+    </head>
+    <body>
+        <div class="container" id="container">
+            <div class="contact" id="contact">
+                <p class="bounce" id="discuss">RRG wants to encourage scientific discussion of all topics related to reforestation. Contact us to comment or discuss our current methodologies.  </p>
+            </div>
+            <div class="navbar" id="navbar">
+                <div class="nav-left">
+                    <img src="./imgs/logo.png" alt="Logo" style="width:auto; height:50px;">
+                    <a href="index.html">Project Monitoring</a>
+                    <a href="./pages/reporting.html">Partner Reporting</a>
+                </div>
+                <div class="nav-right">
+                    <button onclick = "copyEmail()" class="contactButton" id="cB">Contact Us</button> 
+                    <div class="rrgHome" onclick="window.open('https://www.reducereusegrow.org/', '_blank')" style="cursor: pointer;">
+                    <a class="home" href="https://www.reducereusegrow.org/" target="_blank">RRG Home</a>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="arrowRight">
+                        <polygon points="11.293 4.707 17.586 11 4 11 4 13 17.586 13 11.293 19.293 12.707 20.707 21.414 12 12.707 3.293 11.293 4.707"/>
+                      </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="wWrapper">
+                <div class="hiddenOverlay">
+                        <div class="elevation" id="elevationmap" style="display: none;">
+                            <div class="stickyButton">
+                                <button class="return" id="close" onclick="closeElevation()">X</button>
+                            </div>
+                            <div class="note">
+                                <h1>Planting Validation</h1>
+                                <p>Interactive with the map below to vizualise planting activities. 
+                                </p>
+                            </div>
+                            <div id="mapoption">
+                                <button class="optionbutton" id="3D" onclick="show3DMap()">3D Scene</button>
+                                <button class="optionbutton" id="2D" onclick="show2DMap()">2D Map</button>
+                            </div>
+                            <div class="content1">
+                                <div id="maps">
+                                <iframe id="2DGIS" src="https://rrgslo.maps.arcgis.com/apps/instant/media/index.html?appid=2d8738c304f84ac4b84ab89156aa7124" width="950" height="400" frameborder="0" style="border:0; display: none;" allowfullscreen>iFrames are not supported on this page.</iframe>
+                                <iframe id="3DGIS" src="https://rrgslo.maps.arcgis.com/apps/instant/3dviewer/index.html?appid=89805762392a4f13a386cb8d7c9843bd" width="950" height="400" frameborder="0" style="border:0" allowfullscreen>iFrames are not supported on this page.</iframe>
+                                </div>
+                            </div>
+                            <div class="content2">
+                                <p><strong>Below is a summary chart and table of validated project activites:<br></strong></p>
+                                <div class="contentsub2">
+                                    <div class="subButton">
+                                        <button class="active-link" id="totals" onclick="showTotals()">Site Totals</button>
+                                        <button id="break" onclick="showBreak()">Site Breakdown</button>
+                                        <button id="density" onclick="showDensity()">Planting Density</button>
+                                    </div>
+                                    <div class="chartTotal" id="chartTotal">
+                                        <div class="metricInput" style="align-items: flex-start;" id="metricInput">
+                                        <select id="dataSelector" name="year" class="select">
+                                            <option value="ha">Hectares Restored</option>
+                                            <option value="tree">Trees Planted</option>
+                                        </select>
+                                        </div>
+                                        <div class="chartsHa" id="chartsHa">
+                                            <div class="chartWrapperTotal">
+                                                <canvas id="haTotal"></canvas>
+                                            </div>
+                                            <div class="chartWrapperTotal">
+                                                <canvas id="haProgressPie"></canvas>
+                                            </div>
+                                        </div>
+                                        <div class="chartsTree">
+                                            <div class="chartWrapperTotal">
+                                                <canvas id="treeTotal"></canvas>
+                                            </div>
+                                            <div class="chartWrapperTotal">
+                                                <canvas id="treeProgressPie"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="chartBreak" style="display: none;">
+                                        <div class="metricInput" style="align-items: flex-start;" id="metricInput">
+                                        <select id="dataSelector2" name="year" class="select">
+                                            <option value="ha">Hectares Restored</option>
+                                            <option value="tree">Trees Planted</option>
+                                        </select>
+                                        </div>
+                                        <div class="chartSite" id="chartSite">
+                                            <div class="chartWrapperSite">
+                                                <canvas id="siteHa" width="1200" height="550"></canvas>
+                                                <canvas id="siteTree" width="1200" height="550"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="chartDensity" style="display: none;">
+                                        <div class="chartWrapperDensity">
+                                            <div class="chartDensity">
+                                                <canvas id="densityChart" width="1200" height="550"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p style="margin-left: 5%; font-size: 10px;"> 
+                                        ** Commercial imagery is only 50cm resoltution. Due to this, RRG is currently not able to validate
+                                        individual trees. Seedlings are anticipated to be 0.5-1m in height. 
+                                        As the stands mature, RRG will be able to validate individual trees.<br>
+                                        ** Due to imagery availability, RRG is only able to validate planting activities through 2/25/2025. <br>
+                                        ** RRG is currently able to validate planted areas utilzing RGB, NDVI and SAR imagery.
+                                        Using partner-reported data, RRG computes estimated planting densities to compare
+                                        to the original anticipated 1,600 trees per hectare. <br>
+                                        ** RRG is slowly rolling out an in-field tree verification system. Expect verified
+                                        tree metrics late 2025.
+                                     </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="elevation" id="boundaries" style="display: none;">
+                            <div class="stickyButton">
+                                <button class="return" id="close" onclick="closeBoundaries()">X</button>
+                            </div>
+                            <div class="note">
+                                <h1>Project Boundaries</h1>
+                                <p>Interactive with the boundary map below to see the stakeholders within the project zone. Stakeholder agreements are available upon request.</p>
+                            </div>
+                            <div id="maps">
+                                <iframe id="boundaryMap" src="https://rrgslo.maps.arcgis.com/apps/instant/basic/index.html?appid=21796e7bab4b41f8a349399337e9b820" width="900" height="400" frameborder="0" style="border:0;" allowfullscreen>iFrames are not supported on this page.</iframe>                            </div>
+                        
+                            </div>
+                        <div class="elevation" id="system" style="display: none;">
+                            <div class="stickyButton">
+                                <button class="return" id="close" onclick="closeSystem()">X</button>
+                            </div>
+                            <div class="noteSystem">
+                                <h1>Remote Sensing Monitoring System</h1>
+                                <div class="subnoteWrapper">
+                                    <div class="subnote1">
+                                    <p><strong>System Overview:</strong></p>
+                                    <p>RRG will use a multi-prong approach to track, validate, and monitor planting activities. 
+                                    RRG will leverage geospatial tools to ensure planting claims are accurate, 
+                                    auditable, and traceable. RRG will build the monitoring capacity of project partners and provide
+                                     the foundational data needed to ensure transparency, traceability, and permanence</p>
+                                    </div>
+                                    <div class="subnote2">
+                                        <iframe src="https://rrgslo.maps.arcgis.com/apps/instant/exhibit/index.html?appid=9ccdd5de78004e89b415fe050809b4e8" 
+                                        width="100" height="250" frameborder="0" loading="lazy" style="border:0" allowfullscreen>iFrames are not supported on 
+                                        this page.</iframe>
+                                    </div>
+                                </div>
+                                <div class="subnoteWrapper1">
+                                    <div class="subnote4">
+                                        <img src="./imgs/ladies.jpg"class="forest-img" style="margin-top: 5%;">
+                                    </div>
+                                    <div class="subnote3">
+                                        <p style="text-align: center;"><strong>
+                                            System Goals:</strong></p>
+                                        <ul>
+                                            <li>Track and validate planting activities throughout the project area</li>
+                                            <li>Assess forest structure development via multiple imagery sources</li>
+                                            <li>Monitor site conditions (precipitation, topography, hydrology, soil maps)</li>
+                                            <li>Monitor mortality over time</li>
+                                            <li>Evaluate social outcomes (jobs, engagement, training)</li>
+                                            <li>Support VCU-related metrics: carbon sequestration estimates, leakage and performance benchmark</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="subnoteWrapper2">
+                                    <div class="subnote6">
+                                        <p style="text-align: center;"><strong>
+                                            Project Summaries:</strong></p>
+                                        <div class="siteButton">
+                                            <button id="philBtn" onclick="showPhilQL()" class="active-link">Philippines</button>
+                                            <button id="tanzBtn" onclick="showTanzQL()">Tanzania</button>
+                                            <button id="malBtn" onclick="showMalQL()">Malawai</button>
+                                        </div>
+                                        <div id="philContent">
+                                            <p>Project Instance 1</p>
+                                            <ul>
+                                            <li>Project Timeframe: 01/2025 - 11/2027</li>
+                                            <li>3,000,000 trees planted</li>
+                                            <li>1,560 hectares restored (estimated)</li>
+                                            <li>756,521 tonnes of Co2e Sequestered at year 50 (estimated)</li>
+                                            </ul>
+                                        </div>
+                                        <div id="tanzContent" style="display: none;">
+                                            <p>Project Instance 1</p>
+                                            <ul>
+                                            <li>Project Timeframe: 10/2023 - 1/2026</li>
+                                            <li>6,490,000 trees planted</li>
+                                            <li>4,026 hectares restored (estimated)</li>
+                                            <li>2,000 full time workers (estimated)</li>
+                                            </ul>
+                                        </div>
+                                        <div id="malContent" style="display: none;">
+                                            <p>Project Instance 1</p>
+                                            <ul>
+                                            <li>Project Timeframe: 01/2025 - 03/2027</li>
+                                            <li>1,500,000 trees planted</li>
+                                            <li>627 hectares restored (estimated)</li>
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="subnote5">
+                                        <div id="philVideo"><iframe src="https://player.vimeo.com/video/998297445?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+                                            frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                                            style="width:800px;height:300px;" title="One Print. One Tree. Project ReGAIN"></iframe>
+                                        </div><script src="https://player.vimeo.com/api/player.js"></script>
+                                        <div id="tanzVideo" style="display:none;">
+                                            <iframe src="https://player.vimeo.com/video/1006004049?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+                                            frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                                            style="width:800px;height:300px;" title="One Print. One Tree. Project FOREST">
+                                        </iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+                                        <div id="malVideo" style="display: none;">
+                                        <iframe src="https://player.vimeo.com/video/1086168171?h=11e8e64b20&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" 
+                                        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                                        style="width:800px;height:300px;" 
+                                        title="One Print. One Tree. x Malawi: Legal and Sustainable Charcoal Production for Watershed Protection">
+                                        </iframe><script src="https://player.vimeo.com/api/player.js"></script>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="elevation" id="commercial" style="display: none;">
+                            <div class="stickyButton">
+                                <button class="return" id="close" onclick="closeCommercial()">X</button>
+                            </div>
+                            <div class="noteCommercial">
+                                <h1 style="text-decoration: underline; text-align: center;">Commercial Satellite Imagery</h1>
+                                <p>RRG will utilize commercial imagery to provide up-to-date imagery for 
+                                    planting validation and monitoring. 
+                                RRG will purchase commercial imagery bi-yearly to monitor planting and mortality.</p>
+                                <p>
+                                Currently, RRG has partnered with <a href="https://apollomapping.com/" target="_blank">Apollo Image Hunters</a>, who provide satellite 
+                                imagery from <a href="https://www.maxar.com/" target="_blank">Maxar Technologies</a>, <a href="https://www.airbus.com/en" target="_blank">Airbus</a> and
+                                <a href="https://www.satimagingcorp.com/satellite-sensors/jilin-1-satellite-sensor-1m/" target="_blank">Jilin</a>. 
+                                Apollo provides two images on purchase. Below is the description of each image 
+                                and their function in project monitoring.
+                                </p>
+                                <ul>
+                                    <li>Three-Band (RGB) High Resolution Imagery (50cm)</li>
+                                    <ul>
+                                        <li>Planting validation including acres planted metrics</li>
+                                        <li>Density (trees/hectare) once seedlings are established</li>
+                                        <li>Mortality monitoring</li>
+                                        <li>Carbon sequestration monitoring utilizing fixed-radius plots
+                                            to measure changes in canopy cover
+                                        </li>
+                                    </ul>
+                                    <li>Four-Band (RGB, NIR) High Resolution Imagery (50cm)</li>
+                                    <ul>
+                                        <li>Calculate <a href="https://www.earthdata.nasa.gov/topics/land-surface/normalized-difference-vegetation-index-ndvi" 
+                                            target="_blank">Normalized Difference Vegetation Index (NDVI)</a></li>
+                                        <li>Planting validation including planting row verification</li>
+                                        <li>Biomass mapping</li>
+                                    </ul>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="elevation" id="public" style="display: none;">
+                            <div class="stickyButton">
+                                <button class="return" id="close" onclick="closePublic()">X</button>
+                            </div>
+                            <div class="notePublic" style="margin-bottom: 50px;">
+                                <h1 style="text-decoration: underline; text-align: center;">Public Satellite Imagery</h1>
+                                <p>RRG will utilize public imagery to provide up-to-date imagery for 
+                                    planting validation, biomass mapping and monitoring. 
+                                RRG will update data quarterly to monitor planting and mortality.</p>
+                                <p>
+                                RRG utilizes <a href="https://earthengine.google.com/" target="_blank">
+                                    Google Earth Engine (GEE)</a>, which provides access to an abundance of
+                                    satellite imagery and geospatial data.<br>
+                                    Geospatial data provides RRG with the ability to 
+                                    <ul>
+                                        <li>Validate planting activities and hectares restored</li>
+                                        <li>Monitor biomass development utilizing stocking indices (SI) and 
+                                            statistical learning</li>
+                                        <li>Monitor site performance and mortality overtime</li>
+                                    </ul></p>
+                                <p>
+                                    Each GEE datasource will be used as a SI index. SI is an unspecified remote sensing 
+                                    metric that has demonstrated correlation with terrestrial aboveground carbon stocks.
+                                    Below is the description of each data source 
+                                    that will be used in project monitoring.
+                                </p>
+                                <ul>
+                                    <li><a href="https://landsat.gsfc.nasa.gov/" target="_blank">
+                                        NASA Landsat-8 Satellite Program
+                                    </li>
+                                    <ul>
+                                        <li><a href="https://www.specim.com/technology/what-is-hyperspectral-imaging/" target="_blank">Hyperspectral Imagery</a></li>
+                                        <li><a href="https://www.earthdata.nasa.gov/topics/land-surface/normalized-difference-vegetation-index-ndvi" 
+                                            target="_blank">Normalized Difference Vegetation Index (NDVI)</a></li>
+                                        <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0034425705002385?via%3Dihub" 
+                                            target="_blank">Normalized Difference Fraction Index (NDFI - Best in jungle environments)</a></li>
+                                        <li><a href="https://developers.google.com/earth-engine/datasets/catalog/LANDSAT_LC08_C02_T1_L2#description" 
+                                            target="_blank">GEE datasource</a></li>
+                                    </ul>
+                                    <li><a href="https://www.eorc.jaxa.jp/ALOS-2/en/about/palsar2.htm" target="_blank">
+                                        JAXA ALOS PALSAR Satellite Program
+                                    </a></li>
+                                    <ul>
+                                        <li><a href="https://www.earthdata.nasa.gov/learn/earth-observation-data-basics/sar" target="_blank">Synthetic Aperture Radar (SAR) Imagery</a></li>
+                                        <li><a href="https://earthdata.nasa.gov/s3fs-public/2025-04/SARHB_CH3_Content.pdf" 
+                                            target="_blank">HH and HV Backsplatter</a></li>
+                                        <li><a href="https://developers.google.com/earth-engine/datasets/catalog/JAXA_ALOS_PALSAR-2_Level2_2_ScanSAR" 
+                                            target="_blank">GEE datasource</a></li>
+                                    </ul>
+                                    <li><a href="https://www.earthdata.nasa.gov/data/instruments/gedi-lidar" target="_blank">
+                                        NASA GEDI Satellite Program
+                                    </a></li>
+                                    <ul>
+                                        <li><a href="https://oceanservice.noaa.gov/facts/lidar.html" target="_blank">LiDAR Imagery</a></li>
+                                        <li><a href="https://svs.gsfc.nasa.gov/4950" 
+                                            target="_blank">Canopy Height</a></li>
+                                        <li><a href="https://developers.google.com/earth-engine/datasets/catalog/LARSE_GEDI_GEDI02_A_002_MONTHLY" 
+                                            target="_blank">GEE datasource</a></li>
+                                    </ul>
+                                </ul>
+                            </div>
+                        </div>
+                </div>
+                <div class="connect">
+                    <h1 class="hWelcome">Reduce. Reuse. Grow. Inc. Project Monitoring</h1>
+                    <p class="pWelcome">Interact with mapping data to monitor, validate and visualize project activities.
+                    </p> 
+                </div>
+                <div class="flowWrapper">
+                    <div class="mermaid" id="flowchartM">
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <footer>
+                  <p1>This website is maintained by <a href="https://www.reducereusegrow.org/"
+                    target="_blank">Reduce. Reuse. Grow. Inc. </a>
+                    <a href="https://cdn.prod.website-files.com/5f21be7ca433fe7024209d52/64eedaa7b10c5c92be3ecc94_Terms%20and%20Conditions.pdf"
+                    target="_blank">Copyright © 2025 Reduce Reuse Grow — All rights reserved.</a>
+                    </p1>
+                </footer>
+            </div>
+        </div>
+        <script src="pages/main.js"></script>
+    </body>
+</html>
