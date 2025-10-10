@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+        <title>RRG dMRV Site</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="site/imgs/logo.png">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css" />
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="./site/loginStyle.css">
+</head>
+<body>
+  <div class="wrap">
+    <div class="login-container">
+      <div class="login-header" style="display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:1.5rem;">
+      <img src="site/imgs/logo.png" alt="Logo" style="height:40px; width:auto;">
+      <h2 style="margin:0;">Welcome to RRG's dMRV site!</h2>
+      </div>
+      <div class="error" id="errorMsg">Invalid username or password</div>
+      <input type="text" id="username" placeholder="Username">
+      <input type="password" id="password" placeholder="Password">
+      <button id="loginBtn">Enter Site</button>
+      <p>Request access <a href="https://www.reducereusegrow.org/" target="_blank">here.</a></p>
+    </div>
+  </div>
+
+  <script>
+    const loginBtn = document.getElementById('loginBtn');
+    const errorMsg = document.getElementById('errorMsg');
+
+    // Example credentials
+    const validUser = "";
+    const validPass = "";
+
+    loginBtn.addEventListener('click', () => {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      if(username === validUser && password === validPass){
+        errorMsg.style.display = "none";
+        // redirect to your main site page
+        window.location.href = "./site/pages/reporting.html#wWrapperCanva";
+      } else {
+        errorMsg.style.display = "block";
+      }
+    });
+
+    // Optional: Enter key to submit
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter') loginBtn.click();
+    });
+  </script>
+
+</body>
+</html>

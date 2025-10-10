@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+        <title>RRG dMRV Site</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="../imgs/logo.png">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css" />
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="./rPages/rStyle.css">
+</head>
+<body>
+<div class="container">
+    <div class="contact" id="contact">
+        <p class="bounce" id="discuss">RRG wants to encourage scientific discussion of all topics related to reforestation. Contact us to comment or discuss our current methodologies.  </p>
+    </div>
+    <div class="navbar" id="navbar">
+        <div class="nav-left">
+            <img src="../imgs/logo.png" alt="Logo" style="width:auto; height:50px;">
+                    <a href="../measure.html">Measuring</a>
+                    <a href="./reporting.html#wWrapperCanva">Reporting</a>
+                    <a href="./verification.html">Verification</a>
+        </div>
+        <div class="nav-right">
+                    <button onclick = "copyEmail()" class="contactButton" id="cB">Contact Us</button> 
+                    <div class="rrgHome" onclick="window.open('https://www.reducereusegrow.org/', '_blank')" style="cursor: pointer;">
+                    <a class="home" href="https://www.reducereusegrow.org/" target="_blank">RRG Home</a>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="arrowRight">
+                        <polygon points="11.293 4.707 17.586 11 4 11 4 13 17.586 13 11.293 19.293 12.707 20.707 21.414 12 12.707 3.293 11.293 4.707"/>
+                      </svg>
+                    </div>
+        </div>
+    </div>
+    <div class="contentWrap">
+        <div class="sidebarWrap">
+                <div class="sidebar">
+                    <button class="off-side" id="canvaConBtn" onclick="showCanvaContent()">OPOT</button>
+                    <button class="active-side" id="tanzConBtn" onclick="showTanzContent()">Tanzania</button>
+                    <button class="off-side" id="philConBtn" onclick="showPhilContent()">Philippines</button>
+                    <button class="off-side" id="malConBtn" onclick="showMalContent()">Malawi</button>
+                    <button class="off-side" id="brazConBtn" onclick="showBrazContent()">Brazil</button>
+                    <button class="off-side" id="indoConBtn" onclick="showIndoContent()">Indonesia</button>
+                </div>
+        </div>
+        <div class="wWrapper" id="wWrapperCanva" style="display: none;">
+            <div class="instanceWrap">
+                    <div class="instanceBtnWrap">
+                        <button class="active-instance1" id="instBtn1Canva" onclick="showCanva1()">OPOT<br>(2023-2025)</button>
+                        <button class="off-instance1" id="instBtn2Canva" onclick="showCanva2()">OPOT<br>(2025-2029)</button>
+                    </div>
+                    <div class="connectWrap">
+                        <h1 class="hWelcome">One Print One Tree Program (OPOT)</h1>
+                    </div>
+            </div>
+            <p class="greet">Reduce.Reuse.Grow (RRG) has partnered with Canva to plant a tree for every print made on their platform. 
+                            This initiative, known as One Print One Tree (OPOT), aims to restore degraded landscapes 
+                            and sequester carbon through reforestation projects throughout Asia, Africa and South America.
+            </p> 
+            <div id="inst1Canva">
+                <div class="progressWrapCanva">
+                    <div class="metricInput"  id="metricInput">
+                        <select id="dataSelectorCanva" name="year" class="selectMetric">
+                        <option value="ha">Hectares Restored</option>
+                        <option value="tree">Trees Planted</option>
+                        </select>
+                    </div>
+                    <div class="chartWrapper">
+                        <div class="chartsHa" id="chartsHaCanva">
+                            <div class="chartWrapperTotal">
+                                <canvas id="haSiteCanva"></canvas>
+                            </div>
+                            <div class="chartWrapperTotal">
+                                <canvas id="haPieCanva"></canvas>
+                            </div>
+                        </div>
+                        <div class="chartsTree" id="chartsTreeCanva" >
+                            <div class="chartWrapperTotal">
+                                <canvas id="treeSiteCanva"></canvas>
+                            </div>
+                            <div class="chartWrapperTotal">
+                                <canvas id="treePieCanva"></canvas>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+                <div class="detailWrapCanva">
+                    <div class="optionsWrapper">
+                        <div class="btn">
+                            <button class="active-link">Project Schedule</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="contentWrapperCanva">
+                    <div id="scheduleCanva">
+                        <div class="ganttOPOT" id="ganttOPOT">
+                            <canvas id="ganttChartOPOT"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>                
+            <div id="inst2Canva" style="display:none;">
+                <div class="progressWrapCanva">
+                    <div class="metricInput"  id="metricInput">
+                        <select id="dataSelectorCanva2" name="year" class="selectMetric">
+                        <option value="ha">Hectares Restored</option>
+                        <option value="tree">Trees Planted</option>
+                        </select>
+                    </div>
+                    <div class="chartWrapper">
+                        <div class="chartsHa" id="chartsHaCanva2">
+                            <div class="chartWrapperTotal">
+                                <canvas id="haSiteCanva2"></canvas>
+                            </div>
+                            <div class="chartWrapperTotal">
+                                <canvas id="haPieCanva2"></canvas>
+                            </div>
+                        </div>
+                        <div class="chartsTree" id="chartsTreeCanva2" >
+                            <div class="chartWrapperTotal">
+                                <canvas id="treeSiteCanva2"></canvas>
+                            </div>
+                            <div class="chartWrapperTotal">
+                                <canvas id="treePieCanva2"></canvas>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+                <div class="detailWrapCanva">
+                    <div class="optionsWrapper">
+                        <div class="btn">
+                            <button class="active-link">Project Schedule</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="contentWrapperCanva">
+                    <div id="scheduleCanva2">
+                        <div class="ganttOPOT" id="ganttOPOT2">
+                            <canvas id="ganttChartOPOT2"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wWrapper" id="wWrapper">
+                <div class="instanceWrap">
+                    <div class="instanceBtnWrap">
+                        <button class="active-instance" id="instBtn1Tanz" onclick="showTanz1()">Instance 1</button>
+                        <button class="off-instance" id="instBtn2Tanz" onclick="showTanz2()">Instance 2</button>
+                    </div>
+                    <div class="connectWrap">
+                        <h1 class="hWelcome">Project Forest: Reporting</h1>
+                        <p class="pWelcome">Interact with reporting data to visualize project activities.
+                        </p> 
+                    </div>
+                </div>
+            <div id="inst1Tanz">
+                <div class="progressWrap">
+                <div class="metricInput" id="metricInput">
+                    <select id="dataSelector2" name="year" class="selectMetric">
+                        <option value="ha">Hectares Restored</option>
+                        <option value="tree">Trees Planted</option>
+                    </select>
+                </div>
+                <div class="chartWrapper">
+                    <div class="chartsHa" id="chartsHa">
+                            <div class="chartWrapperTotal">
+                                <canvas id="haSite"></canvas>
+                            </div>
+                            <div class="chartWrapperTotal">
+                                <canvas id="haPie"></canvas>
+                            </div>
+                    </div>
+                    <div class="chartsTree" id="chartsTree" >
+                        <div class="chartWrapperTotal">
+                            <canvas id="treeSite"></canvas>
+                        </div>
+                        <div class="chartWrapperTotal">
+                            <canvas id="treePie"></canvas>
+                        </div>
+                    </div>    
+                </div>
+                </div>
+                <div class="detailWrap">
+                <div class="optionsWrapper">
+                    <div class="btn">
+                        <button class="active-link" id="time" onclick="showSchedule()">Project Schedule</button>
+                        <button class="btn1" id="pLog" onclick="showLog()">Partner Reported Planting Log</button>
+                        <button class="btn1" id="species" onclick="showSpecies()">Species List</button>
+                        <button class="btn1" id="stake" onclick="showStakeholders()">Project Stakeholders</button>
+                        <button class="btn1" id="mediaBtn" onclick="showMedia()">Project Media</button>
+                    </div>
+                </div>
+                <div class="contentWrapper">
+                    <div id="schedule">
+                        <div class="pLogGantt" id="pLogGantt">
+                            <canvas id="ganttChart"></canvas>
+                        </div>
+                        <div class="Gantt" id="gantt">
+                            <canvas id="ganttTanz"></canvas>
+                        </div>
+                    </div>
+                    <div id="log" style="display: none;">
+                        <table id="ganttTable" class="display">
+                        <thead>
+                            <tr>
+                            <th>Site</th>
+                            <th>Date Planted</th>
+                            <th>Trees Planted</th>
+                            <th>Area Planted</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div id="speciesTable" style="display: none;">
+                        <table id="speciesList" class="display">
+                        <thead>
+                            <tr>
+                            <th>TREE SPECIES</th>
+                            <th>VOLUME</th>
+                            <th>VALUE</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div id="stakeholders" style="display: none;" class="stakeClass">
+                        <table class="display">
+                        <thead>
+                            <tr>
+                            <th>Stakeholder</th>
+                            <th>Rights, Interests, and Relevance to the Project</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td>Canva</td>
+                            <td class="clickable-row" data-href="https://www.canva.com/one-print-one-tree/">
+                            Project Financier - Funded through the One Print One Tree Program
+                            </td>
+                            </tr>
+                            <tr>
+                            <td class="clickable-row" data-href="https://reducereusegrow.webflow.io/grievance-page">Reduce Reuse Grow Inc</td>
+                            <td>
+                            RRG will serve as project developer, providing technical guidance, project design, 
+                            and overall coordination of activities. RRG manages monitoring, reporting, and verification 
+                            (MRV) processes, ensures compliance with ERS standards, and will oversee distribution of carbon credit revenues among stakeholders.
+                            </td>
+                            </tr>
+                            <tr>
+                            <td class="clickable-row" data-href="https://usambaratravels.com/">Friends of the Usambara</td>
+                            <td>
+                            FOU will run on-the-ground operations, handle the FPIC process with 
+                            local stakeholders, work in nursery, planting, and monitoring. 
+                            They will manage hiring of field employees and receive the bulk 
+                            of profits from carbon credit sales.
+                            </td>
+                            </tr>
+                            <tr>
+                            <td class="clickable-row" data-href="https://www.tfs.go.tz/">Tanzania Forest Services Agency<br>
+                            (Primarily: Baga FR, Bombo Makole FR, Chambogo FR, 
+                            Magamba FR, Mkussu FR, Mtumbi FR, Ndelemai FR)
+                            </td>
+                            <td>
+                            Identified through RRG’s on-the-ground partners (FOU). 
+                            They own the forest reserve land for project activities and are the 
+                            main beneficiaries, receiving profits from carbon credit sales.
+                            </td>
+                            </tr>
+                            <tr>
+                            <td class="clickable-row" data-href="https://velmalaw.co.tz/practice-areas/land-law/">Local Wards<br>
+                            (Primarily: Lushoto DC, Bumbuli DC)
+                            </td>
+                            <td>
+                            Identified through RRG’s on-the-ground partners (FOU). 
+                            They own local ward land for project activities and are the main 
+                            beneficiaries of carbon credit sales.
+                            </td>
+                            </tr>
+                            <tr>
+                            <td>Local Community Members</td>
+                            <td>
+                            Identified through RRG’s on-the-ground partners (FOU). 
+                            They will serve as field employees in project activities and are 
+                            primary beneficiaries of profits from carbon credit sales.
+                            </td>
+                            </tr>
+                        </tbody>
+                        </table>
+                        <p style="font-size: 10px;">** Land owner permissions for project activities are located
+                            <a href="https://drive.google.com/drive/folders/15CLqIuqeVnvfitGjTIDSJAvKbAWy7ox7?usp=drive_link"
+                            target="_blank">here</a>. Please leave a comment to request access.
+                        </p>
+                    </div>
+                    <div id="media" style="display: none;">
+                        <div class="mediaTanz">
+                                <iframe src="https://player.vimeo.com/video/1006004049?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+                                frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; 
+                                encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+                                title="One Print. One Tree. Project FOREST"></iframe>
+                                <script src="https://player.vimeo.com/api/player.js"></script>
+                        </div>
+                        <p><a href="https://drive.google.com/drive/u/1/folders/1E1EnuB1C2jXjH23CRYDygdlwdwBUdGuB" target="__blank">Click here for project photos.</a></p>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div id="inst2Tanz" style="display:none;">
+                <div class="progressWrap">
+                <div class="metricInput" id="metricInput">
+                    <select id="dataSelector3" name="year" class="selectMetric">
+                        <option value="ha">Hectares Restored</option>
+                        <option value="tree">Trees Planted</option>
+                    </select>
+                </div>
+                <div class="chartWrapper">
+                    <div class="chartsHa" id="chartsHa2">
+                            <div class="chartWrapperTotal">
+                                <canvas id="haSite2"></canvas>
+                            </div>
+                            <div class="chartWrapperTotal">
+                                <canvas id="haPie2"></canvas>
+                            </div>
+                    </div>
+                    <div class="chartsTree" id="chartsTree2" >
+                        <div class="chartWrapperTotal">
+                            <canvas id="treeSite2"></canvas>
+                        </div>
+                        <div class="chartWrapperTotal">
+                            <canvas id="treePie2"></canvas>
+                        </div>
+                    </div>    
+                </div>
+                </div>
+                <div class="detailWrap">
+                <div class="optionsWrapper">
+                    <div class="btn">
+                        <button class="active-link" id="time2" onclick="showSchedule2()">Project Schedule</button>
+                        <button class="btn1" id="pLog2" onclick="showLog2()">Partner Reported Planting Log</button>
+                        <button class="btn1" id="species2" onclick="showSpecies2()">Species List</button>
+                        <button class="btn1" id="stake2" onclick="showStakeholders2()">Project Stakeholders</button>
+                    </div>
+                </div>
+                <div class="contentWrapper">
+                    <div id="schedule2">
+                        <div class="pLogGantt" id="pLogGantt">
+                            <canvas id="ganttChart2"></canvas>
+                        </div>
+                        <div class="Gantt" id="gantt">
+                            <canvas id="ganttTanz2"></canvas>
+                        </div>
+                    </div>
+                    <div id="log2" style="display: none;">
+                        <p>** Will be available once planting begins.</p>
+                    </div>
+                    <div id="speciesTable2" style="display: none;">
+                        <p>** Will be available by the end of 2025.</p>
+                    </div>
+                    <div id="stakeholders2" style="display: none;" class="stakeClass">
+                        <table class="display">
+                        <thead>
+                            <tr>
+                            <th>Stakeholder</th>
+                            <th>Rights, Interests, and Relevance to the Project</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td>Canva</td>
+                            <td class="clickable-row" data-href="https://www.canva.com/one-print-one-tree/">
+                            Project Financier - Funded through the One Print One Tree Program
+                            </td>
+                            </tr>
+                            <tr>
+                            <td class="clickable-row" data-href="https://reducereusegrow.webflow.io/grievance-page">Reduce Reuse Grow Inc</td>
+                            <td>
+                            RRG will serve as project developer, providing technical guidance, project design, 
+                            and overall coordination of activities. RRG manages monitoring, reporting, and verification 
+                            (MRV) processes, ensures compliance with ERS standards, and will oversee distribution of carbon credit revenues among stakeholders.
+                            </td>
+                            </tr>
+                            <tr>
+                            <td class="clickable-row" data-href="https://usambaratravels.com/">Friends of the Usambara</td>
+                            <td>
+                            FOU will run on-the-ground operations, handle the FPIC process with 
+                            local stakeholders, work in nursery, planting, and monitoring. 
+                            They will manage hiring of field employees and receive the bulk 
+                            of profits from carbon credit sales.
+                            </td>
+                            </tr>
+                            <tr>
+                            <td class="clickable-row" data-href="https://velmalaw.co.tz/practice-areas/land-law/">Local Wards<br>
+                            (Primarily: Bumbuli DC)
+                            </td>
+                            <td>
+                            Identified through RRG’s on-the-ground partners (FOU). 
+                            They own local ward land for project activities and are the main 
+                            beneficiaries of carbon credit sales.
+                            </td>
+                            </tr>
+                            <tr>
+                            <td class="clickable-row" data-href="https://www.envirowise.co.tz/">EnviroWise
+                            </td>
+                            <td>
+                            EnviroWise is a leading enviromental consulting firm based in Tanzania. RRG has contrated EnviroWise to assist
+                            with the FPIC process, including managing community meetings and liaising with local stakeholders. Ultimately they will
+                            train FOU staff to manage future stakeholder consultation.
+                            </td>
+                            </tr>
+                            <tr>
+                            <td>Local Community Members</td>
+                            <td>
+                            Identified through RRG’s on-the-ground partners (FOU). 
+                            They will serve as field employees in project activities and are 
+                            primary beneficiaries of profits from carbon credit sales.
+                            </td>
+                            </tr>
+                        </tbody>
+                        </table>
+                        <p style="font-size: 10px;">** Land owner permissions for project activities are located
+                            <a href="https://drive.google.com/drive/folders/15CLqIuqeVnvfitGjTIDSJAvKbAWy7ox7?usp=drive_link"
+                            target="_blank">here</a>. Please leave a comment to request access.
+                        </p>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+            <div id="wWrapperPhil" style="display:none;" class="wWrapper">
+                <div class="instanceWrap">
+                    <div class="instanceBtnWrap">
+                        <button class="active-instance" id="inst1Phil">Instance 1</button>
+                        <button class="off-instance" id="inst2Phil">Instance 2</button>
+                    </div>
+                <div class="connectWrap">
+                    <h1 class="hWelcome">Project ReGAIN: Reporting</h1>
+                    <p class="pWelcome">Interact with reporting data to visualize project activities.
+                    </p> 
+                </div>
+                </div>
+                <div class="progressWrap">
+                <div class="metricInput" id="metricInput">
+                    <select id="dataSelector2Phil" name="year" class="selectMetric">
+                        <option value="ha">Hectares Restored</option>
+                        <option value="tree">Trees Planted</option>
+                    </select>
+                </div>
+                <div class="chartWrapper">
+                    <div class="chartsHa" id="chartsHaPhil">
+                            <div class="chartWrapperTotal">
+                                <canvas id="haSitePhil"></canvas>
+                            </div>
+                            <div class="chartWrapperTotal">
+                                <canvas id="haPiePhil"></canvas>
+                            </div>
+                    </div>
+                    <div class="chartsTree" id="chartsTreePhil" >
+                        <div class="chartWrapperTotal">
+                            <canvas id="treeSitePhil"></canvas>
+                        </div>
+                        <div class="chartWrapperTotal">
+                            <canvas id="treePiePhil"></canvas>
+                        </div>
+                    </div>    
+                </div>
+                </div>
+                <div class="detailWrap">
+                <div class="optionsWrapper">
+                    <div class="btn">
+                        <button class="active-link" id="timePhil" onclick="showSchedulePhil()">Project Schedule</button>
+                        <button class="btn1" id="pLogPhil" onclick="showLogPhil()">Partner Reported Planting Log</button>
+                        <button class="btn1" id="speciesPhil" onclick="showSpeciesPhil()">Species List</button>
+                        <button class="btn1" id="stakePhil" onclick="showStakeholdersPhil()">Project Stakeholders</button>
+                        <button class="btn1" id="mediaBtnPhil" onclick="showMediaPhil()">Project Media</button>
+                    </div>
+                </div>
+                <div class="contentWrapper">
+                    <div id="schedulePhil">
+                        <div id="pLogGanttPhil">
+                            <canvas id="ganttChartPhil"></canvas>
+                        </div>
+                        <div id="ganttPhil">
+                            <canvas id="ganttPhilCanvas"></canvas>
+                        </div>
+                    </div>
+                    <div id="logPhil" style="display: none;">
+                        <table id="ganttTablePhil" class="display">
+                        <thead>
+                            <tr>
+                            <th>Site</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Trees Planted</th>
+                            <th>Area Planted</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div id="speciesTablePhil" style="display: none;">
+                        <table id="speciesListPhil" class="display">
+                        <thead>
+                            <tr>
+                            <th>Species</th>
+                            <th>Volume</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div id="stakeholdersPhil" style="display: none;" class="stakeClass">
+                        <table class="display" id="stakeholdersPhilTable">
+                        <thead>
+                            <tr>
+                            <th>Stakeholder</th>
+                            <th>Rights, Interests, and Relevance to the Project</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td>Canva</td>
+                            <td class="clickable-row" data-href="https://www.canva.com/one-print-one-tree/">
+                            Project Financier - Funded through the One Print One Tree Program
+                            </td>
+                            </tr>
+                            <tr>
+                            <td class="clickable-row" data-href="https://reducereusegrow.webflow.io/grievance-page">Reduce Reuse Grow Inc</td>
+                            <td>
+                            RRG will serve as project developer, providing technical guidance, project design, 
+                            and overall coordination of activities. RRG manages monitoring, reporting, and verification 
+                            (MRV) processes, ensures compliance with ERS standards, and will oversee distribution of carbon credit revenues among stakeholders.
+                            </td>
+                            </tr>
+                            <tr>
+                            <td class="clickable-row" data-href="https://www.philippineeaglefoundation.org/">Philippine Eagle Foundation</td>
+                            <td>
+                            PEF will run on-the-ground operations, handle the FPIC process with 
+                            local stakeholders, work in nursery, planting, and monitoring. 
+                            They will manage hiring of field employees and receive the bulk 
+                            of profits from carbon credit sales.
+                            </td>
+                            </tr>
+                            <tr>
+                            <td class="clickable-row" data-href="https://www.equatorinitiative.org/2020/04/24/solution11483/">Obu Manuvu Tribe<br>
+                            (Primary Clans: Ahom, Magwan and Udto)
+                            </td>
+                            <td>
+                            Identified through RRG’s on-the-ground partners (PEF). 
+                            They own the land for project activities, are the main employees and will receive
+                             profits from carbon credit sales.
+                            </td>
+                            </tr>
+                            <tr>
+                            <td class="clickable-row" data-href="https://www.philatlas.com/barangays.html">Local Barangay<br>
+                            (Primarily: Tambobong, Salaysay and Tawan-tawan. )
+                            </td>
+                            <td>
+                            Identified through RRG’s on-the-ground partners (PEF). 
+                            They own the land for project activities, are the main employees and will receive
+                             profits from carbon credit sales.
+                            </td>
+                            </tr>
+                            <tr>
+                            <td>Local Community Members</td>
+                            <td>
+                            They will serve as field employees in project activities and will recieve technical training.
+                            </td>
+                            </tr>
+                        </tbody>
+                        </table>
+                        <p style="font-size: 10px;">** Land owner permissions for project activities are located
+                            <a href="https://drive.google.com/drive/folders/1l9kDY2cz74Bcvij3s7qZMKVKzZgNZpnZ?usp=drive_link"
+                            target="_blank">here</a>. Please leave a comment to request access.
+                        </p>
+                    </div>
+                    <div id="mediaPhil" style="display: none;">
+                        <div class="mediaTanz">
+                                <iframe src="https://player.vimeo.com/video/998297445?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                                     frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                                     referrerpolicy="strict-origin-when-cross-origin" 
+                                     title="One Print. One Tree. Project ReGAIN"></iframe><script src="https://player.vimeo.com/api/player.js"></script>
+                        </div>
+                        <p><a href="https://drive.google.com/drive/u/1/folders/1DiIgTJkP0h4kB9-vSDTpreSl3ToiDXiG" target="__blank">Click here for project photos.</a></p>
+                    </div>
+                </div>
+                </div>
+            </div>
+        <div id="wWrapperMal" style="display:none;" class="wWrapper">
+            <div class="instanceWrap">
+                    <div class="instanceBtnWrap">
+                        <button class="active-instance" id="instBtn1Mal" onclick="showMal1()">Instance 1</button>
+                        <button class="off-instance" id="instBtn2Mal" onclick="showMal2()">Instance 2</button>
+                    </div>
+                <div class="connectWrap">
+                    <h1 class="hWelcome">Project Malawi: Reporting</h1>
+                    <p class="pWelcome">Interact with reporting data to visualize project activities.
+                    </p> 
+                </div>
+            </div>
+            <div id="inst1Mal">
+                <div class="progressWrap">
+                <div class="metricInput"  id="metricInput">
+                    <select id="dataSelector2Mal" name="year" class="selectMetric">
+                        <option value="ha">Hectares Restored</option>
+                        <option value="tree">Trees Planted</option>
+                    </select>
+                </div>
+                <div class="chartWrapper">
+                    <div class="chartsHa" id="chartsHaMal">
+                            <div class="chartWrapperTotal">
+                                <canvas id="haSiteMal"></canvas>
+                            </div>
+                            <div class="chartWrapperTotal">
+                                <canvas id="haPieMal"></canvas>
+                            </div>
+                    </div>
+                    <div class="chartsTree" id="chartsTreeMal" >
+                        <div class="chartWrapperTotal">
+                            <canvas id="treeSiteMal"></canvas>
+                        </div>
+                        <div class="chartWrapperTotal">
+                            <canvas id="treePieMal"></canvas>
+                        </div>
+                    </div>    
+                </div>
+                </div>
+                <div class="detailWrap">
+                <div class="optionsWrapper">
+                    <div class="btn">
+                        <button class="active-link" id="timeMal" onclick="showScheduleMal()">Project Schedule</button>
+                        <button class="btn1" id="pLogMal" onclick="showLogMal()">Partner Reported Planting Log</button>
+                        <button class="btn1" id="speciesMal" onclick="showSpeciesMal()">Species List</button>
+                        <button class="btn1" id="stakeMal" onclick="showStakeholdersMal()">Project Stakeholders</button>
+                        <button class="btn1" id="mediaBtnMal" onclick="showMediaMal()">Project Media</button>
+                    </div>
+                </div>
+                <div class="contentWrapper">
+                    <div id="scheduleMal">
+                        <div id="pLogGanttMal">
+                            <canvas id="ganttChartMal"></canvas>
+                        </div>
+                        <div id="ganttMal">
+                            <canvas id="ganttMalCanvas"></canvas>
+                        </div>
+                    </div>
+                    <div id="logMal" style="display: none;">
+                        <table id="ganttTableMal" class="display">
+                        <thead>
+                            <tr>
+                            <th>Site</th>
+                            <th>Planting Date</th>
+                            <th>Trees Planted</th>
+                            <th>Area Planted</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div id="speciesTableMal" style="display: none;">
+                        <table id="speciesListMal" class="display">
+                        <thead>
+                            <tr>
+                            <th>Species</th>
+                            <th>Volume</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="clickable-row" data-href="https://www.sciencedirect.com/science/article/pii/S2666789424000114">Eucalyptus calmadulesis</td>
+                                <td>1,500,000</td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
+                    <div id="stakeholdersMal" style="display: none;" class="stakeClass">
+                        <table class="display" id="stakeholdersMalTable">
+                        <thead>
+                            <tr>
+                            <th>Stakeholder</th>
+                            <th>Rights, Interests, and Relevance to the Project</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td>Canva</td>
+                            <td class="clickable-row" data-href="https://www.canva.com/one-print-one-tree/">
+                            Project Financier - Funded through the One Print One Tree Program (OPOT)
+                            </td>
+                            </tr>
+                            <tr>
+                            <td class="clickable-row" data-href="https://reducereusegrow.webflow.io/grievance-page">Reduce Reuse Grow Inc</td>
+                            <td>
+                            RRG will serve as project developer, providing technical guidance, project design, 
+                            and overall coordination of activities. RRG manages monitoring, reporting, and verification 
+                            (MRV) processes, ensures compliance with ERS standards, and will oversee distribution of carbon credit revenues among stakeholders.
+                            </td>
+                            </tr>
+                            <tr>
+                            <td class="clickable-row" data-href="https://www.devex.com/organizations/department-of-forestry-malawi-163877">Malawi Department of Forestry (MDOF)</td>
+                            <td>
+                            MDOF run on-the-ground operations including creating nursery, planting, and monitoring systems. 
+                            They will manage the hiring of field employees and distribute the funding provided by OPOT. 
+                            </td>
+                            </tr>
+                            <tr>
+                            <td>Local Community Members</td>
+                            <td>
+                            They will serve as field employees in project activities and will recieve technical training in various tasks.
+                            </td>
+                            </tr>
+                        </tbody>
+                        </table>
+                        <p style="font-size: 10px;">** Land owner permissions for project activities are located
+                            <a href="https://drive.google.com/file/d/1H2f8OpAlXA9HjDQrZOmi5WCZuw1ReUnW/view"
+                            target="_blank">here</a>. Please leave a comment to request access.
+                        </p>
+                    </div>
+                    <div id="mediaMal" style="display: none;">
+                        <div class="mediaTanz">
+                                <iframe src="https://player.vimeo.com/video/1116814397?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+                                    frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                                    referrerpolicy="strict-origin-when-cross-origin" 
+                                    title="One Print. One Tree. in Malawi:  Legal and Sustainable Charcoal Production for Water Security"></iframe>
+                                <script src="https://player.vimeo.com/api/player.js"></script>
+                        </div>
+                        <p><a href="https://drive.google.com/drive/u/1/folders/1Ma34WQwseYiA7ZL65uR4voeNVfeEnqty" target="__blank">Click here for project photos.</a></p>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div id="inst2Mal" style="display:none;">
+                <div class="progressWrap">
+                <div class="metricInput"  id="metricInput">
+                    <select id="dataSelector2Mal2" name="year" class="selectMetric">
+                        <option value="ha">Hectares Restored</option>
+                        <option value="tree">Trees Planted</option>
+                    </select>
+                </div>
+                <div class="chartWrapper">
+                    <div class="chartsHa" id="chartsHaMal2">
+                            <div class="chartWrapperTotal">
+                                <canvas id="haSiteMal2"></canvas>
+                            </div>
+                            <div class="chartWrapperTotal">
+                                <canvas id="haPieMal2"></canvas>
+                            </div>
+                    </div>
+                    <div class="chartsTree" id="chartsTreeMal2" >
+                        <div class="chartWrapperTotal">
+                            <canvas id="treeSiteMal2"></canvas>
+                        </div>
+                        <div class="chartWrapperTotal">
+                            <canvas id="treePieMal2"></canvas>
+                        </div>
+                    </div>    
+                </div>
+                </div>
+                <div class="detailWrap">
+                <div class="optionsWrapper">
+                    <div class="btn">
+                        <button class="active-link" id="timeMal2" onclick="showScheduleMal2()">Project Schedule</button>
+                        <button class="btn1" id="pLogMal2" onclick="showLogMal2()">Partner Reported Planting Log</button>
+                        <button class="btn1" id="speciesMal2" onclick="showSpeciesMal2()">Species List</button>
+                        <button class="btn1" id="stakeMal2" onclick="showStakeholdersMal2()">Project Stakeholders</button>
+                    </div>
+                </div>
+                <div class="contentWrapper">
+                    <div id="scheduleMal2">
+                        <div id="pLogGanttMal2">
+                            <canvas id="ganttChartMal2"></canvas>
+                        </div>
+                        <div id="ganttMal2">
+                            <canvas id="ganttMalCanvas2"></canvas>
+                        </div>
+                    </div>
+                    <div id="logMal2" style="display: none;">
+                        <p>**Will be available once planting begins.</p>
+                    </div>
+                    <div id="speciesTableMal2" style="display: none;">
+                        <table id="speciesListMal2" class="display">
+                        <thead>
+                            <tr>
+                            <th>Species</th>
+                            <th>Volume</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="clickable-row" data-href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSCflDuq-MdE51UGNlaGLyz311_pXfM077Fg&s">Acacia galpinii</td><td>150,000</td></tr>
+                            <tr><td>Acacia polyacantha</td><td>150,000</td></tr>
+                            <tr><td>Albizia lebbeck</td><td>300,000</td></tr>
+                            <tr><td>Eucalyptus grandis</td><td>504,100</td></tr>
+                            <tr><td>Pinus kesiya</td><td>1,276,738</td></tr>
+                            <tr><td>Pinus orcapa</td><td>1,171,072</td></tr>
+                            <tr><td>Pinus patula</td><td>306,480</td></tr>
+                            <tr><td>Pinus tecunumanii</td><td>72,260</td></tr>
+                            <tr><td>Senna siamea</td><td>700,000</td></tr>
+                            <tr><td>Senna spectabilis</td><td>700,000</td></tr>
+                        </tbody>
+                        </table>
+                    </div>
+                    <div id="stakeholdersMal2" style="display: none;" class="stakeClass">
+                        <table class="display" id="stakeholdersMalTable2">
+                        <thead>
+                            <tr>
+                            <th>Stakeholder</th>
+                            <th>Rights, Interests, and Relevance to the Project</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td>Canva</td>
+                            <td class="clickable-row" data-href="https://www.canva.com/one-print-one-tree/">
+                            Project Financier - Funded through the One Print One Tree Program (OPOT)
+                            </td>
+                            </tr>
+                            <tr>
+                            <td class="clickable-row" data-href="https://reducereusegrow.webflow.io/grievance-page">Reduce Reuse Grow Inc</td>
+                            <td>
+                            RRG will serve as project developer, providing technical guidance, project design, 
+                            and overall coordination of activities. RRG manages monitoring, reporting, and verification 
+                            (MRV) processes, ensures compliance with ERS standards, and will oversee distribution of carbon credit revenues among stakeholders.
+                            </td>
+                            </tr>
+                            <tr>
+                            <td class="clickable-row" data-href="https://www.devex.com/organizations/department-of-forestry-malawi-163877">Malawi Department of Forestry (MDOF)</td>
+                            <td>
+                            MDOF run on-the-ground operations including creating nursery, planting, and monitoring systems. 
+                            They will manage the hiring of field employees and distribute the funding provided by OPOT. 
+                            </td>
+                            </tr>
+                            <tr>
+                            <td>Local Community Members</td>
+                            <td>
+                            They will serve as field employees in project activities and will recieve technical training in various tasks.
+                            </td>
+                            </tr>
+                        </tbody>
+                        </table>
+                        <p style="font-size: 10px;">** Land owner permissions for project activities are located
+                            <a href="https://drive.google.com/file/d/1H2f8OpAlXA9HjDQrZOmi5WCZuw1ReUnW/view"
+                            target="_blank">here</a>. Please leave a comment to request access.
+                        </p>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div id="wWrapperBraz" style="display:none;" class="wWrapper">
+            <div class="instanceWrap" style="gap:15%;">
+                <div class="instanceBtnWrap">
+                        <button class="active-instance" id="inst1Braz">Instance 1</button>
+                </div>
+                <div class="connectWrap">
+                    <h1 class="hWelcome">Project Brazil: Reporting</h1>
+                    <p class="pWelcome">Interact with reporting data to visualize project activities.
+                    </p> 
+                </div>
+            </div>
+            <div class="progressWrap">
+                <div class="metricInput" id="metricInput">
+                    <select id="dataSelector2Braz" name="year" class="selectMetric">
+                        <option value="ha">Hectares Restored</option>
+                        <option value="tree">Trees Planted</option>
+                    </select>
+                </div>
+                <div class="chartWrapper">
+                    <div class="chartsHa" id="chartsHaBraz">
+                            <div class="chartWrapperTotal">
+                                <canvas id="haSiteBraz"></canvas>
+                            </div>
+                            <div class="chartWrapperTotal">
+                                <canvas id="haPieBraz"></canvas>
+                            </div>
+                    </div>
+                    <div class="chartsTree" id="chartsTreeBraz" >
+                        <div class="chartWrapperTotal">
+                            <canvas id="treeSiteBraz"></canvas>
+                        </div>
+                        <div class="chartWrapperTotal">
+                            <canvas id="treePieBraz"></canvas>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+            <div class="detailWrap">
+                <div class="optionsWrapper">
+                    <div class="btn">
+                        <button class="active-link" id="timeBraz" onclick="showScheduleBraz()">Project Schedule</button>
+                        <button class="btn1" id="pLogBraz" onclick="showLogBraz()">Partner Reported Planting Log</button>
+                        <button class="btn1" id="speciesBraz" onclick="showSpeciesBraz()">Species List</button>
+                        <button class="btn1" id="stakeBraz" onclick="showStakeholdersBraz()">Project Stakeholders</button>
+                    </div>
+                </div>
+                <div class="contentWrapper">
+                    <div id="scheduleBraz">
+                        <div id="pLogGanttBraz">
+                            <canvas id="ganttChartBraz"></canvas>
+                        </div>
+                    </div>
+                    <div id="logBraz" style="display: none;">
+                        <p>**Will be available once planting begins.</p>
+                    </div>
+                    <div id="speciesTableBraz" style="display: none;">
+                        <p>** Will be available once established.</p>
+                    </div>
+                    <div id="stakeholdersBraz" style="display: none;" class="stakeClass">
+                        <table class="display" id="stakeholdersTableBraz">
+                        <thead>
+                            <tr>
+                            <th>Stakeholder</th>
+                            <th>Rights, Interests, and Relevance to the Project</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td>Canva</td>
+                            <td class="clickable-row" data-href="https://www.canva.com/one-print-one-tree/">
+                            Project Financier - Funded through the One Print One Tree Program (OPOT)
+                            </td>
+                            </tr>
+                            <tr>
+                            <td class="clickable-row" data-href="https://reducereusegrow.webflow.io/grievance-page">Reduce Reuse Grow Inc</td>
+                            <td>
+                            RRG will serve as project developer, providing technical guidance, project design, 
+                            and overall coordination of activities. RRG manages monitoring, reporting, and verification 
+                            (MRV) processes, ensures compliance with ERS standards, and will oversee distribution of carbon credit revenues among stakeholders.
+                            </td>
+                            </tr>
+                            <tr>
+                            <td class="clickable-row" data-href="https://samaumaacoes.org/">Sama Uma</td>
+                            <td>
+                            Sama Uma will run on-the-ground operations including creating nursery, planting, and monitoring systems. 
+                            They will manage the hiring of field employees and distribute the funding provided by OPOT. 
+                            </td>
+                            </tr>
+                            <tr>
+                            <td>Local Community Members</td>
+                            <td>
+                            They will serve as field employees in project activities and will recieve technical training in various tasks.
+                            </td>
+                            </tr>
+                        </tbody>
+                        </table>
+                        <p style="font-size: 10px;">** Land owner permissions for project activities are located
+                            <a href=""
+                            target="_blank">here</a>. Please leave a comment to request access.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="wWrapperIndo" style="display:none;" class="wWrapper">
+            <div class="instanceWrap" style="gap:15%;">
+                <div class="instanceBtnWrap">
+                        <button class="active-instance" id="inst1Indo">Instance 1</button>
+                </div>
+                <div class="connectWrap">
+                    <h1 class="hWelcome">Project Indonesia: Reporting</h1>
+                    <p class="pWelcome">Interact with reporting data to visualize project activities.
+                    </p> 
+                </div>
+            </div>
+            <div class="progressWrap">
+                <div class="metricInput"  id="metricInput">
+                    <select id="dataSelector2Indo" name="year" class="selectMetric">
+                        <option value="ha">Hectares Restored</option>
+                        <option value="tree">Trees Planted</option>
+                    </select>
+                </div>
+                <div class="chartWrapper">
+                    <div class="chartsHa" id="chartsHaIndo">
+                            <div class="chartWrapperTotal">
+                                <canvas id="haSiteIndo"></canvas>
+                            </div>
+                            <div class="chartWrapperTotal">
+                                <canvas id="haPieIndo"></canvas>
+                            </div>
+                    </div>
+                    <div class="chartsTree" id="chartsTreeIndo" >
+                        <div class="chartWrapperTotal">
+                            <canvas id="treeSiteIndo"></canvas>
+                        </div>
+                        <div class="chartWrapperTotal">
+                            <canvas id="treePieIndo"></canvas>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+            <div class="detailWrap">
+                <div class="optionsWrapper">
+                    <div class="btn">
+                        <button class="active-link" id="timeIndo" onclick="showScheduleIndo()">Project Schedule</button>
+                        <button class="btn1" id="pLogIndo" onclick="showLogIndo()">Partner Reported Planting Log</button>
+                        <button class="btn1" id="speciesIndo" onclick="showSpeciesIndo()">Species List</button>
+                        <button class="btn1" id="stakeIndo" onclick="showStakeholdersIndo()">Project Stakeholders</button>
+                    </div>
+                </div>
+                <div class="contentWrapper">
+                    <div id="scheduleIndo">
+                        <div id="pLogGanttIndo">
+                            <canvas id="ganttChartIndo"></canvas>
+                        </div>
+                    </div>
+                    <div id="logIndo" style="display: none;">
+                        <p>**Will be available once planting begins.</p>
+                    </div>
+                    <div id="speciesTableIndo" style="display: none;">
+                        <p>** Will be available once established.</p>
+                    </div>
+                    <div id="stakeholdersIndo" style="display: none;" class="stakeClass">
+                        <table class="display" id="stakeholdersTableIndo">
+                        <thead>
+                            <tr>
+                            <th>Stakeholder</th>
+                            <th>Rights, Interests, and Relevance to the Project</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td>Canva</td>
+                            <td class="clickable-row" data-href="https://www.canva.com/one-print-one-tree/">
+                            Project Financier - Funded through the One Print One Tree Program (OPOT)
+                            </td>
+                            </tr>
+                            <tr>
+                            <td class="clickable-row" data-href="https://reducereusegrow.webflow.io/grievance-page">Reduce Reuse Grow Inc</td>
+                            <td>
+                            RRG will serve as project developer, providing technical guidance, project design, 
+                            and overall coordination of activities. RRG manages monitoring, reporting, and verification 
+                            (MRV) processes, ensures compliance with ERS standards, and will oversee distribution of carbon credit revenues among stakeholders.
+                            </td>
+                            </tr>
+                            <tr>
+                            <td class="clickable-row" data-href="https://yagasu.or.id/">Yagasu</td>
+                            <td>
+                            Yagasu will run on-the-ground operations including creating nursery, planting, and monitoring systems. 
+                            They will manage the hiring of field employees and distribute the funding provided by OPOT. 
+                            </td>
+                            </tr>
+                            <tr>
+                            <td>Local Community Members</td>
+                            <td>
+                            They will serve as field employees in project activities and will recieve technical training in various tasks.
+                            </td>
+                            </tr>
+                        </tbody>
+                        </table>
+                        <p style="font-size: 10px;">** Land owner permissions for project activities are located
+                            <a href=""
+                            target="_blank">here</a>. Please leave a comment to request access.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+    </div>
+    <div class="footer">
+                <footer>
+                  <p1>This website is maintained by <a href="https://www.reducereusegrow.org/"
+                    target="_blank">Reduce. Reuse. Grow. Inc. </a>
+                    <a href="https://cdn.prod.website-files.com/5f21be7ca433fe7024209d52/64eedaa7b10c5c92be3ecc94_Terms%20and%20Conditions.pdf"
+                    target="_blank">Copyright © 2025 Reduce Reuse Grow — All rights reserved.</a>
+                    </p1>
+                </footer>
+    </div>
+</div>
+</body>
+<script src="./rPages/rJs.js"></script>
+<script src="./rPages/rJsPhil.js"></script>
+<script src="./rPages/rJsMal.js"></script>
+<script src="./rPages/rJsBraz.js"></script>
+<script src="./rPages/rJsIndo.js"></script>
+</html>

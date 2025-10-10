@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+        <title>RRG dMRV Site</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="../imgs/logo.png">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css" />
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="./vPages/vStyle.css">
+</head>
+<body>
+    <div class="container">
+            <div class="contact" id="contact">
+                <p class="bounce" id="discuss">RRG wants to encourage scientific discussion of all topics related to reforestation. Contact us to comment or discuss our current methodologies.  </p>
+            </div>
+            <div class="navbar" id="navbar">
+                <div class="nav-left">
+                    <img src="../imgs/logo.png" alt="Logo" style="width:auto; height:50px;">
+                    <a href="../measure.html">Measuring</a>
+                    <a href="./reporting.html#wWrapperCanva">Reporting</a>
+                    <a href="./verification.html">Verification</a>
+                </div>
+                <div class="nav-right">
+                    <button onclick = "copyEmail()" class="contactButton" id="cB">Contact Us</button> 
+                    <div class="rrgHome" onclick="window.open('https://www.reducereusegrow.org/', '_blank')" style="cursor: pointer;">
+                    <a class="home" href="https://www.reducereusegrow.org/" target="_blank">RRG Home</a>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="arrowRight">
+                        <polygon points="11.293 4.707 17.586 11 4 11 4 13 17.586 13 11.293 19.293 12.707 20.707 21.414 12 12.707 3.293 11.293 4.707"/>
+                      </svg>
+                    </div>
+                </div>
+            </div>
+        <div class="contentWrap">
+            <div class="sidebarWrap">
+                <div class="sidebar">
+                    <button class="active-side" id="tanzConBtn" onclick="showTanzContent()">Tanzania</button>
+                    <button class="off-side" id="philConBtn" onclick="showPhilContent()">Philippines</button>
+                    <button class="off-side" id="malConBtn" onclick="showMalContent()">Malawi</button>
+                    <button class="off-side" id="brazConBtn" onclick="showBrazContent()">Brazil</button>
+                    <button class="off-side" id="indoConBtn" onclick="showIndoContent()">Indonesia</button>
+                </div>
+            </div>
+            <div class="wWrapper" id="wWrapper">
+                <div class="connectWrap">
+                    <h1 class="hWelcome">Project Forest: Verification</h1>
+                    <p class="pWelcome">Interact with internal audits and 3rd party verifications.
+                    </p> 
+                </div>
+                <div class="content1">
+                    <div class="expo">
+                        <p>RRG is using a multiprong system of remote sensing technologies to validate project activities including
+                        RGB imagery, biomass mapping and in-field data recording.
+                        For aerial RGB imagery, RRG is utilizing commercial products provided by <a href="https://apollomapping.com/jilin-1-nighttime-satellite-imagery?utm_source=Google&utm_medium=cpc&utm_campaign=21010133263&utm_term=jilin%201&utm_content=160341059484&gad_source=1&gad_campaignid=21010133263&gbraid=0AAAAAD8XZz3Qfg_ztPU_rwK_83q2FRRov&gclid=Cj0KCQjw3aLHBhDTARIsAIRij59BkcPDAzpoJy6Y5MJh_XySz6GwdM5Opfw3md3zH8u3d84j4qiDcsMaAsXhEALw_wcB" target="__blank">Jilin</a> 
+                        satellite program. For biomass mapping, RRG is utilizing products provided by the <a href="https://global.jaxa.jp/projects/sat/" target="__blank">JAXA</a> satellite program.
+                        Using these systems, RRG is able to track and validate FOU's claims of hectares planted.<br>
+                        </p>
+                    </div>
+                    <div id="maps">
+                        <iframe width="1100" height="450" frameborder="0" scrolling="no" allowfullscreen src="https://arcg.is/0q9efD0"></iframe>                               
+                    </div>
+                </div>
+                <div class="content2">
+                        <div class="subButton">
+                            <button class="active-link" id="totals" onclick="showTotals()">Site Totals</button>
+                            <button id="break" onclick="showBreak()">Site Breakdown</button>
+                            <button id="density" onclick="showDensity()">Planting Density</button>
+                            <button id="biomassBtn" onclick="showBiomass()">Biomass Maps</button>
+                        </div>
+                        <div class="chartTotal" id="chartTotal">
+                            <div class="metricInput" id="metricInput">
+                                <select id="dataSelector" name="year" class="select">
+                                    <option value="ha">Hectares Restored</option>
+                                    <option value="tree">Trees Planted</option>
+                                </select>
+                            </div>
+                            <div class="chartsHa" id="chartsHa">
+                                <div class="chartWrapperTotal">
+                                    <canvas id="haTotal"></canvas>
+                                </div>
+                                <div class="chartWrapperTotal">
+                                    <canvas id="haProgressPie"></canvas>
+                                </div>
+                            </div>
+                            <div class="chartsTree">
+                                <div class="chartWrapperTotal">
+                                    <canvas id="treeTotal"></canvas>
+                                </div>
+                                <div class="chartWrapperTotal">
+                                    <canvas id="treeProgressPie"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="chartBreak" style="display: none;">
+                            <div class="metricInput" id="metricInput">
+                                <select id="dataSelector2" name="year" class="select">
+                                    <option value="ha">Hectares Restored</option>
+                                    <option value="tree">Trees Planted</option>
+                                </select>
+                            </div>
+                            <div class="chartSite" id="chartSite">
+                                <div class="chartWrapperSite">
+                                    <canvas id="siteHa"></canvas>
+                                    <canvas id="siteTree"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="chartDensity" style="display: none;">
+                                <div class="chartDensity">
+                                    <canvas id="densityChart" width="1200" height="550"></canvas>
+                                </div>
+                        </div>
+                        <div id="biomassMap" style="display: none;">
+                            <iframe src="https://rrgslo.maps.arcgis.com/apps/instant/basic/index.html?appid=921772fc247a464c9048db391d751d6c" 
+                            width="1000" height="400" frameborder="0" style="border:0" allowfullscreen>iFrames are not supported on this page.</iframe>
+                        </div>
+                        <div class="disclaimer">
+                        <p style="font-size: 10px;"> 
+                                        ** Commercial imagery is only 50cm resoltution. Due to this, RRG is currently not able to validate
+                                        individual trees. Seedlings are anticipated to be 0.5-1m in height. 
+                                        As the stands mature, RRG will be able to validate individual trees.<br>
+                                        ** Due to imagery availability, RRG is only able to validate planting activities through 2/25/2025. <br>
+                                        ** RRG is currently able to validate planted areas utilzing RGB, NDVI and SAR imagery.
+                                        Using partner-reported data, RRG computes estimated planting densities to compare
+                                        to the original anticipated 1,600 trees per hectare. <br>
+                                        ** RRG is slowly rolling out an in-field tree verification system. Expect verified
+                                        tree metrics late 2025.
+                        </p>
+                        </div>
+                        <div class="ers">
+                            <h1 style="font-size: 18px; text-decoration: underline;">Ecosystem Restoration Standard (ERS)</h1>
+                            <p style="font-size: 12px;">Project Forest was 3rd party audited by Preferred by Nature in May 2025.
+                                This standard validates project design and project implementation. 
+                                <a href="https://cs.preferredbynature.org/s/certificate/a06QB00000Gix01/reduce-reuse-grow-inc-pbner012909-active"
+                                target="_blank">Click here for the official certification.</a>
+                            </p>
+                        </div>
+                </div>
+            </div>
+            <div id="wWrapperPhil" style="display:none;" class="wWrapper">
+                <div class="connectWrap">
+                    <h1 class="hWelcome">Project ReGAIN: Verification</h1>
+                    <p class="pWelcome">Interact with internal audits and 3rd party verifications.
+                    </p> 
+                </div>
+                <div class="ers">
+                    <h1 style="font-size: 18px; text-decoration: underline; margin-left: 2% !important; margin-top: 2%;">Ecosystem Restoration Standard (ERS)</h1>
+                    <p style="font-size: 12px; margin-left: 2% !important;">RRG is rolling out throughout 2026 a field maps verification system
+                        and internal auditing system akin to Project Forest. This tab will be updated as the 
+                        system progresses.<br>
+                        Despite this, Project ReGAIN was 3rd party audited by Preferred by Nature in  2025.
+                        This standard validates project design and project implementation. 
+                        <a href="https://cs.preferredbynature.org/s/certificate/a06QB00000F8yft/reduce-reuse-grow-inc-pbner072905-active"
+                        target="_blank">Click here for the official certification.</a>
+                    </p>
+                </div>
+            </div>
+            <div id="wWrapperMal" style="display:none;" class="wWrapper">
+                <div class="connectWrap">
+                    <h1 class="hWelcome">Project Malawi: Verification</h1>
+                    <p class="pWelcome">Interact with internal audits and 3rd party verifications.
+                    </p> 
+                </div>
+                <p style="font-size: 12px;">** RRG is rolling out throughout 2026 a field maps verification system
+                        and internal auditing system akin to Project Forest. This tab will be updated as the 
+                        system progresses.</p>
+            </div>
+            <div id="wWrapperBraz" style="display:none;" class="wWrapper">
+                <div class="connectWrap">
+                    <h1 class="hWelcome">Project Brazil: Verification</h1>
+                    <p class="pWelcome">Interact with internal audits and 3rd party verifications.
+                    </p> 
+                </div>
+                <p style="font-size: 12px;">** RRG is rolling out throughout 2026 a field maps verification system
+                        and internal auditing system akin to Project Forest. This tab will be updated as the 
+                        system progresses.</p>
+            </div>
+            <div id="wWrapperIndo" style="display:none;" class="wWrapper">
+                <div class="connectWrap">
+                    <h1 class="hWelcome">Project Indonesia: Verification</h1>
+                    <p class="pWelcome">Interact with internal audits and 3rd party verifications.
+                    </p> 
+                </div>
+                <p style="font-size: 12px;">** RRG is rolling out throughout 2026 a field maps verification system
+                        and internal auditing system akin to Project Forest. This tab will be updated as the 
+                        system progresses.</p>
+            </div>
+        </div>
+            <div class="footer">
+                <footer>
+                  <p1>This website is maintained by <a href="https://www.reducereusegrow.org/"
+                    target="_blank">Reduce. Reuse. Grow. Inc. </a>
+                    <a href="https://cdn.prod.website-files.com/5f21be7ca433fe7024209d52/64eedaa7b10c5c92be3ecc94_Terms%20and%20Conditions.pdf"
+                    target="_blank">Copyright © 2025 Reduce Reuse Grow — All rights reserved.</a>
+                    </p1>
+                </footer>
+            </div>
+    </div>
+</body>
+<script src="./vPages/vJs.js"></script>
+</html>

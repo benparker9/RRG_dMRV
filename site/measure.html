@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+        <title>RRG dMRV Site</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="imgs/logo.png">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css" />
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="./pages/style.css">
+</head>
+<body>
+    <div class="container">
+            <div class="contact" id="contact">
+                <p class="bounce" id="discuss">RRG wants to encourage scientific discussion of all topics related to reforestation. Contact us to comment or discuss our current methodologies.  </p>
+            </div>
+            <div class="navbar" id="navbar">
+                <div class="nav-left">
+                    <img src="imgs/logo.png" alt="Logo" style="width:auto; height:50px;">
+                    <a href="measure.html">Measuring</a>
+                    <a href="./pages/reporting.html#wWrapperCanva">Reporting</a>
+                    <a href="./pages/verification.html">Verification</a>
+                </div>
+                <div class="nav-right">
+                    <button onclick = "copyEmail()" class="contactButton" id="cB">Contact Us</button> 
+                    <div class="rrgHome" onclick="window.open('https://www.reducereusegrow.org/', '_blank')" style="cursor: pointer;">
+                    <a class="home" href="https://www.reducereusegrow.org/" target="_blank">RRG Home</a>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="arrowRight">
+                        <polygon points="11.293 4.707 17.586 11 4 11 4 13 17.586 13 11.293 19.293 12.707 20.707 21.414 12 12.707 3.293 11.293 4.707"/>
+                      </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="contentWrap">
+            <div class="sidebarWrap">
+                <div class="sidebar">
+                    <button class="active-side" id="tanzConBtn" onclick="showTanzContent()">Tanzania</button>
+                    <button class="off-side" id="philConBtn" onclick="showPhilContent()">Philippines</button>
+                    <button class="off-side" id="malConBtn" onclick="showMalContent()">Malawi</button>
+                    <button class="off-side" id="brazConBtn" onclick="showBrazContent()">Brazil</button>
+                    <button class="off-side" id="indoConBtn" onclick="showIndoContent()">Indonesia</button>
+                </div>
+            </div>
+            <div class="wWrapper" id="wWrapper">
+                <div class="connectWrap">
+                    <h1 class="hWelcome">Project Forest: Measuring</h1>
+                    <p class="pWelcome">Interact with RRG monitoring and measuring systems.
+                    </p> 
+                </div>
+                <div class="mapWrap">
+                <div class="pMaps">
+                    <h1 class="subH">Project Area Maps</h1>
+                    <p>RRG has collaborated with the Friends of the Usambara to accurately map project boundaries. 
+                        In total, RRG and FOU have outlined ~11,000 hectares for the planting of 16,490,000 trees.
+                    </p>  
+                </div>
+                <div class="mapIFrame">
+                <iframe src="https://rrgslo.maps.arcgis.com/apps/instant/basic/index.html?appid=32b0a403443d43729b1a067cb00a64d8" 
+                    width="1100" height="400" frameborder="0" style="border:0" allowfullscreen>
+                    iFrames are not supported on this page.</iframe>
+                </div>
+                </div>
+                <div class="invWrap">
+                <div class="inventory">
+                    <h1 class="subH">Forest Inventories</h1>
+                    <p>RRG traveled to Tanzania and conducted inital forest inventories of planted species. Data 
+                        collected included tree species, diameter at breast height (DBH) and age. RRG uses this data  
+                        for ex-ante estimates of biomass removals.
+                    </p>
+                </div>
+                <div class="invData">
+                    <div id="inv">
+                        <table id="invTable" class="display">
+                        <thead>
+                            <tr>
+                            <th>Latin Name</th>
+                            <th>Age</th>
+                            <th>DBH (cm)</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div id="invChart">
+                        <canvas id="invChartCanvas"></canvas>
+                    </div>
+                </div>
+                </div>
+                <div class="modelWrap">
+                <div class="model">
+                    <h1 class="subH">Ex-Ante Estimates of Biomass Removals</h1>
+                    <p>RRG is able to forecast a range of biomass removal performance scenarios
+                        utilizing <a href="https://developers.google.com/earth-engine/datasets/catalog/WCMC_biomass_carbon_density_v1_0#description"
+                        target="_blank">LiDAR biomass data</a> for the Usambara and RRG's inventory data. 
+                        <a href="./pages/models_HTML/tanz_models.html" target="_blank">Click here</a> for RRG's technical
+                    modeling document.</p>
+                </div>
+                <div id="modelData">
+                    <div class="perHa">
+                        <canvas id="biomassHa"></canvas>
+                    </div>
+                    <div class="site">
+                        <canvas id="biomassSite"></canvas>
+                    </div>
+                </div>
+                </div>
+                <div class="remoteWrap">
+                <div class="remote">
+                    <h1 class="subH">Observed Biomass Changes Using Geospatial Tools</h1>
+                    <p>RRG will utilize Synthetic Aperature Radar (SAR) data provided by the
+                    <a href="https://www.eorc.jaxa.jp/ALOS/en/index_e.htm" target="_blank">
+                        JAXA ALOS PALSAR Satellite Program</a>. SAR data has a proven 
+                        <a href="https://ntrs.nasa.gov/citations/19920018772" target="_blank">coorelation</a> with biomass. With regular updates in image availability, 
+                        RRG is able to track biomass removals in real time.<a href="./pages/models_HTML/tanz_models.html" target="_blank">Click here</a> for RRG's technical
+                    modeling document.<br>
+                    The baseline land conditions within the project areas are a mosaic of the invasive fern, Pteridium aquilinum, as well
+                    as the invasive grass, Imperata cylindrica. To ensure planted species are not outcompeted, FOU will cut rows throughout 
+                    the planting sites. Due to this, some sites have decreases in biomass as of 10/25. 
+                    In addition, RRG expects biomass estimates to be low due to small seedling size (0.5-1m).
+                    RRG expects biomass removals to grow exponentially over the next 6-12 months.</p>
+                </div>
+                <div id="remoteData">
+                    <div id="biomassMap">
+                        <div id="gisMap">
+                            <iframe src="https://rrgslo.maps.arcgis.com/apps/instant/basic/index.html?appid=cdc63f84686a41bcbabf59934df9d78b" 
+                            width="550" height="400" frameborder="0" style="border:0" 
+                            allowfullscreen>iFrames are not supported on this page.</iframe>
+                        </div>
+                    </div>
+                    <div id="biomassChart">
+                        <div id="biomassBtn">
+                            <button class="active-side" id="biomassSiteBtn" onclick="showBioSite()">Site Level</button>
+                            <button class="off-side" id="biomassTotalBtn" onclick="showBioTotal()">Total Biomass</button>
+                        </div>
+                        <div id="bioCharts">
+                            <canvas id="biomassSiteCanvas"></canvas>
+                            <canvas id="biomassTotalsCanvas" style="display:none;"></canvas>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        <div id="wWrapperPhil" style="display:none;" class="wWrapper">
+            <div class="connectWrap">
+                <h1 class="hWelcome">Project ReGAIN: Measuring</h1>
+                <p class="pWelcome">Interact with RRG monitoring and measuring systems.
+                </p> 
+            </div>
+            <div class="mapWrap">
+            <div class="pMaps">
+                    <h1 class="subH">Project Area Maps</h1>
+                    <p>RRG has collaborated with the Philippine Eagle Foundation (PEF) to accurately map project boundaries. 
+                        In total, RRG and PEF have outlined ~9,226 hectares for the planting of ~ 7 million trees. 
+                    </p>  
+            </div>
+            <div class="mapIFrame">
+                <iframe src="https://rrgslo.maps.arcgis.com/apps/instant/3dviewer/index.html?appid=094c57b94915434f992625024d936cac" 
+                width="1100" height="400" frameborder="0" style="border:0" allowfullscreen>iFrames are not supported on this page.</iframe>
+            </div>
+            </div>
+            <div class="invWrap">
+                <div class="inventory">
+                    <h1 class="subH">Forest Inventories</h1>
+                    <p>RRG worked with PEF to conduct inital forest inventories of planted species. Data 
+                        collected included tree species, diameter at breast height (DBH) and age. RRG uses this data  
+                        for ex-ante estimates of biomass removals.
+                    </p>
+                </div>
+                <div class="invData">
+                    <div id="inv">
+                        <table id="invTablePhil" class="display">
+                        <thead>
+                            <tr>
+                            <th>Latin Name</th>
+                            <th>Age</th>
+                            <th>DBH (cm)</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div id="invChartPhil">
+                        <canvas id="invChartCanvasPhil"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="modelWrap">
+                <div class="model">
+                    <h1 class="subH">Ex-Ante Estimates of Biomass Removals</h1>
+                    <p>RRG is able to forecast a range of biomass removal performance scenarios
+                        utilizing <a href="https://developers.google.com/earth-engine/datasets/catalog/WCMC_biomass_carbon_density_v1_0#description"
+                        target="_blank">LiDAR biomass data</a> for Mindanao Island and RRG's inventory data. 
+                        <a href="./pages/models_HTML/index.html" target="_blank">Click here</a> for RRG's technical
+                    modeling document.</p>
+                </div>
+                <div id="modelData">
+                    <div class="perHa">
+                        <canvas id="biomassHaPhil"></canvas>
+                    </div>
+                    <div class="site" id="sitePhil">
+                        <canvas id="biomassSitePhil"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="remoteWrap">
+                <div class="remote">
+                    <h1 class="subH">Observed Biomass Changes Using Geospatial Tools</h1>
+                    <p>RRG will utilize Synthetic Aperature Radar (SAR) data provided by the
+                    <a href="https://www.eorc.jaxa.jp/ALOS/en/index_e.htm" target="_blank">
+                        JAXA ALOS PALSAR Satellite Program</a>. SAR data has a <a href="https://ntrs.nasa.gov/citations/19920018772" target="_blank">coorelation</a> with biomass. With regular updates in image availability, 
+                        RRG is able to track biomass removals in real time.<a href="./pages/models_HTML/tanz_models.html" target="_blank">Click here</a> for RRG's technical
+                    modeling document.<br>
+                    The baseline land conditions within the project areas are dominated by the invasive grass, Imperata cylindrica.
+                    To ensure planted species are not outcompeted, PEF will cut rows throughout 
+                    the planting sites. Due to this, some sites have decreases in biomass as of 10/25. 
+                    In addition, RRG expects biomass estimates to be low due to small seedling size (0.5-1m).
+                    RRG expects biomass removals to grow exponentially over the next 6-12 months.</p>
+                </div>
+                <div id="remoteData">
+                    <div id="biomassMapPhil">
+                        <div id="gisMap">
+                            <iframe src="https://rrgslo.maps.arcgis.com/apps/instant/basic/index.html?appid=c235a5f01cd442eeb09ad9d9403132da" 
+                            width="550" height="400" frameborder="0" style="border:0" allowfullscreen>iFrames are not supported on this page.</iframe>
+                        </div>
+                    </div>
+                    <div id="biomassChartPhil">
+                        <div id="biomassBtnPhil">
+                            <button class="active-side" id="biomassSiteBtnPhil" onclick="showBioSitePhil()">Site Level</button>
+                            <button class="off-side" id="biomassTotalBtnPhil" onclick="showBioTotalPhil()">Total Biomass</button>
+                        </div>
+                        <div id="bioChartsPhil">
+                            <canvas id="biomassSiteCanvasPhil"></canvas>
+                            <canvas id="biomassTotalsCanvasPhil" style="display:none;"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div id="wWrapperMal" style="display:none;" class="wWrapper">
+                <div class="connectWrap">
+                    <h1 class="hWelcome">Project Malawi: Measuring</h1>
+                    <p class="pWelcome">Interact with RRG monitoring and measuring systems.
+                    </p> 
+                </div>
+                <div class="mapWrap">
+                    <div class="pMaps">
+                        <h1 class="subH">Project Area Maps</h1>
+                        <p>RRG has collaborated with the Malawi Department of Forestry (MDOF) to accurately map project boundaries. 
+                        In total, RRG and MDOF have outlined ~ 3,950 hectares for the planting of ~ 6,830,000 million trees. 
+                        </p>  
+                    </div>
+                    <div class="mapIFrame">
+                        <iframe src="https://rrgslo.maps.arcgis.com/apps/instant/exhibit/index.html?appid=4b24a47f686043c9ab90a7ef3e773d5d" 
+                        width="1100" height="400" frameborder="0" style="border:0" allowfullscreen>iFrames are not supported on this page.</iframe>
+                    </div>
+                </div>
+                <div class="remoteWrap">
+                    <div class="remote">
+                        <h1 class="subH">Observed Biomass Changes</h1>
+                        <p>Due to project timelines, RRG will not have biomass maps until the beginning of 2026.</p>
+                    </div>
+                </div>
+            </div>
+            <div id="wWrapperBraz" style="display:none;" class="wWrapper">
+                <div class="connectWrap">
+                    <h1 class="hWelcome">Project Brazil: Measuring</h1>
+                    <p class="pWelcome">Interact with RRG monitoring and measuring systems.
+                    </p> 
+                </div>
+                <div class="mapWrap">
+                <div class="pMaps">
+                    <h1 class="subH">Project Area Maps</h1>
+                    <p>RRG has collaborated with Sama Uma to accurately map project boundaries. 
+                        In total, RRG and Sama Uma have outlined ~154 hectares for the planting of ~ 1,500,000 million mangrove trees. 
+                    </p>  
+                </div>
+                <div class="mapIFrame">
+                    <iframe src="https://rrgslo.maps.arcgis.com/apps/instant/basic/index.html?appid=df7e61eaebf8455c83f2a34b8c0b52bf" 
+                    width="1100" height="400" frameborder="0" style="border:0" allowfullscreen>iFrames are not supported on this page.</iframe>
+                </div>
+                </div>
+                <div class="remoteWrap">
+                    <div class="remote">
+                        <h1 class="subH">Observed Biomass Changes</h1>
+                        <p>Due to project timelines, RRG will not have biomass maps until the beginning of 2026.</p>
+                    </div>
+                </div>
+            </div>
+            <div id="wWrapperIndo" style="display:none;" class="wWrapper">
+                <div class="connectWrap">
+                    <h1 class="hWelcome">Project Indonesia: Measuring</h1>
+                    <p class="pWelcome">Interact with RRG monitoring and measuring systems.
+                    </p> 
+                </div>
+                <div class="mapWrap">
+                <div class="pMaps">
+                    <h1 class="subH">Project Area Maps</h1>
+                    <p>RRG has collaborated with Yagasu to accurately map project boundaries. 
+                        In total, RRG and Yagasu have outlined ~1000 hectares for the planting of ~ 10,000,000 million mangrove trees. 
+                    </p>  
+                </div>
+                <div class="mapIFrame">
+                    <iframe src="https://rrgslo.maps.arcgis.com/apps/instant/basic/index.html?appid=2029de08cdd64078ad304c01ea3f5fea"
+                     width="1100" height="400" frameborder="0" style="border:0" allowfullscreen>iFrames are not supported on this page.</iframe>
+                </div>
+                </div>
+                <div class="remoteWrap">
+                    <div class="remote">
+                        <h1 class="subH">Observed Biomass Changes</h1>
+                        <p>Due to project timelines, RRG will not have biomass maps until the beginning of 2026.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="footer">
+                <footer>
+                  <p1>This website is maintained by <a href="https://www.reducereusegrow.org/"
+                    target="_blank">Reduce. Reuse. Grow. Inc. </a>
+                    <a href="https://cdn.prod.website-files.com/5f21be7ca433fe7024209d52/64eedaa7b10c5c92be3ecc94_Terms%20and%20Conditions.pdf"
+                    target="_blank">Copyright © 2025 Reduce Reuse Grow — All rights reserved.</a>
+                    </p1>
+                </footer>
+            </div>
+    </div>
+</body>
+<script src="./pages/mainJS.js"></script>
+<script src="./pages/philJS.js"></script>
+</html>
