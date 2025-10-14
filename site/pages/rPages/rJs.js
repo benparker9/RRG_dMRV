@@ -1457,7 +1457,7 @@ function initPhilCharts() {
       ]},
       options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true}}}
     });
-    const totalArea = 1292, areaPlanted = 144;
+    const totalArea = 1292, areaPlanted = 171;
     window.haPieChartInstancePhil = new Chart(haPieCtx,{
       type:'pie', data:{labels:['Available Hectares Left to Plant','Hectares Planted to Date'],datasets:[{data:[totalArea-areaPlanted,areaPlanted],backgroundColor:['#ec6e6e','#627c49']}]},
       options:pieOptions
@@ -1474,7 +1474,7 @@ function initPhilCharts() {
       data:{labels:sites,datasets:[{label:'Forecasted Trees Planted',data:reported,backgroundColor:'#c1e3aa'},{label:'Trees Planted to Date',data:planted,backgroundColor:'#627c49'}]},
       options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true}}}
     });
-    const totalTree = 3000630, treesPlanted = 130630;
+    const totalTree = 3000630, treesPlanted = 200755;
     window.treePieChartInstancePhil = new Chart(treePieCtx,{
       type:'pie',data:{labels:['Trees Left to Plant','Trees Planted to Date'],datasets:[{data:[totalTree-treesPlanted,treesPlanted],backgroundColor:['#ec6e6e','#627c49']}]},
       options:pieOptions

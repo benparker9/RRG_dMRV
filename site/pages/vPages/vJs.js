@@ -151,7 +151,7 @@ function loadSiteCharts(metric) {
                 backgroundColor: '#c1e3aa',
               },
               {
-                label: 'Verified Hectares Restored',
+                label: 'Verified Planting Activity',
                 data: verified,
                 backgroundColor: '#627c49',
               },
@@ -255,16 +255,13 @@ function loadSiteCharts(metric) {
 // Call this to show breakdown div and load charts initially
 function showBreak() {
   document.getElementById("chartTotal").style.display = "none";
-  document.getElementById("chartDensity").style.display = "none";
   document.getElementById("chartBreak").style.display = "block";
   document.getElementById("biomassMap").style.display = "none";
   document.getElementById("biomassBtn").classList.remove("active-link");
 
   document.getElementById("totals").classList.remove("active-link");
-  document.getElementById("density").classList.remove("active-link");
   document.getElementById("break").classList.add("active-link");
   
-
   const metric = document.getElementById('dataSelector2').value;
   loadSiteCharts(metric);
 }
@@ -280,35 +277,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const tableTotal = document.getElementById("chartTotal");
 const tableBreakdown = document.getElementById("chartBreak");
-const tableDensity = document.getElementById("chartDensity");
 const biomassMap = document.getElementById("biomassMap");
 const biomassBtn = document.getElementById("biomassBtn");
 const totalsBtn = document.getElementById("totals");
 const breakBtn = document.getElementById("break");
-const densityBtn = document.getElementById("density");
 
 
 
 function showTotals() {
-    tableDensity.style.display = "none";
     tableTotal.style.display = "block";
     tableBreakdown.style.display = "none";
     biomassMap.style.display = "none";
     totalsBtn.classList.add("active-link");
     breakBtn.classList.remove("active-link");
-    densityBtn.classList.remove("active-link");
     biomassBtn.classList.remove("active-link");
 }
 
 
 function showBiomass() {
-    tableDensity.style.display = "none";
     tableTotal.style.display = "none";
     tableBreakdown.style.display = "none";
     biomassMap.style.display = "flex";
     totalsBtn.classList.remove("active-link");
     breakBtn.classList.remove("active-link");
-    densityBtn.classList.remove("active-link");
     biomassBtn.classList.add("active-link");
 }
 
@@ -365,7 +356,7 @@ window.onload = function () {
               backgroundColor: '#c1e3aa'
             },
             {
-              label: 'Verified Hectares Restored',
+              label: 'Verified Planting Activity',
               data: [verified],
               backgroundColor: '#627c49'
             }
@@ -480,87 +471,3 @@ window.onload = function () {
 
 
 
-let densityChartInstance = null;
-function showDensity() {
-  const tableTotal = document.getElementById("chartTotal");
-  const tableBreakdown = document.getElementById("chartBreak");
-  const tableDensity = document.getElementById("chartDensity");
-
-  // Step 1: Show the div first
-  tableDensity.style.display = "block";
-  tableTotal.style.display = "none";
-  tableBreakdown.style.display = "none";
-
-  // Step 2: Add active-link styling
-  document.getElementById("totals").classList.remove("active-link");
-  document.getElementById("break").classList.remove("active-link");
-  document.getElementById("density").classList.add("active-link");
-  document.getElementById("biomassMap").style.display = "none";
-  document.getElementById("biomassBtn").classList.remove("active-link");
-
-  // Step 3: Create chart only if it doesn’t exist yet
-  if (!densityChartInstance) {
-    // Wait for 100ms so canvas is visible in DOM
-    setTimeout(() => {
-      const canvas = document.getElementById('densityChart');
-      const ctx = canvas.getContext('2d');
-
-      if (!ctx) {
-        console.error("Canvas context not found.");
-        return;
-      }
-
-      fetch('./vPages/densityValidation.json')
-        .then(res => res.json())
-        .then(data => {
-          const siteLabels = data.map(row => row["Site"]);
-          const expected = data.map(row => row["Expected Density"]);
-          const actual = data.map(row => row["Actual Density"] ?? 0);
-
-          densityChartInstance = new Chart(ctx, {
-            type: 'bar',
-            data: {
-              labels: siteLabels,
-              datasets: [
-                {
-                  label: 'Expected Density',
-                  data: expected,
-                  backgroundColor: '#c1e3aa'
-                },
-                {
-                  label: 'Actual Density',
-                  data: actual,
-                  backgroundColor: '#627c49'
-                }
-              ]
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              plugins: {
-                legend: { position: 'top' },
-                tooltip: {
-                  callbacks: {
-                    label: context => `${context.dataset.label}: ${context.parsed.y}`
-                  }
-                }
-              },
-              scales: {
-                x: {
-                  ticks: {
-                    maxRotation: 60,
-                    minRotation: 45,
-                    autoSkip: false
-                  }
-                },
-                y: {
-                  beginAtZero: true
-                }
-              }
-            }
-          });
-        })
-        .catch(err => console.error("Failed to fetch density data:", err));
-    }, 100); // Allow time for display block to render
-  }
-}

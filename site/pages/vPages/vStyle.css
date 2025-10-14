@@ -245,10 +245,15 @@ html, body {
   align-items: flex-start;
   flex-direction: column;
   gap: 2%;
+  
  
 }
 .expo{
+  display: flex;
+  flex-direction: column;
   width:98%;
+  gap: 2%;
+  
 }
 /* Main content */
 .content2{
@@ -299,16 +304,7 @@ html, body {
   gap: 5px;
   height: 70vh;
 }
-#chartDensity{
-  width: 100%;
-  display: flex;             /* activate flexbox */
-  flex-direction: column;    /* stack children vertically */
-  justify-content: center;   /* center vertically */
-  align-items: center;       /* center horizontally */
-  margin: 0 auto;    
-  height: 70vh;
- 
-}
+
 #chartBreak {
   width: 100%;
   display: flex;             /* activate flexbox */
@@ -327,7 +323,7 @@ html, body {
   margin: 0 auto;
   height: 60vh;
 }
-.chartDensity, .chartWrapperSite{
+.chartWrapperSite{
   width: 95%;
   height: 100%;
   display: flex;
@@ -335,7 +331,7 @@ html, body {
   align-items: center;
   
 }
-#densityChart, #siteHa, #siteTree {
+ #siteHa, #siteTree {
   width: 100% !important;
   height: 100% !important;
 }

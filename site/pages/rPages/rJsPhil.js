@@ -164,34 +164,67 @@ document.querySelectorAll(".clickable-row").forEach(row => {
   });
 });
 
-
-
-fetch('./rPages/monthlySchedulePhil.json')
+fetch('./rPages/pLogPhil.json')
   .then(res => res.json())
   .then(data => {
-    // Extract labels (dates) and values (Trees Planted)
-    const labels = data.map(d => d.Date);
-    const trees = data.map(d => d["Trees Planted"]);
+    // Clean and map JSON
+    const cleaned = data.map(d => ({
+      site: d.Site,
+      date: d["Planting Date"],
+      count: d["Trees Planted"]
+    }));
+
+    // Unique sorted dates for labels
+    const labels = [...new Set(cleaned.map(d => d.date))]
+      .sort((a, b) => new Date(a) - new Date(b));
+
+    // Unique sites
+    const sites = [...new Set(cleaned.map(d => d.site))];
+
+    // Predefined colors
+    const colors = [
+      'rgba(255,99,132,0.5)',
+      'rgba(54,162,235,0.5)',
+      'rgba(255,206,86,0.5)',
+      'rgba(75,192,192,0.5)',
+      'rgba(153,102,255,0.5)',
+      'rgba(255,159,64,0.5)',
+      'rgba(199,199,199,0.5)'
+    ];
+    const borderColors = colors.map(c => c.replace('0.5', '1'));
+
+    // Map sites to colors (loop if more sites than colors)
+    const colorMap = {};
+    sites.forEach((site, i) => {
+      const colorIndex = i % colors.length;
+      colorMap[site] = { bg: colors[colorIndex], border: borderColors[colorIndex] };
+    });
+
+    // Build datasets
+    const datasets = sites.map(site => {
+      const sitePoints = cleaned.filter(d => d.site === site);
+
+      const dataPoints = labels.map(labelDate => {
+        const point = sitePoints.find(p => p.date === labelDate);
+        return point ? point.count : null;
+      });
+
+      return {
+        label: site,
+        data: dataPoints,
+        borderColor: colorMap[site].border,
+        backgroundColor: colorMap[site].bg,
+        fill: false,
+        spanGaps: false,
+        tension: 0.2
+      };
+    });
 
     // Render chart
-    const ctx_sched = document.getElementById('ganttChartPhil').getContext('2d');
-    new Chart(ctx_sched, {
+    const ctx_log = document.getElementById('ganttChartPhil').getContext('2d');
+    new Chart(ctx_log, {
       type: 'line',
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: 'Trees Planted',
-            data: trees,
-            borderColor: 'green',
-            backgroundColor: 'rgba(0,128,0,0.2)',
-            tension: 0.3,
-            fill: false,
-            pointRadius: 4,
-            pointBackgroundColor: 'green'
-          }
-        ]
-      },
+      data: { labels, datasets },
       options: {
         interaction: { mode: 'nearest', intersect: false },
         responsive: true,
@@ -199,22 +232,27 @@ fetch('./rPages/monthlySchedulePhil.json')
           legend: { display: false },
           title: {
             display: true,
-            text: 'PEF Monthly Planting Schedule',
+            text: 'Partner Reported Planting Events',
             font: { size: 14, weight: 'bold' }
           }
         },
         scales: {
-          x: {
-            title: { display: true, text: 'Date' }
+          x: { 
+            title: { display: true, text: 'Date Planted' },
+            ticks: { autoSkip: false }
           },
-          y: {
+          y: { 
             title: { display: true, text: 'Trees Planted' },
-            beginAtZero: true
+            beginAtZero: true 
           }
         }
       }
     });
-  });
+  })
+  .catch(err => console.error('Error loading JSON:', err));
+
+
+
 
 fetch('./rPages/ganttDatesPhil.json')
   .then(res => {
