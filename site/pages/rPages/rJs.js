@@ -811,6 +811,40 @@ fetch('./rPages/ganttDatesCanva2.json')
 
 
 
+  // Funfetti for TANZ completion
+function launchConfetti() {
+    const duration = 3 * 1000; // 3 seconds
+    const end = Date.now() + duration;
+
+    (function frame() {
+        confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 } });
+        confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 } });
+
+        if (Date.now() < end) requestAnimationFrame(frame);
+    })();
+}
+
+function celebrate() {
+    launchConfetti();
+    alert("🎉 Congratulations Project Forest Instance 1 was completed this September!");
+}
+
+// Trigger on page load if hash matches
+window.addEventListener('load', () => {
+    if (window.location.pathname === "/site/pages/reporting.html" && window.location.hash === "#wWrapper") {
+        celebrate();
+    }
+});
+
+// Trigger if user navigates to the hash without reloading
+window.addEventListener('hashchange', () => {
+    if (window.location.hash === "#wWrapper") {
+        celebrate();
+    }
+});
+
+
+
 
 // Initial Reporting Page Setup
 let haChartInstance = null;
@@ -872,8 +906,8 @@ window.onload = function () {
     .then(res => res.json())
     .then(data => {
       const sites = data.map(row => row.Site);
-      const reported = data.map(row => row["Total Capacity"] ?? 0);
-      const verified = data.map(row => row["Area Planted"] ?? 0);
+      const reported = data.map(row => row["Forecasted Hectares"] ?? 0);
+      const verified = data.map(row => row["Hectares Planted to Date"] ?? 0);
 
       haChartInstance = new Chart(haBarCtx, {
           type: 'bar',
@@ -881,7 +915,7 @@ window.onload = function () {
             labels: sites,
             datasets: [
               {
-                label: 'Forecasted Hectares Planted',
+                label: 'Land Available for Planting',
                 data: reported,
                 backgroundColor: '#c1e3aa',
               },
@@ -920,7 +954,7 @@ window.onload = function () {
 
       
         const totalArea = 4028;
-        const areaPlanted = 3927;
+        const areaPlanted = 4028;
         const areaRemaining = totalArea - areaPlanted;
         haPieChartInstance = new Chart(haPieCtx, {
         type: 'pie',
@@ -941,8 +975,8 @@ window.onload = function () {
     .then(res => res.json())
     .then(data => {
       const sitesTree = data.map(row => row.Site);
-      const reportedTree = data.map(row => row["Capacity"] ?? 0);
-      const verifiedTree = data.map(row => row["Trees Planted"] ?? 0);
+      const reportedTree = data.map(row => row["Forecasted Trees Planted"] ?? 0);
+      const verifiedTree = data.map(row => row["Trees Planted to Date"] ?? 0);
 
       treeChartInstance = new Chart(treeBarCtx, {
         type: 'bar',
@@ -950,7 +984,7 @@ window.onload = function () {
           labels: sitesTree,
           datasets: [
             {
-              label: 'Forecasted Trees Planted',
+              label: 'Forecasted Trees Planted (based on site capacity)',
               data: reportedTree,
               backgroundColor: '#c1e3aa'
             },
@@ -988,7 +1022,7 @@ window.onload = function () {
       });
 
       const totalTree = 6490000;
-      const treesPlanted = 6283125;
+      const treesPlanted = 6490000;
       const treesRemaining = totalTree - treesPlanted;
       treePieChartInstance = new Chart(treePieCtx, {
         type: 'pie',
@@ -1283,10 +1317,10 @@ fetch('./rPages/pLogGanttRaw.json')
   .then(res => res.json())
   .then(data => {
     // Clean data: remove entries missing any key value
-    const cleaned = data.filter(d => d["Date Planted"] && d.Site && d["Trees Planted"])
+    const cleaned = data.filter(d => d["Planting Date"] && d.Site && d["Trees Planted"])
       .map(d => ({
         site: d.Site.trim(),
-        date: d["Date Planted"].trim().slice(0, 10),
+        date: d["Planting Date"].trim().slice(0, 10),
         count: +d["Trees Planted"]
       }));
 
@@ -1347,7 +1381,7 @@ fetch('./rPages/pLogGanttRaw.json')
           }
         },
         scales: {
-          x: { title: { display: true, text: 'Date Planted' } },
+          x: { title: { display: true, text: 'Planting Date' } },
           y: { title: { display: true, text: 'Trees Planted' }, beginAtZero: true }
         }
       }
@@ -1363,9 +1397,9 @@ $('#ganttTable').DataTable({
   },
   columns: [
     { data: 'Site' },
-    { data: 'Date Planted' },
+    { data: 'Planting Date' },
     { data: 'Trees Planted' },
-    { data: 'Area Planted' }
+    { data: 'Hectares Planted' }
   ],
   dom: 'Bflrtip',   // Show Buttons, filter, table, pagination
   buttons: [
