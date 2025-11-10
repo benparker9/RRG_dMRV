@@ -174,9 +174,9 @@ fetch('./rPages/pLogPhil.json')
       count: d["Trees Planted"]
     }));
 
-    // Unique sorted dates for labels
-    const labels = [...new Set(cleaned.map(d => d.date))]
-      .sort((a, b) => new Date(a) - new Date(b));
+    const labels = data.map(d => d["Planting Date"]);
+
+    console.log(labels);
 
     // Unique sites
     const sites = [...new Set(cleaned.map(d => d.site))];

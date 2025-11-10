@@ -1,71 +1,3 @@
-// Initial Reporting Page Setup
-let haChartInstanceMal = null;
-let treeChartInstanceMal = null;
-let haPieChartInstanceMal = null;
-let treePieChartInstanceMal = null;
-
-
-
-// load mal data 
-document.addEventListener("DOMContentLoaded", function () {
-  const dataSelector = document.getElementById('dataSelector2Mal');
-  const chartsHa = document.getElementById('chartsHaMal');
-  const chartsTree = document.getElementById('chartsTreeMal'); 
-  const haBarCtx = document.getElementById('haSiteMal').getContext('2d');
-  const treeBarCtx = document.getElementById('treeSiteMal').getContext('2d');
-  const haPieCtx = document.getElementById('haPieMal').getContext('2d');
-  const treePieCtx = document.getElementById('treePieMal').getContext('2d');
-
-  // toggle logic
-  toggleCharts(dataSelector.value);
-  dataSelector.addEventListener('input', function () { toggleCharts(this.value); });
-
-  function toggleCharts(selected) {
-    chartsHa.style.display = selected==='ha' ? 'flex' : 'none';
-    chartsTree.style.display = selected==='tree' ? 'flex' : 'none';
-  }
-
-  const pieOptions = { maintainAspectRatio:false, responsive:true, plugins:{legend:{position:'right'}} };
-
-  fetch('./rPages/haSiteMal.json').then(r=>r.json()).then(data=>{
-    const sites = data.map(row=>row.Site);
-    const reported = data.map(row=>row["Total Capacity"]||0);
-    const verified = data.map(row=>row["Area Planted"]||0);
-    window.haChartInstanceMal = new Chart(haBarCtx,{
-      type:'bar',
-      data:{labels:sites,datasets:[
-        {label:'Forecasted Hectares Restored',data:reported,backgroundColor:'#c1e3aa'},
-        {label:'Hectares Planted to Date',data:verified,backgroundColor:'#627c49'}
-      ]},
-      options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true}}}
-    });
-    const totalArea = 627, areaPlanted = 90;
-    window.haPieChartInstanceMal = new Chart(haPieCtx,{
-      type:'pie', data:{labels:['Available Hectares Left to Plant','Hectares Planted to Date'],datasets:[{data:[totalArea-areaPlanted,areaPlanted],backgroundColor:['#ec6e6e','#627c49']}]},
-      options:pieOptions
-    });
-  });
-
-  fetch('./rPages/treeSiteMal.json').then(r=>r.json()).then(data=>{
-    console.log("Tree JSON data:", data);
-    const sites = data.map(r=>r.Site);
-    const reported = data.map(r=>r["Total Capacity"]||0);
-    const planted = data.map(r=>r["Trees Planted"]||0);
-    window.treeChartInstanceMal = new Chart(treeBarCtx,{
-      type:'bar',
-      data:{labels:sites,datasets:[{label:'Forecasted Trees Planted',data:reported,backgroundColor:'#c1e3aa'},{label:'Trees Planted to Date',data:planted,backgroundColor:'#627c49'}]},
-      options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true}}}
-    });
-    const totalTree = 1500000, treesPlanted = 182700;
-    window.treePieChartInstanceMal = new Chart(treePieCtx,{
-      type:'pie',data:{labels:['Trees Left to Plant','Trees Planted to Date'],datasets:[{data:[totalTree-treesPlanted,treesPlanted],backgroundColor:['#ec6e6e','#627c49']}]},
-      options:pieOptions
-    });
-  });
-});
-
-
-
 const scheduleMal = document.getElementById("scheduleMal");
 const pLogMal = document.getElementById("logMal");
 const speciesMal = document.getElementById("speciesTableMal");
@@ -165,16 +97,18 @@ function showMediaMal() {
 fetch('./rPages/pLogMalGantt.json')
   .then(res => res.json())
   .then(data => {
+    console.log(data);
     // Clean and map JSON
     const cleaned = data.map(d => ({
       site: d.Site,
       date: d["Planting Date"],
       count: d["Trees Planted"]
     }));
-
-    // Unique sorted dates for labels
+    
     const labels = [...new Set(cleaned.map(d => d.date))]
       .sort((a, b) => new Date(a) - new Date(b));
+    
+  
 
     // Unique sites
     const sites = [...new Set(cleaned.map(d => d.site))];

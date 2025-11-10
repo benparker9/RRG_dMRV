@@ -245,8 +245,9 @@ html, body {
   align-items: flex-start;
   flex-direction: column;
   gap: 2%;
-  
- 
+}
+#maps {
+  margin-left: 0.5%;
 }
 .expo{
   display: flex;

@@ -257,22 +257,22 @@ html, body {
 }
 .active-instance{
   background-color: var(--salmon);
-  border-radius: 20px;
+  border-radius: 25px;
   color: var(--off-white);
   text-decoration: none;
   padding: 0.75rem 1rem;
-  width: 8vw;
+  width: 10vw;
   font-family: 'Inter', sans-serif; 
   font-size: 12px;
   cursor: pointer;
 }
 .off-instance{
   background-color: transparent;
-  border-radius: 20px;
+  border-radius: 25px;
   color: var(--dark-forest);
   text-decoration: none;
   padding: 0.75rem 1rem;
-  width: 8vw;
+  width: 10vw;
   font-family: 'Inter', sans-serif; 
   font-size: 12px;
   cursor: pointer;
@@ -286,24 +286,24 @@ html, body {
 
 .active-instance1{
   background-color: var(--salmon);
-  border-radius: 20px;
+  border-radius: 25px;
   color: var(--off-white);
   text-decoration: none;
   padding: 0.75rem 1rem;
   width: 10vw;
   font-family: 'Inter', sans-serif; 
-  font-size: 12px;
+  font-size: 10px;
   cursor: pointer;
 }
 .off-instance1{
   background-color: transparent;
-  border-radius: 20px;
+  border-radius: 25px;
   color: var(--dark-forest);
   text-decoration: none;
   padding: 0.75rem 1rem;
   width: 10vw;
   font-family: 'Inter', sans-serif; 
-  font-size: 12px;
+  font-size: 10px;
   cursor: pointer;
 }
 
@@ -315,13 +315,10 @@ html, body {
 
 .greet{
   padding: 1%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  width: 100%;
+  text-align: start;
+  font-size: 15px;
+  width: 96%;
 }
-
 
 /*Dropdowns*/
 

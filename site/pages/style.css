@@ -264,6 +264,11 @@ html, body {
   justify-content: flex-start;
   margin-left: 2%;
 }
+.remote p {
+ height: 100%;
+ width: 90%;
+ font-size: 14px; 
+}
 .invData{
   display: flex;
   flex-direction: row;
