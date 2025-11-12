@@ -680,25 +680,26 @@ html, body {
 }
 
 /* content for species list */
-#speciesTable, #speciesTablePhil, #speciesTableMal, #speciesTableMal2 {
+#speciesTable, #speciesTablePhil, #speciesTableMal, #speciesTableMal2, #speciesTableBraz, #speciesTableIndo {
   width: 95%;
   height: 100%;
   display: flex;
   flex-direction: column; 
   justify-content: flex-start;
-  overflow-y: auto;  
-}
-
-
-#speciesListMal, #speciesListMal2{
-  font-family: 'Inter', sans-serif !important;
-  color: black;  
-  width: 100%;
-  table-layout: fixed;
+  overflow-y: auto; 
   
 }
 
-#speciesListMal tr, #speciesListMal2 tr {
+
+#speciesListMal, #speciesListMal2, #species, #speciesTableBraz, #speciesTableIndo{
+  font-family: 'Inter', sans-serif !important;
+  color: black;  
+  
+  
+  
+}
+
+#speciesListMal tr, #speciesListMal2 tr , #speciesTableBraz tr, #speciesTableIndo tr{
   font-size: 10px;
 }
 table.display tbody tr:hover {
