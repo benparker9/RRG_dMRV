@@ -471,3 +471,61 @@ window.onload = function () {
 
 
 
+fetch('./vPages/verifyMal.json')
+  .then(res => res.json())
+  .then(data => {
+    const sites = data.map(row => row.Site);
+    const reported = data.map(row => row["Hectares Planted"] ?? 0);
+    const verified = data.map(row => row["Hectares Verified"] ?? 0);
+
+    const siteVerifyMalCtx = document.getElementById('siteVerifyMalChart').getContext('2d');
+
+    new Chart(siteVerifyMalCtx, {
+      type: 'bar',
+      data: {
+        labels: sites,
+        datasets: [
+          {
+            label: 'Hectares Planted',
+            data: reported,
+            backgroundColor: '#c1e3aa',
+          },
+          {
+            label: 'Hectares Verified',
+            data: verified,
+            backgroundColor: '#627c49',
+          },
+        ],
+      },
+      options: {
+        layout: {
+    padding: {
+      left: 0,
+      right: 0,
+      top: 10,
+      bottom: 10
+    }
+  },
+  scales: {
+  x: {
+    beginAtZero: true,
+    title: {
+      display: true,
+      text: 'Hectares',   // <-- your x-axis label
+      font: { size: 14 }
+    }
+  },},
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'top' },
+          tooltip: {
+            callbacks: {
+              label: ctx => `${ctx.dataset.label}: ${ctx.parsed.x}`,
+            },
+          },
+        },
+      },
+    });
+  });

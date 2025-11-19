@@ -113,11 +113,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="chartDensity" style="display: none;">
-                                <div class="chartDensity">
-                                    <canvas id="densityChart" width="1200" height="550"></canvas>
-                                </div>
-                        </div>
                         <div id="biomassMap" style="display: none;">
                             <iframe src="https://rrgslo.maps.arcgis.com/apps/instant/basic/index.html?appid=921772fc247a464c9048db391d751d6c" 
                             width="1000" height="400" frameborder="0" style="border:0" allowfullscreen>iFrames are not supported on this page.</iframe>
@@ -166,9 +161,23 @@
                     <p class="pWelcome">Interact with internal audits and 3rd party verifications.
                     </p> 
                 </div>
-                <p style="font-size: 12px;">** RRG is rolling out throughout 2026 a field maps verification system
-                        and internal auditing system akin to Project Forest. This tab will be updated as the 
-                        system progresses.</p>
+                <div class="expoMal">
+                        <h1 style="text-decoration: underline; font-size: 16px;">Remote Sensing Verification Program</h1>
+                        <p style="font-size: 14px;">RRG is using a multiprong system of remote sensing technologies to validate project activities including
+                        RGB imagery and biomass mapping. MDOF needed to clear the project sites of vegetation prior to project activities, resulting in a barren
+                        landscape. Yet, RRG is able to verify MDOF activity via planting rows. As the stand matures, RRG will 
+                        gather more data including densities, biomass and mortality events. 
+                        </p>
+                </div>
+                <div id="valMal">
+                    <div id="wrapperValMal">
+                        <div id="chartValMal"><canvas id="siteVerifyMalChart"></canvas></div>
+                        <div id="mapValMal">
+                            <iframe src="https://rrgslo.maps.arcgis.com/apps/instant/3dviewer/index.html?appid=1e0b4f264ffd41ed8781ba8a445c7323" 
+                            width="550" height="400" frameborder="0" style="border:0" allowfullscreen>iFrames are not supported on this page.</iframe>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="wWrapperBraz" style="display:none;" class="wWrapper">
                 <div class="connectWrap">

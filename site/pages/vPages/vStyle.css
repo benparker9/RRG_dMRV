@@ -258,6 +258,13 @@ html, body {
   gap: 2%;
   
 }
+.expoMal{
+  display: flex;
+  flex-direction: column;
+  width:98%;
+  gap: 2%;
+  padding: 1%;
+}
 /* Main content */
 .content2{
   display:flex;
@@ -305,7 +312,7 @@ html, body {
   flex-direction: column;
   align-items: flex-start;
   gap: 5px;
-  height: 70vh;
+  height: 60vh;
 }
 
 #chartBreak {
@@ -343,7 +350,7 @@ html, body {
   justify-content: center;
   align-items: flex-start;
   width: 100%;
-  height: 60vh;
+  height: 50vh;
 }
 .chartWrapperTotal {
   flex: 1 1 50%;
@@ -364,6 +371,35 @@ html, body {
   align-items: center;
   width: 100%;
   height: 70vh;
+}
+
+
+
+/* malawi verification*/
+#valMal{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 70vh;
+}
+#wrapperValMal{
+  display: flex;
+  flex-direction: row;
+  width:100%;
+  height: 100%;
+}
+#chartValMal,
+#mapValMal {
+  flex: 1 1 50%;             /* grow/shrink; basis 50% */
+  min-width: 0;              /* allows flex item to shrink correctly */
+  height: 100%;
+  display: flex;             /* useful if you want centered content inside */
+  align-items: center;
+  justify-content: center;
+}
+#chartValMal canvas {
+  width: 100%;
+  height: 100%;
 }
 
 
