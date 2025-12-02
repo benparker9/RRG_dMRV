@@ -39,7 +39,7 @@ let treePieChartInstanceIndo = null;
       ]},
       options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true}}}
     });
-    const totalArea = 10000, areaPlanted = 0;
+    const totalArea = 1000, areaPlanted = 15;
     window.haPieChartInstanceIndo = new Chart(haPieCtxIndo,{
       type:'pie', data:{labels:['Available Hectares Left to Plant','Hectares Planted to Date'],datasets:[{data:[totalArea-areaPlanted,areaPlanted],backgroundColor:['#ec6e6e','#627c49']}]},
       options:pieOptionsIndo
