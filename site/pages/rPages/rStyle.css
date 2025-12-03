@@ -638,7 +638,7 @@ html, body {
 }
 
 /* content for raw pLog */
-#log, #logPhil, #logMal, #logMal2{
+#log, #logPhil, #logMal, #logMal2, #logIndo{
   width: 95%;
   height: 100%;
   display: flex;
@@ -691,7 +691,7 @@ html, body {
 }
 
 
-#speciesListMal, #speciesListMal2, #species, #speciesTableBraz, #speciesTableIndo{
+#speciesListMal, #speciesListMal2, #species, #speciesTableBraz, #speciesListIndo{
   font-family: 'Inter', sans-serif !important;
   color: black;  
   
@@ -699,7 +699,7 @@ html, body {
   
 }
 
-#speciesListMal tr, #speciesListMal2 tr , #speciesTableBraz tr, #speciesTableIndo tr{
+#speciesListMal tr, #speciesListMal2 tr , #speciesTableBraz tr, #speciesListIndo tr{
   font-size: 10px;
 }
 table.display tbody tr:hover {

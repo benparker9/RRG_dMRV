@@ -351,12 +351,12 @@ window.onload = function () {
           labels: ['Hectares Restored'],
           datasets: [
             {
-              label: 'Reported Hectares Restored',
+              label: 'Hectares Planted',
               data: [reported],
               backgroundColor: '#c1e3aa'
             },
             {
-              label: 'Verified Planting Activity',
+              label: 'Hectares Verified',
               data: [verified],
               backgroundColor: '#627c49'
             }
@@ -404,12 +404,12 @@ window.onload = function () {
           labels: ['Trees Planted'],
           datasets: [
             {
-              label: 'Reported Trees Planted',
+              label: 'Trees Planted',
               data: [reported],
               backgroundColor: '#c1e3aa'
             },
             {
-              label: 'Verified Trees Planted',
+              label: 'Trees Verified',
               data: [verified],
               backgroundColor: '#627c49'
             }
@@ -507,7 +507,7 @@ fetch('./vPages/verifyMal.json')
     }
   },
   scales: {
-  x: {
+  y: {
     beginAtZero: true,
     title: {
       display: true,
@@ -515,17 +515,52 @@ fetch('./vPages/verifyMal.json')
       font: { size: 14 }
     }
   },},
-        indexAxis: 'y',
+        
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
           legend: { position: 'top' },
           tooltip: {
             callbacks: {
-              label: ctx => `${ctx.dataset.label}: ${ctx.parsed.x}`,
+              label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y}`,
             },
           },
         },
       },
     });
   });
+
+const reportedM = 90;     // Total reported
+const verifiedM = 90;      // Total verified
+
+const verifiedPercentM = Math.round((verifiedM / reportedM) * 100);
+const remainingPercentM = 100 - verifiedPercentM;
+
+new Chart(document.getElementById('verifyPieMal').getContext('2d'), {
+  type: 'pie',
+  data: {
+    labels: ['Percent Verified', 'Percent Remaining'],
+    datasets: [{
+      data: [verifiedPercentM, remainingPercentM],
+      backgroundColor: ['#627c49', '#ec6e6e'],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'right' },
+        tooltip: {
+  callbacks: {
+    label: context => {
+      const label = context.label || '';
+      const value = context.parsed;
+      return `${label}: ${value}%`;  // <-- add % here
+    }
+  }
+}
+    },
+
+  }
+});

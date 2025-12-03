@@ -378,7 +378,8 @@ html, body {
 /* malawi verification*/
 #valMal{
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  margin-left: 1%;
   width: 100%;
   height: 70vh;
 }
@@ -386,22 +387,25 @@ html, body {
   display: flex;
   flex-direction: row;
   width:100%;
-  height: 100%;
+  height: 60vh;
 }
 #chartValMal,
-#mapValMal {
+#pieMal {
   flex: 1 1 50%;             /* grow/shrink; basis 50% */
   min-width: 0;              /* allows flex item to shrink correctly */
-  height: 100%;
+  height: 95%;
   display: flex;             /* useful if you want centered content inside */
   align-items: center;
   justify-content: center;
 }
 #chartValMal canvas {
-  width: 100%;
-  height: 100%;
+  width: 95%;
+  height: 95%;
 }
-
+#verifyPieMal canvas {
+  width: 90%;
+  height: 90%;
+}
 
 .ers{
   display: flex;

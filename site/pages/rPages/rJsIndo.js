@@ -37,7 +37,16 @@ let treePieChartInstanceIndo = null;
         {label:'Forecasted Hectares Restored',data:reportedIndo,backgroundColor:'#c1e3aa'},
         {label:'Hectares Planted to Date',data:verifiedIndo,backgroundColor:'#627c49'}
       ]},
-      options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true}}}
+      options:{responsive:true,maintainAspectRatio:false,indexAxis: 'y', scales:{ 
+      y: {
+      ticks: {
+        autoSkip: false,font: {
+          size: 10   // <-- set tick font size
+        }
+      }
+    },x:{beginAtZero:true, title: {
+        display: true,
+        text: 'Hectares'}}}}
     });
     const totalArea = 1000, areaPlanted = 15;
     window.haPieChartInstanceIndo = new Chart(haPieCtxIndo,{
@@ -54,9 +63,18 @@ let treePieChartInstanceIndo = null;
     window.treeChartInstanceIndo = new Chart(treeBarCtxIndo,{
       type:'bar',
       data:{labels:sites,datasets:[{label:'Forecasted Trees Planted',data:reported,backgroundColor:'#c1e3aa'},{label:'Trees Planted to Date',data:planted,backgroundColor:'#627c49'}]},
-      options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true}}}
+      options:{responsive:true,maintainAspectRatio:false,indexAxis: 'y', scales:{ 
+      y: {
+      ticks: {
+        autoSkip: false,font: {
+          size: 10   // <-- set tick font size
+        }
+      }
+    },x:{beginAtZero:true, title: {
+        display: true,
+        text: 'Trees'}}}}
     });
-    const totalTree = 10000000, treesPlanted = 0;
+    const totalTree = 10000000, treesPlanted = 120000;
     window.treePieChartInstanceIndo = new Chart(treePieCtxIndo,{
       type:'pie',data:{labels:['Trees Left to Plant','Trees Planted to Date'],datasets:[{data:[totalTree-treesPlanted,treesPlanted],backgroundColor:['#ec6e6e','#627c49']}]},
       options:pieOptionsIndo
@@ -235,7 +253,35 @@ function showStakeholdersIndo() {
 
 
 
+  // pLog database
 
+$('#ganttTableIndo').DataTable({
+  ajax: {
+    url: './rPages/rawLogIndo.json',
+    dataSrc: ''
+  },
+  columns: [
+    { data: 'Site' },
+    { data: 'Date Planted' },
+    { data: 'Trees Planted' },
+    { data: 'Area Planted' },
+    { data: 'Males Employed'},
+    { data: 'Females Employed'},
+    { data: 'Species Planted'}
+  ],
+  dom: 'Bflrtip',   // Show Buttons, filter, table, pagination
+  buttons: [
+  {
+    extend: 'csvHtml5',
+    text: 'Download CSV',
+    title: 'Tree_Planting_Data'
+  },
+  {
+    extend: 'excelHtml5',
+    text: 'Download Excel'
+  }
+]
+});
 
 
 
