@@ -1684,7 +1684,7 @@ function initCanvaCharts2 () {
 
       
         const totalAreaCanva2 = 13203;
-        const areaPlantedCanva2 = 0;
+        const areaPlantedCanva2 = 15;
         const areaRemainingCanva2 = totalAreaCanva2 - areaPlantedCanva2;
         haPieChartInstanceCanva2 = new Chart(haPieCtxCanva2, {
         type: 'pie',
@@ -1752,7 +1752,7 @@ function initCanvaCharts2 () {
       });
 
       const totalTreeCanva2 = 30000000;
-      const treesPlantedCanva2 = 0;
+      const treesPlantedCanva2 = 120000;
       const treesRemainingCanva2 = totalTreeCanva2 - treesPlantedCanva2;
       treePieChartInstanceCanva2 = new Chart(treePieCtxCanva2, {
         type: 'pie',
