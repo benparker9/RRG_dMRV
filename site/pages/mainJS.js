@@ -8,7 +8,7 @@ const discuss = document.getElementById('discuss');
   function copyEmail() {
     const email = "ben@reducereusegrow.com"; // The email address to copy
     navigator.clipboard.writeText(email).then(() => {
-        alert(`Email copied to clipboard!: ${email}`);
+        alert(`Submit a bug by emailing: ${email}`);
     }).catch(err => {
         console.error("Failed to copy: ", err);
     });

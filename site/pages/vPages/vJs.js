@@ -1,3 +1,4 @@
+
 // move scientific discussion back and forth
 const discuss = document.getElementById('discuss');
   if (discuss) {
@@ -8,7 +9,7 @@ const discuss = document.getElementById('discuss');
   function copyEmail() {
     const email = "ben@reducereusegrow.com"; // The email address to copy
     navigator.clipboard.writeText(email).then(() => {
-        alert(`Email copied to clipboard!: ${email}`);
+        alert(`Submit a bug by emailing: ${email}`);
     }).catch(err => {
         console.error("Failed to copy: ", err);
     });
@@ -178,6 +179,7 @@ function loadSiteCharts(metric) {
               },
               y: {
                 beginAtZero: true,
+                title: {display:true, text: 'Hectares Restored'}
               },
             },
           },
@@ -319,6 +321,30 @@ window.onload = function () {
   const haPieCtx = document.getElementById('haProgressPie').getContext('2d');
   const treePieCtx = document.getElementById('treeProgressPie').getContext('2d');
 
+  // ---- Reusable pie chart options (must be defined BEFORE any charts use it)
+  const pieOptions = {
+    maintainAspectRatio: false,
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'right',
+        labels: {
+          boxWidth: 20,
+          padding: 10
+        }
+      },
+      tooltip: {
+        callbacks: {
+          label: context => {
+            const label = context.label || '';
+            const value = context.parsed;
+            return `${label}: ${value}%`;
+          }
+        }
+      }
+    }
+  };
+
   // Toggle UI initially
   toggleCharts(dataSelector.value);
 
@@ -441,30 +467,6 @@ window.onload = function () {
         options: pieOptions
       });
     });
-
-  // ---- Reusable pie chart options
-  const pieOptions = {
-    maintainAspectRatio: false,
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'right',
-        labels: {
-          boxWidth: 20,
-          padding: 10
-        }
-      },
-      tooltip: {
-        callbacks: {
-          label: context => {
-            const label = context.label || '';
-            const value = context.parsed;
-            return `${label}: ${value}%`;
-          }
-        }
-      }
-    }
-  };
 };
 
 

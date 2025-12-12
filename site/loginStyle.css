@@ -12,25 +12,49 @@ body {
         linear-gradient(#ccc 1px, transparent 1px);
       background-size: 20px 20px;
     }
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: #0b0f0c; /* CHANGED: switch page background to near-black for modern dark theme */
+  scroll-behavior: smooth;
+}
+
+/* CHANGED: New modern theme tokens (dark green / black / white) */
 :root {
-      --green: #ADED47;
-      --green-dark: #739E26;
-      --dark-forest: #333;
-      --text-light: #777;
-      --off-white: #FFFFFF;
-      --off-white2: #EFF7EB;
-      --border: #739E26;
-      --black: #04170c;
-      --off-green: #eaf3d2;
-      --salmon: #ec6e6e;
-      
+      --green: #0f6b3a;        /* CHANGED: primary dark green */
+      --green-dark: #0a3d24;   /* CHANGED: deeper forest green for hovers/accents */
+      --dark-forest: #eaf2ec;  /* CHANGED: default text on dark backgrounds (near-white) */
+      --text-light: #b7c4bc;   /* CHANGED: muted text on dark backgrounds */
+      --off-white: #ffffff;    /* unchanged: true white (used sparingly) */
+      --off-white2: #101613;   /* CHANGED: dark surface color (replaces light mint backgrounds) */
+      --border: rgba(255,255,255,0.12); /* CHANGED: subtle borders on dark */
+      --black: #050807;        /* CHANGED: unify black token */
+      --off-green: #0b0f0c;    /* CHANGED: align with dark page background */
+      --salmon: #ffffff;       /* CHANGED: remove salmon accent; use white accent for clean modern look */
+
+      /* ADDED: extra modern tokens for consistent styling */
+      --surface: #0f1512;      /* ADDED: card/surface background */
+      --surface-2: #121a16;    /* ADDED: slightly lifted surface */
+      --shadow: 0 10px 30px rgba(0,0,0,0.45); /* ADDED: modern soft shadow */
+      --radius: 14px;          /* ADDED: modern rounding */
+      --radius-sm: 10px;       /* ADDED */
+      --focus: 0 0 0 3px rgba(27, 179, 109, 0.35); /* ADDED: accessible focus ring */
     }
+
+
+.wrap{
+  display: flex;
+  flex-direction: row;
+  gap: 10%;
+  align-items: center;
+  justify-content: center;
+}
     .login-container {
       background: white;
       padding: 2rem;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      width: 320px;
+      width: 500px;
       text-align: center;
     }
     .login-container h2 {

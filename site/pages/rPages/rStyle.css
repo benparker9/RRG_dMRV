@@ -1,41 +1,64 @@
 /* root*/
+/* root*/
 html, body {
   height: 100%;
   margin: 0;
-  background-color: #eaf3d2;
+  background-color: rgba(15, 21, 18, 0.85); /* CHANGED: switch page background to near-black for modern dark theme */
+  scroll-behavior: smooth;
 }
+
+/* CHANGED: New modern theme tokens (dark green / black / white) */
 :root {
-      --green: #ADED47;
-      --green-dark: #739E26;
-      --dark-forest: #333;
-      --text-light: #777;
-      --off-white: #FFFFFF;
-      --off-white2: #EFF7EB;
-      --border: #739E26;
-      --black: #04170c;
-      --off-green: #eaf3d2;
-      --salmon: #ec6e6e;
-      
+      --green: #0f6b3a;        /* CHANGED: primary dark green */
+      --green-dark: #0a3d24;   /* CHANGED: deeper forest green for hovers/accents */
+      --dark-forest: #eaf2ec;  /* CHANGED: default text on dark backgrounds (near-white) */
+      --text-light: #b7c4bc;   /* CHANGED: muted text on dark backgrounds */
+      --off-white: #ffffff;    /* unchanged: true white (used sparingly) */
+      --off-white2: #101613;   /* CHANGED: dark surface color (replaces light mint backgrounds) */
+      --border: rgba(255,255,255,0.12); /* CHANGED: subtle borders on dark */
+      --black: #050807;        /* CHANGED: unify black token */
+      --off-green: #0b0f0c;    /* CHANGED: align with dark page background */
+      --salmon: #ffffff;       /* CHANGED: remove salmon accent; use white accent for clean modern look */
+
+      /* ADDED: extra modern tokens for consistent styling */
+      --surface: #0f1512;      /* ADDED: card/surface background */
+      --surface-2: #121a16;    /* ADDED: slightly lifted surface */
+      --shadow: 0 10px 30px rgba(0,0,0,0.45); /* ADDED: modern soft shadow */
+      --radius: 14px;          /* ADDED: modern rounding */
+      --radius-sm: 10px;       /* ADDED */
+      --focus: 0 0 0 3px rgba(27, 179, 109, 0.35); /* ADDED: accessible focus ring */
     }
 
+a {
+  text-decoration: underline;   /* only underline */
+  color: inherit;               /* keep text color same as surrounding text */
+}
 
+/* Optional: remove underline on hover if you want */
+a:hover {
+  text-decoration: underline;   /* keep underline on hover */
+  color:var(--green);
+}
 /* Container design */
 .container {
     display: flex;
     flex-direction:column;
     margin: 0;
     
-    background-color: var(--off-white);
+    background-color: transparent; /* CHANGED: let dark body show through */
     height: 100vh;
     width: 100vw;
     overflow: hidden;
   }
 .contact{
-    background-color: var(--black);
-    height: 20px;
+    background-color: rgba(5, 8, 7, 0.9); /* CHANGED: translucent black header bar */
+    backdrop-filter: blur(10px);          /* ADDED: modern glass effect (supported browsers) */
+    -webkit-backdrop-filter: blur(10px);  /* ADDED */
+    border-bottom: 1px solid var(--border); /* ADDED: subtle divider */
+    height: 26px; /* CHANGED: slightly taller for readability */
     justify-content: center;
     align-items: center;
-    color: white;
+    color: var(--dark-forest); /* CHANGED: ensure readable on dark */
     display:flex;
     inset: 0;
     position: sticky;
@@ -43,22 +66,21 @@ html, body {
     overflow: hidden;
     z-index: 1000;
   }
+
 .bounce {
   position: absolute;
   left: 0;
   font-family: 'Inter', sans-serif;
-  font-size: 10px;
-  line-height: 1px;
+  font-size: 11px; /* CHANGED: slightly larger */
+  line-height: 1;  /* CHANGED: fix very tight line height */
+  color: var(--text-light); /* ADDED: muted ticker text */
   animation: bounceText 15s ease-in-out infinite alternate;
 }
-       @keyframes bounceText {
-      0% {
-        left: 0;
-      }
-      100% {
-        left: calc(100% - var(--text-width));
-      }
-    }
+
+@keyframes bounceText {
+  0% { left: 0; }
+  100% { left: calc(100% - var(--text-width)); }
+}
 
 
 /* Nav bar*/
@@ -67,129 +89,169 @@ html, body {
   z-index: 1000000;
   display: flex;
   align-items: center;
-  padding: 10px 20px;
-  height: 6vh;
+  padding: 12px 20px; /* CHANGED: slightly more breathing room */
+  height: 54px;       /* CHANGED: use fixed height vs vh for consistency */
   flex-direction: row;
   justify-content: space-between;
-  border-bottom: 0.2px solid var(--black);
+  border-bottom: 1px solid var(--border); /* CHANGED: subtle border */
   top: 0;
-  
+
+  background-color: var(--green-dark); /* ADDED: translucent sticky nav */
+  backdrop-filter: blur(12px);              /* ADDED */
+  -webkit-backdrop-filter: blur(12px);      /* ADDED */
 }
+
 .nav-left a{
-  color: var(--black);
+  color: var(--dark-forest); /* CHANGED: links become near-white */
   text-decoration: none;
   font-family: Inter, sans-serif;
-  font-size: 12px;
+  font-size: 13px;           /* CHANGED: slightly larger */
+  letter-spacing: 0.2px;     /* ADDED: modern typography */
+  opacity: 0.92;             /* ADDED: soften */
+}
+
+.nav-left a:hover{
+  opacity: 1; /* ADDED: crisp hover */
+  color: #ffffff; /* ADDED */
 }
 
 /* Left Section: Logo + Links */
 .nav-left {
   display: flex;
   align-items: center;
-  gap: 60px;
+  gap: 28px; /* CHANGED: reduced huge gap for modern spacing */
 }
 
 .nav-left img {
-  height: 80px;
+  height: 44px; /* CHANGED: smaller, cleaner */
   display: block;
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.35)); /* ADDED: subtle lift */
 }
+
 /* Right Section: Button */
 .nav-right{
   display:flex;
-  gap: 50px;
+  gap: 18px; /* CHANGED: tighter */
+  align-items: center; /* ADDED */
 }
+
 .contactButton{
-  color: var(--dark-forest);
-  background: none;
-  border: none;
+  color: var(--dark-forest); /* CHANGED */
+  background: transparent;   /* CHANGED */
+  border: 1px solid var(--border); /* ADDED: modern outlined button */
+  padding: 10px 14px;        /* ADDED */
+  border-radius: 999px;      /* ADDED: pill shape */
   text-decoration: none;
   font-family: Inter, sans-serif;
-  font-size: 12px;
+  font-size: 13px;           /* CHANGED */
   cursor: pointer;
-
 }
+
+.contactButton:hover{
+  border-color: rgba(255,255,255,0.22); /* ADDED */
+  background-color: rgba(255,255,255,0.06); /* ADDED */
+}
+
+.contactButton:focus-visible{
+  outline: none;            /* ADDED */
+  box-shadow: var(--focus); /* ADDED */
+}
+
 .rrgHome {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 4rem;
-  background-color: var(--salmon);
-  border-radius: 100px;
-  padding-left: 40px;
-  padding-right: 40px;
+  margin-right: 2rem; /* CHANGED: reduce */
+  background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%); /* CHANGED: green gradient instead of salmon */
+  border: 1px solid rgba(255,255,255,0.14); /* ADDED */
+  border-radius: 999px;
+  padding: 10px 18px; /* CHANGED: cleaner sizing */
   gap: 10px;
-  width: 9vw;
-  height: 6vh; 
+  width: auto;  /* CHANGED: let content define width */
+  height: auto; /* CHANGED */
+  box-shadow: 0 10px 22px rgba(0,0,0,0.35); /* ADDED */
 }
+
 .rrgHome a{
   text-decoration: none;
   font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  color: #e7e7e7;
-
+  font-size: 13px;     /* CHANGED */
+  color: #ffffff;      /* CHANGED: strong contrast on green */
 }
+
 /* Optional: hover effect */
 .rrgHome:hover {
-  background-color: #4CAF50;
-  color: white;
+  filter: brightness(1.08); /* CHANGED: modern hover (avoid random green) */
 }
+
 .arrowRight{
-  fill: #e7e7e7;
+  fill: #ffffff; /* CHANGED */
 }
+
 
 /*main content wrapper*/
 .contentWrap{
   display: flex;
   flex: 1;
   overflow: hidden;
- 
-  
-
 }
+
 /*Sidebar*/
 .sidebarWrap{
   top: 0;
   height: 100%;
-  width: 8vw;
-  background-color: var(--off-white);
-  border-right: 1px solid var(--black) ;
-
+  width: 220px; /* CHANGED: fixed width for better layout than 8vw */
+  background-color: rgba(15, 21, 18, 0.85); /* CHANGED: dark surface */
+  backdrop-filter: blur(10px);             /* ADDED */
+  -webkit-backdrop-filter: blur(10px);     /* ADDED */
+  border-right: 1px solid var(--border);   /* CHANGED */
 }
+
 .sidebar{
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 1%;
-  margin-top: 3vh;
-  align-items: center;
-  justify-content: center;
+  gap: 0.65rem; /* CHANGED: tighter */
+  padding: 14px; /* CHANGED */
+  margin-top: 10px; /* CHANGED */
+  align-items: stretch; /* CHANGED: buttons full width */
+  justify-content: flex-start; /* CHANGED */
   font-family: 'Inter';
-  font-size: 12px;
+  font-size: 13px; /* CHANGED */
 }
+
 .off-side {
-      color: var(--dark-forest);
+      color: var(--dark-forest); /* CHANGED */
       background-color: transparent;
       text-decoration: none;
-      padding: 0.75rem 1rem;
-      border:none;
-      border-radius: 8px;
-
+      padding: 0.8rem 0.9rem; /* CHANGED */
+      border: 1px solid transparent; /* ADDED: helps consistent sizing */
+      border-radius: var(--radius-sm); /* CHANGED: modern radius */
+      text-align: left; /* ADDED: better readability */
     }
+
 .off-side:hover {
-      background-color: var(--green-dark);
+      background-color: rgba(255,255,255,0.06); /* CHANGED: subtle dark-theme hover */
+      border-color: rgba(255,255,255,0.10);     /* ADDED */
       cursor: pointer;
     }
 
-.active-side{
-  background-color: var(--green-dark);
-  border-radius: 8px;
-  color: var(--dark-forest);
-  text-decoration: none;
-  padding: 0.75rem 1rem;
-  border: none;
+.off-side:focus-visible{
+  outline: none;            /* ADDED */
+  box-shadow: var(--focus); /* ADDED */
 }
+
+.active-side{
+  background: linear-gradient(135deg, rgba(15,107,58,0.95), rgba(10,61,36,0.95)); /* CHANGED: modern active gradient */
+  border-radius: var(--radius-sm); /* CHANGED */
+  color: #ffffff; /* CHANGED: active text white */
+  text-decoration: none;
+  padding: 0.8rem 0.9rem; /* CHANGED */
+  border: 1px solid rgba(255,255,255,0.14); /* ADDED */
+  text-align: left; /* ADDED */
+}
+
 .active-side:hover {
-      background-color: var(--salmon);
+      filter: brightness(1.08); /* CHANGED */
       cursor: pointer;
     }
 
@@ -204,6 +266,7 @@ html, body {
   overflow-y: auto;      
   overflow-x: hidden;    
   flex: 1;
+  
 
 }
 .wWrapper h1,
@@ -229,14 +292,15 @@ html, body {
   align-items: center;
   display:flex;
   flex-direction: column;
-  width: 50%;
+  width: 60%;
+  
 }
 .instanceWrap{
   background-color: var(--green); /* base */
-  background-image:
-    linear-gradient(90deg, #ccc 1px, transparent 1px),
-    linear-gradient(#ccc 1px, transparent 1px);
-  background-size: 20px 20px;
+  background: radial-gradient(1200px 400px at 20% 0%, rgba(15,107,58,0.35) 0%, rgba(11,15,12,0) 55%),
+              linear-gradient(180deg, rgba(18,26,22,0.95), rgba(15,21,18,0.85)); /* CHANGED */
+  box-shadow: var(--shadow);    /* ADDED */
+  border: 1px solid var(--border); /* ADDED */
 }
 
 .instanceWrap{
@@ -245,7 +309,7 @@ html, body {
   width: 100%;
   align-items: center;        /* vertical center */
   justify-content: flex-start;
-  gap: 8%;
+  gap: 2%;
 }
 
 .instanceBtnWrap{
@@ -255,63 +319,80 @@ html, body {
   justify-content: flex-start;
   gap: 15%;
 }
-.active-instance{
-  background-color: var(--salmon);
-  border-radius: 25px;
-  color: var(--off-white);
-  text-decoration: none;
-  padding: 0.75rem 1rem;
-  width: 10vw;
-  font-family: 'Inter', sans-serif; 
-  font-size: 12px;
-  cursor: pointer;
-}
-.off-instance{
-  background-color: transparent;
-  border-radius: 25px;
-  color: var(--dark-forest);
-  text-decoration: none;
-  padding: 0.75rem 1rem;
-  width: 10vw;
-  font-family: 'Inter', sans-serif; 
-  font-size: 12px;
-  cursor: pointer;
-}
+.off-instance1 {
+      color: var(--dark-forest); /* CHANGED */
+      background-color: transparent;
+      text-decoration: none;
+      padding: 0.8rem 0.9rem; /* CHANGED */
+      border: 1px solid transparent; /* ADDED: helps consistent sizing */
+      border-radius: var(--radius-sm); /* CHANGED: modern radius */
+      text-align: center; /* ADDED: better readability */
+    }
 
-    .off-instance:hover {
-      background-color: var(--salmon);
-      color: var(--off-white);
+.off-instance1:hover {
+      background-color: rgba(255,255,255,0.06); /* CHANGED: subtle dark-theme hover */
+      border-color: rgba(255,255,255,0.10);     /* ADDED */
       cursor: pointer;
     }
+
+.off-instance1:focus-visible{
+  outline: none;            /* ADDED */
+  box-shadow: var(--focus); /* ADDED */
+}
 
 .active-instance1{
-  background-color: var(--salmon);
-  border-radius: 25px;
-  color: var(--off-white);
+  background: linear-gradient(135deg, rgba(15,107,58,0.95), rgba(10,61,36,0.95)); /* CHANGED: modern active gradient */
+  border-radius: var(--radius-sm); /* CHANGED */
+  color: #ffffff; /* CHANGED: active text white */
   text-decoration: none;
-  padding: 0.75rem 1rem;
-  width: 10vw;
-  font-family: 'Inter', sans-serif; 
-  font-size: 10px;
-  cursor: pointer;
-}
-.off-instance1{
-  background-color: transparent;
-  border-radius: 25px;
-  color: var(--dark-forest);
-  text-decoration: none;
-  padding: 0.75rem 1rem;
-  width: 10vw;
-  font-family: 'Inter', sans-serif; 
-  font-size: 10px;
-  cursor: pointer;
+  padding: 0.8rem 0.9rem; /* CHANGED */
+  border: 1px solid rgba(255,255,255,0.14); /* ADDED */
+  text-align: center; /* ADDED */
 }
 
-    .off-instance1:hover {
-      background-color: var(--salmon);
-      color: var(--off-white);
+.active-instance1:hover {
+      filter: brightness(1.08); /* CHANGED */
       cursor: pointer;
     }
+.off-instance {
+      color: var(--dark-forest); /* CHANGED */
+      background-color: transparent;
+      text-decoration: none;
+      padding: 0.8rem 0.9rem; /* CHANGED */
+      border: 1px solid transparent; /* ADDED: helps consistent sizing */
+      border-radius: var(--radius-sm); /* CHANGED: modern radius */
+      text-align: center; /* ADDED: better readability */
+    }
+
+.off-instance:hover {
+      background-color: rgba(255,255,255,0.06); /* CHANGED: subtle dark-theme hover */
+      border-color: rgba(255,255,255,0.10);     /* ADDED */
+      cursor: pointer;
+    }
+
+.off-instance:focus-visible{
+  outline: none;            /* ADDED */
+  box-shadow: var(--focus); /* ADDED */
+}
+
+.active-instance{
+  background: linear-gradient(135deg, rgba(15,107,58,0.95), rgba(10,61,36,0.95)); /* CHANGED: modern active gradient */
+  border-radius: var(--radius-sm); /* CHANGED */
+  color: #ffffff; /* CHANGED: active text white */
+  text-decoration: none;
+  padding: 0.8rem 0.9rem; /* CHANGED */
+  border: 1px solid rgba(255,255,255,0.14); /* ADDED */
+  text-align: center; /* ADDED */
+}
+
+.active-instance:hover {
+      filter: brightness(1.08); /* CHANGED */
+      cursor: pointer;
+    }
+
+
+
+
 
 .greet{
   padding: 1%;
@@ -328,6 +409,7 @@ html, body {
   cursor: pointer;
   font-family: 'Inter', sans-serif; 
   font-size: 12px;
+  color: var(--text-light);
   
 
 }
@@ -470,6 +552,7 @@ html, body {
   width: 100%;
   padding: 1%;
   
+  
 }
 .btn{
   display: flex;
@@ -481,7 +564,7 @@ html, body {
   background: none;
   border: none;
   cursor: pointer;
-  color: black;
+  color: var(--text-light);
   z-index: 1000;
   text-align: center;
   pointer-events: auto;
@@ -653,14 +736,14 @@ html, body {
 
 .contentWrapper table.dataTable{
   font-family: 'Inter', sans-serif !important;
-  color: black;  
+  color: white;  
 
 }
 .contentWrapper table.dataTable tr {
   font-size: 10px;
 }
 .contentWrapper table.dataTable tbody tr:hover {
-  background-color: #e9ecef; 
+  background-color: var(--green-dark); 
   
 }
 .contentWrapper table.dataTable {
@@ -672,12 +755,68 @@ html, body {
   overflow: hidden;
 }
 .dt-button {
-  font-size: 0.8rem !important;   
-  padding: 4px 8px !important;    
-  min-width: auto !important;      
-  height: 24px !important;         
-  border-radius: 3px !important;   
+  font-size: 0.8rem !important;
+  padding: 6px 10px !important;
+  min-width: auto !important;
+  height: 30px !important;
+  line-height: 1.2 !important;
+  border-radius: 999px !important;              /* CHANGED */
+  background: rgba(255,255,255,0.06) !important; /* ADDED */
+  border: 1px solid var(--border) !important;    /* ADDED */
+  color: #ffffff !important;                      /* ADDED */
 }
+
+.dt-button:hover{
+  background: rgba(255,255,255,0.10) !important; /* ADDED */
+  border-color: rgba(255,255,255,0.20) !important; /* ADDED */
+}
+/* SEARCH BOX TEXT + BORDER + PLACEHOLDER */
+.dataTables_filter input {
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,0.3) !important;
+  background: rgba(255,255,255,0.05) !important;
+}
+
+.dataTables_filter input::placeholder {
+  color: rgba(255,255,255,0.5) !important;
+}
+.dataTables_filter label {
+  color: #fff !important;
+}
+
+/* LENGTH DROPDOWN */
+.dataTables_length select {
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,0.3) !important;
+  background: rgba(255,255,255,0.05) !important;
+}
+
+/* PAGINATION BUTTONS */
+.dataTables_paginate .paginate_button {
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,0.2) !important;
+  background: rgba(255,255,255,0.05) !important;
+  border-radius: 6px !important;
+}
+
+.dataTables_paginate .paginate_button:hover {
+  background: rgba(255,255,255,0.15) !important;
+  border-color: rgba(255,255,255,0.4) !important;
+  color: #fff !important;
+}
+
+/* ACTIVE PAGE BUTTON */
+.dataTables_paginate .paginate_button.current {
+  background: rgba(255,255,255,0.25) !important;
+  border-color: rgba(255,255,255,0.4) !important;
+  color: #000 !important;
+}
+
+/* INFO TEXT ("Showing 1 to 10 of ...") */
+.dataTables_info {
+  color: #fff !important;
+}
+
 
 /* content for species list */
 #speciesTable, #speciesTablePhil, #speciesTableMal, #speciesTableMal2, #speciesTableBraz, #speciesTableIndo {
@@ -691,9 +830,9 @@ html, body {
 }
 
 
-#speciesListMal, #speciesListMal2, #species, #speciesTableBraz, #speciesListIndo{
+#speciesListMal, #speciesListMal2, #speciesTableBraz, #speciesListIndo{
   font-family: 'Inter', sans-serif !important;
-  color: black;  
+  color: white;  
   
   
   
@@ -702,8 +841,24 @@ html, body {
 #speciesListMal tr, #speciesListMal2 tr , #speciesTableBraz tr, #speciesListIndo tr{
   font-size: 10px;
 }
+
+#speciesTablePhil, #speciesListPhil {
+  font-family: 'Inter', sans-serif !important;
+  color: white !important;
+}
+
+#speciesListPhil tr {
+  font-size: 10px !important;
+}
+
+#speciesTablePhil th {
+  color: white !important;
+  border: 1px solid #ccc;
+}
+
+
 table.display tbody tr:hover {
-  background-color: #e9ecef; 
+  background-color: var(--green-dark); 
   
 }
 
@@ -733,12 +888,12 @@ table.display td {
 }
 .stakeClass table {
   font-family: 'Inter', sans-serif !important;
-  color: black;  
+  color: white;  
 
 }
 .stakeClass table thead {
   background-color: none; 
-  color: #212529;
+  color: white
   
 }
 
@@ -750,7 +905,7 @@ table.display td {
 }
 
 .stakeClass table tbody tr:hover {
-  background-color: #e9ecef;
+  background-color: var(--green-dark)
 }
 
 
@@ -760,7 +915,7 @@ table.display td {
 }
 
 .clickable-row:hover {
-  background-color: var(--green-dark);
+  background-color: var(--text-light);
 
 }
 
