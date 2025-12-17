@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-//tanzania page
+// TANZANIA PAGE 
   // Funfetti for TANZ completion
 function launchConfetti() {
     const duration = 3 * 1000; // 3 seconds
@@ -317,9 +317,9 @@ window.onload = function () {
             },
           },
         });
-        const totalArea = 4028;
+        const totalAreaTanz = 4028;
         const areaPlantedTanz = 4028;
-        const areaRemaining = totalArea - areaPlantedTanz;
+        const areaRemaining = totalAreaTanz - areaPlantedTanz;
         haPieChartInstance = new Chart(haPieCtx, {
         type: 'pie',
         data: {
@@ -384,9 +384,9 @@ window.onload = function () {
         }
       });
 
-      const totalTree = 6490000;
+      const totalTreeTanz = 6490000;
       const treesPlantedTanz = 6490000;
-      const treesRemaining = totalTree - treesPlantedTanz;
+      const treesRemaining = totalTreeTanz - treesPlantedTanz;
       treePieChartInstance = new Chart(treePieCtx, {
         type: 'pie',
         data: {
@@ -1190,7 +1190,7 @@ fetch('./rPages/pLogGanttRaw2.json')
   });
 
 
-// philippines page
+// PHILIPPINES PAGE
 // Initial Reporting Page Setup
 let haChartInstancePhil = null;
 let treeChartInstancePhil = null;
@@ -1229,10 +1229,10 @@ function initPhilCharts() {
       ]},
       options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true}}}
     });
-    const totalArea = 1292, areaPlantedPhil = 171;
+    const totalAreaPhil = 1292, areaPlantedPhil = 171;
     window.haPieChartInstancePhil = new Chart(haPieCtx,{
       type:'pie', data:{labels:['Available Hectares Left to Plant','Hectares Planted to Date'],
-        datasets:[{data:[totalArea-areaPlantedPhil,areaPlantedPhil],backgroundColor:['#ec6e6e','#627c49']}]},
+        datasets:[{data:[totalAreaPhil-areaPlantedPhil,areaPlantedPhil],backgroundColor:['#ec6e6e','#627c49']}]},
       options:pieOptions
     });
   });
@@ -1247,16 +1247,347 @@ function initPhilCharts() {
       data:{labels:sites,datasets:[{label:'Forecasted Trees Planted',data:reported,backgroundColor:'#c1e3aa'},{label:'Trees Planted to Date',data:planted,backgroundColor:'#627c49'}]},
       options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true}}}
     });
-    const totalTree = 3000630, treesPlantedPhil = 200755;
+    const totalTreePhil = 3000630, treesPlantedPhil = 200755;
     window.treePieChartInstancePhil = new Chart(treePieCtx,{
       type:'pie',data:{labels:['Trees Left to Plant','Trees Planted to Date'],
-        datasets:[{data:[totalTree-treesPlantedPhil,treesPlantedPhil],backgroundColor:['#ec6e6e','#627c49']}]},
+        datasets:[{data:[totalTreePhil-treesPlantedPhil,treesPlantedPhil],backgroundColor:['#ec6e6e','#627c49']}]},
       options:pieOptions
     });
   });
 }
+const schedulePhil = document.getElementById("schedulePhil");
+const pLogPhil = document.getElementById("logPhil");
+const speciesPhil = document.getElementById("speciesTablePhil");
+const stakePhil = document.getElementById("stakeholdersPhil");
+const scheduleBtnPhil = document.getElementById("timePhil");
+const pLogBtnPhil = document.getElementById("pLogPhil");
+const speciesBtnPhil = document.getElementById("speciesPhil");
+const stakeBtnPhil = document.getElementById("stakePhil");
+const mediaBtnPhil = document.getElementById("mediaBtnPhil");
+const mediaPhil = document.getElementById("mediaPhil");
 
-//malawi summary page 
+// Buttons for audit information
+function showSchedulePhil() {
+  //toggle underline
+  const off = [pLogBtnPhil, speciesBtnPhil, stakeBtnPhil, mediaBtnPhil];
+  off.forEach(element => {
+      element.classList.remove("active-link");
+  });
+  const on = scheduleBtnPhil;
+  on.classList.add("active-link");
+  // hide/show section
+  const hide = [pLogPhil, speciesPhil, stakePhil, mediaPhil];
+    hide.forEach(element => {
+        element.style.display = "none";
+    });
+    const show = schedulePhil;
+    show.style.display = "flex";
+}
+function showLogPhil() {
+  // toggle underline
+  const off = [scheduleBtnPhil, speciesBtnPhil, stakeBtnPhil, mediaBtnPhil];
+  off.forEach(element => {
+    element.classList.remove("active-link");
+  });
+  pLogBtnPhil.classList.add("active-link");
+
+  // hide other sections
+  const hide = [schedulePhil, speciesPhil, stakePhil, mediaPhil];
+  hide.forEach(element => {
+    element.style.display = "none";
+  });
+
+  // show pLog section
+  pLogPhil.style.display = "flex";
+
+}
+
+
+function showSpeciesPhil() {
+  //toggle underline
+  const off = [scheduleBtnPhil, pLogBtnPhil, stakeBtnPhil, mediaBtnPhil];
+  off.forEach(element => {
+      element.classList.remove("active-link");
+  });
+  const on = speciesBtnPhil;
+  on.classList.add("active-link");
+  // hide/show section
+  const hide = [schedulePhil, pLogPhil, stakePhil, mediaPhil];
+    hide.forEach(element => {
+        element.style.display = "none";
+    });
+    const show = speciesPhil;
+    show.style.display = "flex";
+}
+function showStakeholdersPhil() {
+  //toggle underline
+  const off = [scheduleBtnPhil, pLogBtnPhil, speciesBtnPhil, mediaBtnPhil];
+  off.forEach(element => {
+      element.classList.remove("active-link");
+  });
+  const on = stakeBtnPhil;
+  on.classList.add("active-link");
+  // hide/show section
+  const hide = [schedulePhil, pLogPhil, speciesPhil, mediaPhil];
+    hide.forEach(element => {
+        element.style.display = "none";
+    });
+    const show = stakePhil;
+    show.style.display = "flex";
+}
+function showMediaPhil() {
+  //toggle underline
+  const off = [scheduleBtnPhil, pLogBtnPhil, speciesBtnPhil, stakeBtnPhil];
+  off.forEach(element => {
+      element.classList.remove("active-link");
+  });
+  const on = mediaBtnPhil;
+  on.classList.add("active-link");
+  // hide/show section
+  const hide = [schedulePhil, pLogPhil, speciesPhil, stakePhil];
+    hide.forEach(element => {
+        element.style.display = "none";
+    });
+    const show = mediaPhil;
+    show.style.display = "flex";
+}
+
+
+// pLog database
+
+$('#ganttTablePhil').DataTable({
+  ajax: {
+    url: './rPages/rawLogPhil.json',
+    dataSrc: ''
+  },
+  columns: [
+    { data: 'Site' },
+    { data: 'Start Date' },
+    { data: 'End Date' },
+    { data: 'Trees Planted' },
+    { data: 'Area Planted' }
+  ],
+  dom: 'Bflrtip',   // Show Buttons, filter, table, pagination
+  buttons: [
+  {
+    extend: 'csvHtml5',
+    text: 'Download CSV',
+    title: 'Tree_Planting_Data'
+  },
+  {
+    extend: 'excelHtml5',
+    text: 'Download Excel'
+  }
+]
+});
+
+
+//Load species list content
+
+$('#speciesListPhil').DataTable({
+  ajax: {
+    url: './rPages/speciesListPhil.json',
+    dataSrc: function(json) {
+      console.log('Loaded JSON:', json);
+      return json;
+    }
+  },
+  columns: [
+    { data: 'Species',
+      render: function (data, type, row) {
+      if (!data) return '';
+
+      if (type === 'display') {
+        return `<a href="${row.Link}" target="_blank" rel="noopener noreferrer">${data}</a>`;
+      }
+
+      return data;
+    }
+     },
+    { data: 'Volume' }
+  ],
+  dom: 'Bflrtip',
+  buttons: [
+    { extend: 'csvHtml5', text: 'Download CSV', title: 'Tree_Planting_Data' },
+    { extend: 'excelHtml5', text: 'Download Excel' }
+  ]
+});
+
+
+document.querySelectorAll(".clickable-row").forEach(row => {
+  row.addEventListener("click", () => {
+    window.open(row.dataset.href, "_blank")
+  });
+});
+
+fetch('./rPages/pLogPhil.json')
+  .then(res => res.json())
+  .then(data => {
+    // Clean and map JSON
+    const cleaned = data.map(d => ({
+      site: d.Site,
+      date: d["Planting Date"],
+      count: d["Trees Planted"]
+    }));
+
+    const labels = data.map(d => d["Planting Date"]);
+
+    console.log(labels);
+
+    // Unique sites
+    const sites = [...new Set(cleaned.map(d => d.site))];
+
+    // Predefined colors
+    const colors = [
+      'rgba(255,99,132,0.5)',
+      'rgba(54,162,235,0.5)',
+      'rgba(255,206,86,0.5)',
+      'rgba(75,192,192,0.5)',
+      'rgba(153,102,255,0.5)',
+      'rgba(255,159,64,0.5)',
+      'rgba(199,199,199,0.5)'
+    ];
+    const borderColors = colors.map(c => c.replace('0.5', '1'));
+
+    // Map sites to colors (loop if more sites than colors)
+    const colorMap = {};
+    sites.forEach((site, i) => {
+      const colorIndex = i % colors.length;
+      colorMap[site] = { bg: colors[colorIndex], border: borderColors[colorIndex] };
+    });
+
+    // Build datasets
+    const datasets = sites.map(site => {
+      const sitePoints = cleaned.filter(d => d.site === site);
+
+      const dataPoints = labels.map(labelDate => {
+        const point = sitePoints.find(p => p.date === labelDate);
+        return point ? point.count : null;
+      });
+
+      return {
+        label: site,
+        data: dataPoints,
+        borderColor: colorMap[site].border,
+        backgroundColor: colorMap[site].bg,
+        fill: false,
+        spanGaps: false,
+        tension: 0.2
+      };
+    });
+
+    // Render chart
+    const ctx_log = document.getElementById('ganttChartPhil').getContext('2d');
+    new Chart(ctx_log, {
+      type: 'line',
+      data: { labels, datasets },
+      options: {
+        interaction: { mode: 'nearest', intersect: false },
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          title: {
+            display: true,
+            text: 'Partner Reported Planting Events',
+            font: { size: 14, weight: 'bold' }
+          }
+        },
+        scales: {
+          x: { 
+            title: { display: true, text: 'Date Planted' },
+            ticks: { autoSkip: false }
+          },
+          y: { 
+            title: { display: true, text: 'Trees Planted' },
+            beginAtZero: true 
+          }
+        }
+      }
+    });
+  })
+  .catch(err => console.error('Error loading JSON:', err));
+
+
+
+
+fetch('./rPages/ganttDatesPhil.json')
+  .then(res => {
+    if (!res.ok) throw new Error("HTTP error " + res.status);
+    return res.json();
+  })
+  .then(data => {
+    console.log("Fetched gantt data:", data);
+
+    // Pick a color for each site
+    const colors = [
+      'rgba(255,99,132,0.5)',
+      'rgba(54,162,235,0.5)',
+      'rgba(255,206,86,0.5)',
+      'rgba(75,192,192,0.5)',
+      'rgba(153,102,255,0.5)',
+      'rgba(255,159,64,0.5)',
+      'rgba(199,199,199,0.5)'
+    ];
+
+    const borderColors = colors.map(c => c.replace('0.5', '1'));
+
+    // Convert data into Chart.js horizontal bars
+    const tasks = data.map((d, i) => ({
+      x: [new Date(d["Start Date"]), new Date(d["End Date"])],
+      y: d.Site,
+      backgroundColor: colors[i % colors.length],
+      borderColor: borderColors[i % borderColors.length]
+    }));
+
+    const ctx_gantt = document.getElementById('ganttPhilCanvas').getContext('2d');
+    new Chart(ctx_gantt, {
+      type: 'bar',
+      data: {
+        datasets: [{
+          label: 'Schedule',
+          data: tasks,
+          borderWidth: 1,
+          backgroundColor: colors,   // <-- array of colors for each bar
+          borderColor: borderColors, // <-- array of border colors
+          borderWidth: 1
+        }]
+      },
+      options: {
+        indexAxis: 'y', 
+        responsive: true,
+        maintainAspectRatio: false, 
+        scales: {
+          x: {
+            type: 'time',
+            min: new Date(2024, 0, 1),
+            max: new Date(2028, 0, 4),
+            time: { unit: 'month' }
+          },
+          y: { }
+        },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const start = new Date(context.raw.x[0]);
+                const end = new Date(context.raw.x[1]);
+                return `${context.raw.y}: ${start.toLocaleDateString()} → ${end.toLocaleDateString()}`;
+              }
+            }
+          },
+          legend: { display: false },
+          title: {
+            display: true,
+            text: 'Parcel Planting Schedule',
+            font: { size: 14, weight: 'bold' }
+          }
+        }
+      }
+    });
+  });
+
+
+//MALAWI PAGE
 // Initial Reporting Page Setup
 let haChartInstanceMal = null;
 let treeChartInstanceMal = null;
@@ -1295,10 +1626,10 @@ function initMalCharts() {
       ]},
       options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true}}}
     });
-    const totalArea = 627, areaPlantedMal = 90;
+    const totalAreaMal = 627, areaPlantedMal = 90;
     window.haPieChartInstanceMal = new Chart(haPieCtx,{
       type:'pie', data:{labels:['Available Hectares Left to Plant','Hectares Planted to Date'],
-        datasets:[{data:[totalArea-areaPlantedMal,areaPlantedMal],backgroundColor:['#ec6e6e','#627c49']}]},
+        datasets:[{data:[totalAreaMal-areaPlantedMal,areaPlantedMal],backgroundColor:['#ec6e6e','#627c49']}]},
       options:pieOptions
     });
   });
@@ -1313,18 +1644,1189 @@ function initMalCharts() {
       data:{labels:sites,datasets:[{label:'Forecasted Trees Planted',data:reported,backgroundColor:'#c1e3aa'},{label:'Trees Planted to Date',data:planted,backgroundColor:'#627c49'}]},
       options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true}}}
     });
-    const totalTree = 1500000, treesPlantedMal = 182700;
+    const totalTreeMal = 1500000, treesPlantedMal = 182700;
     window.treePieChartInstanceMal = new Chart(treePieCtx,{
       type:'pie',data:{labels:['Trees Left to Plant','Trees Planted to Date'],
-        datasets:[{data:[totalTree-treesPlantedMal,treesPlantedMal],backgroundColor:['#ec6e6e','#627c49']}]},
+        datasets:[{data:[totalTreeMal-treesPlantedMal,treesPlantedMal],backgroundColor:['#ec6e6e','#627c49']}]},
       options:pieOptions
     });
   });
 }
 document.addEventListener("DOMContentLoaded", initMalCharts);
 
+const scheduleMal = document.getElementById("scheduleMal");
+const pLogMal = document.getElementById("logMal");
+const speciesMal = document.getElementById("speciesTableMal");
+const stakeMal = document.getElementById("stakeholdersMal");
+const scheduleBtnMal = document.getElementById("timeMal");
+const pLogBtnMal = document.getElementById("pLogMal");
+const speciesBtnMal = document.getElementById("speciesMal");
+const stakeBtnMal = document.getElementById("stakeMal");
+const mediaBtnMal = document.getElementById("mediaBtnMal");
+const mediaMal = document.getElementById("mediaMal");
+// Buttons for audit information
+function showScheduleMal() {
+  //toggle underline
+  const off = [pLogBtnMal, speciesBtnMal, stakeBtnMal, mediaBtnMal];
+  off.forEach(element => {
+      element.classList.remove("active-link");
+  });
+  const on = scheduleBtnMal;
+  on.classList.add("active-link");
+  // hide/show section
+  const hide = [pLogMal, speciesMal, stakeMal, mediaMal];
+    hide.forEach(element => {
+        element.style.display = "none";
+    });
+    const show = scheduleMal;
+    show.style.display = "flex";
+}
+function showLogMal() {
+  // toggle underline
+  const off = [scheduleBtnMal, speciesBtnMal, stakeBtnMal, mediaBtnMal];
+  off.forEach(element => {
+    element.classList.remove("active-link");
+  });
+  pLogBtnMal.classList.add("active-link");
 
-//canva page
+  // hide other sections
+  const hide = [scheduleMal, speciesMal, stakeMal, mediaMal];
+  hide.forEach(element => {
+    element.style.display = "none";
+  });
+
+  // show pLog section
+  pLogMal.style.display = "flex";
+
+}
+
+
+function showSpeciesMal() {
+  //toggle underline
+  const off = [scheduleBtnMal, pLogBtnMal, stakeBtnMal, mediaBtnMal];
+  off.forEach(element => {
+      element.classList.remove("active-link");
+  });
+  const on = speciesBtnMal;
+  on.classList.add("active-link");
+  // hide/show section
+  const hide = [scheduleMal, pLogMal, stakeMal, mediaMal];
+    hide.forEach(element => {
+        element.style.display = "none";
+    });
+    const show = speciesMal;
+    show.style.display = "flex";
+}
+function showStakeholdersMal() {
+  //toggle underline
+  const off = [scheduleBtnMal, pLogBtnMal, speciesBtnMal, mediaBtnMal];
+  off.forEach(element => {
+      element.classList.remove("active-link");
+  });
+  const on = stakeBtnMal;
+  on.classList.add("active-link");
+  // hide/show section
+  const hide = [scheduleMal, pLogMal, speciesMal, mediaMal];
+    hide.forEach(element => {
+        element.style.display = "none";
+    });
+    const show = stakeMal;
+    show.style.display = "flex";
+}
+
+function showMediaMal() {
+  //toggle underline
+  const off = [scheduleBtnMal, pLogBtnMal, speciesBtnMal, stakeBtnMal];
+  off.forEach(element => {
+      element.classList.remove("active-link");
+  });
+  const on = mediaBtnMal;
+  on.classList.add("active-link");
+  // hide/show section
+  const hide = [scheduleMal, pLogMal, speciesMal, stakeMal];
+    hide.forEach(element => {
+        element.style.display = "none";
+    });
+    const show = mediaMal;
+    show.style.display = "flex";
+}
+fetch('./rPages/pLogMalGantt.json')
+  .then(res => res.json())
+  .then(data => {
+    console.log(data);
+    // Clean and map JSON
+    const cleaned = data.map(d => ({
+      site: d.Site,
+      date: d["Planting Date"],
+      count: d["Trees Planted"]
+    }));
+    
+    const labels = [...new Set(cleaned.map(d => d.date))]
+      .sort((a, b) => new Date(a) - new Date(b));
+    
+  
+
+    // Unique sites
+    const sites = [...new Set(cleaned.map(d => d.site))];
+
+    // Predefined colors
+    const colors = [
+      'rgba(255,99,132,0.5)',
+      'rgba(54,162,235,0.5)',
+      'rgba(255,206,86,0.5)',
+      'rgba(75,192,192,0.5)',
+      'rgba(153,102,255,0.5)',
+      'rgba(255,159,64,0.5)',
+      'rgba(199,199,199,0.5)'
+    ];
+    const borderColors = colors.map(c => c.replace('0.5', '1'));
+
+    // Map sites to colors (loop if more sites than colors)
+    const colorMap = {};
+    sites.forEach((site, i) => {
+      const colorIndex = i % colors.length;
+      colorMap[site] = { bg: colors[colorIndex], border: borderColors[colorIndex] };
+    });
+
+    // Build datasets
+    const datasets = sites.map(site => {
+      const sitePoints = cleaned.filter(d => d.site === site);
+
+      const dataPoints = labels.map(labelDate => {
+        const point = sitePoints.find(p => p.date === labelDate);
+        return point ? point.count : null;
+      });
+
+      return {
+        label: site,
+        data: dataPoints,
+        borderColor: colorMap[site].border,
+        backgroundColor: colorMap[site].bg,
+        fill: false,
+        spanGaps: false,
+        tension: 0.2
+      };
+    });
+
+    // Render chart
+    const ctx = document.getElementById('ganttChartMal').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: { labels, datasets },
+      options: {
+        interaction: { mode: 'nearest', intersect: false },
+        responsive: true,
+        plugins: {
+          legend: { display: true },
+          title: {
+            display: true,
+            text: 'Partner Reported Planting Events',
+            font: { size: 14, weight: 'bold' }
+          }
+        },
+        scales: {
+          x: { 
+            title: { display: true, text: 'Date Planted' },
+            ticks: { autoSkip: false }
+          },
+          y: { 
+            title: { display: true, text: 'Trees Planted' },
+            beginAtZero: true 
+          }
+        }
+      }
+    });
+  })
+  .catch(err => console.error('Error loading JSON:', err));
+
+
+
+
+  fetch('./rPages/ganttDatesMal.json')
+  .then(res => {
+    if (!res.ok) throw new Error("HTTP error " + res.status);
+    return res.json();
+  })
+  .then(data => {
+    console.log("Fetched gantt data:", data);
+
+    // Pick a color for each site
+    const colors = [
+      'rgba(255,99,132,0.5)',
+      'rgba(54,162,235,0.5)',
+      'rgba(255,206,86,0.5)',
+      'rgba(75,192,192,0.5)',
+      'rgba(153,102,255,0.5)',
+      'rgba(255,159,64,0.5)',
+      'rgba(199,199,199,0.5)'
+    ];
+
+    const borderColors = colors.map(c => c.replace('0.5', '1'));
+
+    // Convert data into Chart.js horizontal bars
+    const tasks = data.map((d, i) => ({
+      x: [new Date(d["Start Date"]), new Date(d["End Date"])],
+      y: d.Site,
+      backgroundColor: colors[i % colors.length],
+      borderColor: borderColors[i % borderColors.length]
+    }));
+
+    const ctx_gantt = document.getElementById('ganttMalCanvas').getContext('2d');
+    new Chart(ctx_gantt, {
+      type: 'bar',
+      data: {
+        datasets: [{
+          label: 'Schedule',
+          data: tasks,
+          borderWidth: 1,
+          backgroundColor: colors,   // <-- array of colors for each bar
+          borderColor: borderColors, // <-- array of border colors
+          borderWidth: 1
+        }]
+      },
+      options: {
+        indexAxis: 'y', 
+        responsive: true,
+        maintainAspectRatio: false, 
+        scales: {
+          x: {
+            type: 'time',
+            min: new Date(2024, 12, 1),
+            max: new Date(2027, 4, 1),
+            time: { unit: 'month' }
+          },
+          y: { }
+        },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const start = new Date(context.raw.x[0]);
+                const end = new Date(context.raw.x[1]);
+                return `${context.raw.y}: ${start.toLocaleDateString()} → ${end.toLocaleDateString()}`;
+              }
+            }
+          },
+          legend: { display: false },
+          title: {
+            display: true,
+            text: 'Per Parcel Planting Schedule',
+            font: { size: 14, weight: 'bold' }
+          }
+        }
+      }
+    });
+  });
+
+
+
+
+  // pLog database
+
+$('#ganttTableMal').DataTable({
+  ajax: {
+    url: './rPages/pLogMalRaw.json',
+    dataSrc: ''
+  },
+  columns: [
+    { data: 'Site' },
+    { data: 'Planting Date' },
+    { data: 'Trees Planted' },
+    { data: 'Area Planted' }
+  ],
+  dom: 'Bflrtip',   // Show Buttons, filter, table, pagination
+  buttons: [
+  {
+    extend: 'csvHtml5',
+    text: 'Download CSV',
+    title: 'Tree_Planting_Data'
+  },
+  {
+    extend: 'excelHtml5',
+    text: 'Download Excel'
+  }
+]
+});
+
+
+// inst 1 and 2
+const inst1Mal = document.getElementById("inst1Mal");
+const inst2Mal = document.getElementById("inst2Mal");
+const instBtn1Mal = document.getElementById("instBtn1Mal");
+const instBtn2Mal = document.getElementById("instBtn2Mal");
+
+
+function showMal1() {
+  //toggle off
+  const off = [instBtn2Mal];
+  off.forEach(element => {
+      element.classList.remove("active-instance");
+      element.classList.add("off-instance");
+  });
+  const on = instBtn1Mal;
+  on.classList.add("active-instance");
+  on.classList.remove("off-instance");
+  // hide/show section
+  const hide = [inst2Mal];
+    hide.forEach(element => {
+        element.style.display = "none";
+    });
+    const show = inst1Mal;
+    show.style.display = "block";
+}
+function showMal2() {
+ //toggle off
+  const off = [instBtn1Mal];
+  off.forEach(element => {
+      element.classList.remove("active-instance");
+      element.classList.add("off-instance");
+  });
+  const on = instBtn2Mal;
+  on.classList.add("active-instance");
+  on.classList.remove("off-instance");
+  // hide/show section
+  const hide = [inst1Mal];
+    hide.forEach(element => {
+        element.style.display = "none";
+    });
+    const show = inst2Mal;
+    show.style.display = "block";
+}
+
+// Initial Reporting Page Setup
+let haChartInstanceMal2 = null;
+let treeChartInstanceMal2 = null;
+let haPieChartInstanceMal2 = null;
+let treePieChartInstanceMal2 = null;
+
+// load mal data 
+document.addEventListener("DOMContentLoaded", function () {
+
+  const dataSelectorMal2 = document.getElementById('dataSelector2Mal2');
+  const chartsHaMal2 = document.getElementById('chartsHaMal2');
+  const chartsTreeMal2 = document.getElementById('chartsTreeMal2'); 
+  const haBarCtx2 = document.getElementById('haSiteMal2').getContext('2d');
+  const treeBarCtx2= document.getElementById('treeSiteMal2').getContext('2d');
+  const haPieCtx2 = document.getElementById('haPieMal2').getContext('2d');
+  const treePieCtx2 = document.getElementById('treePieMal2').getContext('2d');
+
+  // toggle logic
+  toggleCharts(dataSelectorMal2.value);
+  dataSelectorMal2.addEventListener('input', function () { toggleCharts(this.value); });
+
+  function toggleCharts(selected) {
+    chartsHaMal2.style.display = selected==='ha' ? 'flex' : 'none';
+    chartsTreeMal2.style.display = selected==='tree' ? 'flex' : 'none';
+  }
+
+  const pieOptions2 = { maintainAspectRatio:false, responsive:true, plugins:{legend:{position:'right'}} };
+
+  fetch('./rPages/haSiteMal2.json').then(r=>r.json()).then(data=>{
+    const sites2 = data.map(row=>row.Site);
+    const reported2 = data.map(row=>row["Capacity"]||0);
+    const verified2 = data.map(row=>row["Area Planted to Date"]||0);
+    window.haChartInstanceMal2 = new Chart(haBarCtx2,{
+      type:'bar',
+      data:{labels:sites2,datasets:[
+        {label:'Forecasted Hectares Planted',data:reported2,backgroundColor:'#c1e3aa'},
+        {label:'Hectares Planted to Date',data:verified2,backgroundColor:'#627c49'}
+      ]},
+      options:{responsive:true,maintainAspectRatio:false,scales:{x: {display: false}, y:{beginAtZero:true}}}
+    });
+    const totalArea2 = 3323, areaPlanted2 = 0;
+    window.haPieChartInstanceMal2 = new Chart(haPieCtx2,{
+      type:'pie', data:{labels:['Available Hectares Left to Plant','Hectares Planted to Date'],datasets:[{data:[totalArea2-areaPlanted2,
+        areaPlanted2],backgroundColor:['#ec6e6e','#627c49']}]},
+      options:pieOptions2
+    });
+  });
+
+  fetch('./rPages/treeSiteMal2.json').then(r=>r.json()).then(data=>{
+    console.log("Tree JSON data:", data);
+    const sites3 = data.map(r=>r.Site);
+    const reported3 = data.map(r=>r["Capacity"]||0);
+    const planted3 = data.map(r=>r["Trees Planted to Date"]||0);
+    window.treeChartInstanceMal2 = new Chart(treeBarCtx2,{
+      type:'bar',
+      data:{labels:sites3,datasets:[{label:'Forecasted Trees Planted',data:reported3,backgroundColor:'#c1e3aa'},{label:'Trees Planted to Date',
+        data:planted3,backgroundColor:'#627c49'}]},
+      options:{responsive:true,maintainAspectRatio:false,scales:{x: {display: false}, y:{beginAtZero:true}}}
+    });
+    const totalTree2 = 5330560, treesPlanted2 = 0;
+    window.treePieChartInstanceMal2 = new Chart(treePieCtx2,{
+      type:'pie',data:{labels:['Trees Left to Plant','Trees Planted to Date'],datasets:[{data:[totalTree2-treesPlanted2,treesPlanted2]
+        ,backgroundColor:['#ec6e6e','#627c49']}]},
+      options:pieOptions2
+    });
+  });
+});
+
+
+const scheduleMal2 = document.getElementById("scheduleMal2");
+const pLogMal2 = document.getElementById("logMal2");
+const speciesMal2 = document.getElementById("speciesTableMal2");
+const stakeMal2 = document.getElementById("stakeholdersMal2");
+const scheduleBtnMal2 = document.getElementById("timeMal2");
+const pLogBtnMal2 = document.getElementById("pLogMal2");
+const speciesBtnMal2 = document.getElementById("speciesMal2");
+const stakeBtnMal2 = document.getElementById("stakeMal2");
+
+// Buttons for audit information
+function showScheduleMal2() {
+  //toggle underline
+  const off = [pLogBtnMal2, speciesBtnMal2, stakeBtnMal2];
+  off.forEach(element => {
+      element.classList.remove("active-link");
+  });
+  const on = scheduleBtnMal2;
+  on.classList.add("active-link");
+  // hide/show section
+  const hide = [pLogMal2, speciesMal2, stakeMal2];
+    hide.forEach(element => {
+        element.style.display = "none";
+    });
+    const show = scheduleMal2;
+    show.style.display = "flex";
+}
+function showLogMal2() {
+  // toggle underline
+  const off = [scheduleBtnMal2, speciesBtnMal2, stakeBtnMal2];
+  off.forEach(element => {
+    element.classList.remove("active-link");
+  });
+  pLogBtnMal2.classList.add("active-link");
+
+  // hide other sections
+  const hide = [scheduleMal2, speciesMal2, stakeMal2];
+  hide.forEach(element => {
+    element.style.display = "none";
+  });
+
+  // show pLog section
+  pLogMal2.style.display = "flex";
+
+}
+
+
+function showSpeciesMal2() {
+  //toggle underline
+  const off = [scheduleBtnMal2, pLogBtnMal2, stakeBtnMal2];
+  off.forEach(element => {
+      element.classList.remove("active-link");
+  });
+  const on = speciesBtnMal2;
+  on.classList.add("active-link");
+  // hide/show section
+  const hide = [scheduleMal2, pLogMal2, stakeMal2];
+    hide.forEach(element => {
+        element.style.display = "none";
+    });
+    const show = speciesMal2;
+    show.style.display = "flex";
+}
+function showStakeholdersMal2() {
+  //toggle underline
+  const off = [scheduleBtnMal2, pLogBtnMal2, speciesBtnMal2];
+  off.forEach(element => {
+      element.classList.remove("active-link");
+  });
+  const on = stakeBtnMal2;
+  on.classList.add("active-link");
+  // hide/show section
+  const hide = [scheduleMal2, pLogMal2, speciesMal2];
+    hide.forEach(element => {
+        element.style.display = "none";
+    });
+    const show = stakeMal2;
+    show.style.display = "flex";
+}
+
+
+
+
+  fetch('./rPages/ganttDatesMal2.json')
+  .then(res => {
+    if (!res.ok) throw new Error("HTTP error " + res.status);
+    return res.json();
+  })
+  .then(data => {
+    console.log("Fetched gantt data:", data);
+
+    // Pick a color for each site
+    function generateRainbowColors(n) {
+      const colors = [];
+      for (let i = 0; i < n; i++) {
+        const hue = Math.round((360 * i) / n);
+        colors.push(`hsl(${hue}, 70%, 50%)`);
+      }
+      return colors;
+    }
+    const colors = generateRainbowColors(data.length);
+
+    const borderColors = colors.map(c => c.replace('0.5', '1'));
+
+    // Convert data into Chart.js horizontal bars
+    const tasks = data.map((d, i) => ({
+      x: [new Date(d["Start Date"]), new Date(d["End Date"])],
+      y: d.Site,
+      backgroundColor: colors[i % colors.length],
+      borderColor: borderColors[i % borderColors.length]
+    }));
+
+    const ctx_gantt2 = document.getElementById('ganttMalCanvas2').getContext('2d');
+    new Chart(ctx_gantt2, {
+      type: 'bar',
+      data: {
+        datasets: [{
+          label: 'Schedule',
+          data: tasks,
+          borderWidth: 1,
+          backgroundColor: colors,   // <-- array of colors for each bar
+          borderColor: borderColors, // <-- array of border colors
+          borderWidth: 1
+        }]
+      },
+      options: {
+        indexAxis: 'y', 
+        responsive: true,
+        maintainAspectRatio: false, 
+        scales: {
+          x: {
+            type: 'time',
+            min: new Date(2025, 9, 1),
+            max: new Date(2029, 12, 1),
+            time: { unit: 'month' }
+          },
+          y: {ticks: {
+        autoSkip: false,  // don't skip any labels
+        maxRotation: 0,   // don't rotate labels
+        minRotation: 0,
+        font: {
+          size: 7,       // font size for site labels
+          family: 'Inter'
+        }
+      } }
+        },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const start = new Date(context.raw.x[0]);
+                const end = new Date(context.raw.x[1]);
+                return `${start.toLocaleDateString()} → ${end.toLocaleDateString()}`;
+              }
+            }
+          },
+          legend: { display: false },
+          title: {
+            display: true,
+            text: 'Per Parcel Planting Schedule',
+            font: { size: 14, weight: 'bold' },
+            align: 'center'
+          }
+        }
+      }
+    });
+  });
+
+  // gantt schedule from pLog
+fetch('./rPages/pLogMalGantt2.json')
+  .then(res => res.json())
+  .then(data => {
+    // Clean data: remove entries missing any key value
+    const cleaned = data.filter(d => d["End Date"] && d.Site && d["Trees Planted"])
+      .map(d => ({
+        site: d.Site.trim(),
+        date: new Date(d["End Date"]).toISOString().slice(0, 10),
+        count: +d["Trees Planted"]
+      }));
+
+    // Get unique sorted dates from the data only
+    const labels = [...new Set(cleaned.map(d => d.date))]
+    .sort((a, b) => new Date(a) - new Date(b));
+
+    // Get unique sites
+    const sites = [...new Set(cleaned.map(d => d.site))];
+
+    // Pick a color for each site
+    function generateRainbowColors(n) {
+      const colors = [];
+      for (let i = 0; i < n; i++) {
+        const hue = Math.round((360 * i) / n);
+        colors.push(`hsl(${hue}, 70%, 50%)`);
+      }
+      return colors;
+    }
+    const colors = generateRainbowColors(data.length);
+
+    const borderColors = colors.map(c => c.replace('0.5', '1'));
+
+    // Build datasets only for existing dates (no zero fill)
+    const datasets = sites.map((site, i) => {
+      // Filter data points just for this site
+      const sitePoints = cleaned.filter(d => d.site === site);
+
+      // Map sitePoints to a data array aligned to labels, with null where no data
+      const dataPoints = labels.map(labelDate => {
+        const point = sitePoints.find(p => p.date === labelDate);
+        return point ? point.count : null; // null means "no point" (break in line)
+      });
+
+      return {
+        label: site,
+        data: dataPoints,
+        borderColor: borderColors,
+        backgroundColor: colors,
+        fill: false,
+        spanGaps: false,   // don't connect points with missing/null values
+        tension: 0.2
+      };
+    });
+
+    // Render chart
+    const ctx2 = document.getElementById('ganttChartMal2').getContext('2d');
+    new Chart(ctx2, {
+      type: 'bar',
+      data: { labels, datasets },
+      options: {
+        interaction: { mode: 'nearest', intersect: false },
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          title: {
+            display: true,
+            text: 'Planting Projections per Site',
+            font: { size: 14, weight: 'bold' }
+          }
+        },
+        scales: {
+          x: { title: { display: true, text: 'Expected Date of Completion' } },
+          y: { title: { display: true, text: 'Trees Planted' }, beginAtZero: true }
+        }
+      }
+    });
+  });
+
+  // BRAZIL PAGE
+  // Initial Reporting Page Setup
+let haChartInstanceBraz = null;
+let treeChartInstanceBraz = null;
+let haPieChartInstanceBraz = null;
+let treePieChartInstanceBraz = null;
+
+
+
+// load Braz data 
+document.addEventListener("DOMContentLoaded", function () {
+  const dataSelectorBraz = document.getElementById('dataSelector2Braz');
+  const chartsHaBraz = document.getElementById('chartsHaBraz');
+  const chartsTreeBraz = document.getElementById('chartsTreeBraz'); 
+  const haBarCtxBraz = document.getElementById('haSiteBraz').getContext('2d');
+  const treeBarCtxBraz = document.getElementById('treeSiteBraz').getContext('2d');
+  const haPieCtxBraz = document.getElementById('haPieBraz').getContext('2d');
+  const treePieCtxBraz = document.getElementById('treePieBraz').getContext('2d');
+
+  // toggle logic
+  toggleCharts(dataSelectorBraz.value);
+  dataSelectorBraz.addEventListener('input', function () { toggleCharts(this.value); });
+
+  function toggleCharts(selected) {
+    chartsHaBraz.style.display = selected==='ha' ? 'flex' : 'none';
+    chartsTreeBraz.style.display = selected==='tree' ? 'flex' : 'none';
+  }
+
+  const pieOptionsBraz = { maintainAspectRatio:false, responsive:true, plugins:{legend:{position:'right'}} };
+
+  fetch('./rPages/haSiteBraz.json').then(r=>r.json()).then(data=>{
+    const sitesBraz = data.map(row=>row.Site);
+    const reportedBraz = data.map(row=>row["Forecasted Hectares Restored"]||0);
+    const verifiedBraz = data.map(row=>row["Hectares Planted to Date"]||0);
+    window.haChartInstanceBraz = new Chart(haBarCtxBraz,{
+      type:'bar',
+      data:{labels:sitesBraz,datasets:[
+        {label:'Forecasted Hectares Restored',data:reportedBraz,backgroundColor:'#c1e3aa'},
+        {label:'Hectares Planted to Date',data:verifiedBraz,backgroundColor:'#627c49'}
+      ]},
+      options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true}}}
+    });
+    const totalArea = 150, areaPlanted = 0;
+    window.haPieChartInstanceBraz = new Chart(haPieCtxBraz,{
+      type:'pie', data:{labels:['Available Hectares Left to Plant','Hectares Planted to Date'],datasets:[{data:[totalArea-areaPlanted,areaPlanted],backgroundColor:['#ec6e6e','#627c49']}]},
+      options:pieOptionsBraz
+    });
+  });
+
+  fetch('./rPages/treeSiteBraz.json').then(r=>r.json()).then(data=>{
+    console.log("Tree JSON data:", data);
+    const sites = data.map(r=>r.Site);
+    const reported = data.map(r=>r["Forecasted Trees Planted"]||0);
+    const planted = data.map(r=>r["Trees Planted to Date"]||0);
+    window.treeChartInstanceBraz = new Chart(treeBarCtxBraz,{
+      type:'bar',
+      data:{labels:sites,datasets:[{label:'Forecasted Trees Planted',data:reported,backgroundColor:'#c1e3aa'},{label:'Trees Planted to Date',data:planted,backgroundColor:'#627c49'}]},
+      options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true}}}
+    });
+    const totalTree = 1500000, treesPlanted = 0;
+    window.treePieChartInstanceBraz = new Chart(treePieCtxBraz,{
+      type:'pie',data:{labels:['Trees Left to Plant','Trees Planted to Date'],datasets:[{data:[totalTree-treesPlanted,treesPlanted],backgroundColor:['#ec6e6e','#627c49']}]},
+      options:pieOptionsBraz
+    });
+  });
+
+});
+
+const scheduleBraz = document.getElementById("scheduleBraz");
+const pLogBraz = document.getElementById("logBraz");
+const speciesBraz = document.getElementById("speciesTableBraz");
+const stakeBraz = document.getElementById("stakeholdersBraz");
+const scheduleBtnBraz = document.getElementById("timeBraz");
+const pLogBtnBraz = document.getElementById("pLogBraz");
+const speciesBtnBraz = document.getElementById("speciesBraz");
+const stakeBtnBraz = document.getElementById("stakeBraz");
+
+// Buttons for audit information
+function showScheduleBraz() {
+  //toggle underline
+  const off = [pLogBtnBraz, speciesBtnBraz, stakeBtnBraz];
+  off.forEach(element => {
+      element.classList.remove("active-link");
+  });
+  const on = scheduleBtnBraz;
+  on.classList.add("active-link");
+  // hide/show section
+  const hide = [pLogBraz, speciesBraz, stakeBraz];
+    hide.forEach(element => {
+        element.style.display = "none";
+    });
+    const show = scheduleBraz;
+    show.style.display = "flex";
+}
+function showLogBraz() {
+  // toggle underline
+  const off = [scheduleBtnBraz, speciesBtnBraz, stakeBtnBraz];
+  off.forEach(element => {
+    element.classList.remove("active-link");
+  });
+  pLogBtnBraz.classList.add("active-link");
+
+  // hide other sections
+  const hide = [scheduleBraz, speciesBraz, stakeBraz];
+  hide.forEach(element => {
+    element.style.display = "none";
+  });
+
+  // show pLog section
+  pLogBraz.style.display = "flex";
+
+}
+
+
+function showSpeciesBraz() {
+  //toggle underline
+  const off = [scheduleBtnBraz, pLogBtnBraz, stakeBtnBraz];
+  off.forEach(element => {
+      element.classList.remove("active-link");
+  });
+  const on = speciesBtnBraz;
+  on.classList.add("active-link");
+  // hide/show section
+  const hide = [scheduleBraz, pLogBraz, stakeBraz];
+    hide.forEach(element => {
+        element.style.display = "none";
+    });
+    const show = speciesBraz;
+    show.style.display = "flex";
+}
+function showStakeholdersBraz() {
+  //toggle underline
+  const off = [scheduleBtnBraz, pLogBtnBraz, speciesBtnBraz];
+  off.forEach(element => {
+      element.classList.remove("active-link");
+  });
+  const on = stakeBtnBraz;
+  on.classList.add("active-link");
+  // hide/show section
+  const hide = [scheduleBraz, pLogBraz, speciesBraz];
+    hide.forEach(element => {
+        element.style.display = "none";
+    });
+    const show = stakeBraz;
+    show.style.display = "flex";
+}
+
+
+
+fetch('./rPages/ganttDatesBraz.json')
+  .then(res => {
+    if (!res.ok) throw new Error("HTTP error " + res.status);
+    return res.json();
+  })
+  .then(data => {
+    console.log("Fetched gantt data:", data);
+
+    // Pick a color for each site
+    function generateRainbowColors(n) {
+      const colors = [];
+      for (let i = 0; i < n; i++) {
+        const hue = Math.round((360 * i) / n);
+        colors.push(`hsl(${hue}, 70%, 50%)`);
+      }
+      return colors;
+    }
+    const colors = generateRainbowColors(data.length);
+
+    const borderColors = colors.map(c => c.replace('0.5', '1'));
+
+    // Convert data into Chart.js horizontal bars
+    const tasks = data.map((d, i) => ({
+      x: [new Date(d["Start Date"]), new Date(d["End Date"])],
+      y: d.Site,
+      backgroundColor: colors[i % colors.length],
+      borderColor: borderColors[i % borderColors.length]
+    }));
+
+    const ctx_ganttBraz = document.getElementById('ganttChartBraz').getContext('2d');
+    new Chart(ctx_ganttBraz, {
+      type: 'bar',
+      data: {
+        datasets: [{
+          label: 'Schedule',
+          data: tasks,
+          borderWidth: 1,
+          backgroundColor: colors,   // <-- array of colors for each bar
+          borderColor: borderColors, // <-- array of border colors
+          borderWidth: 1
+        }]
+      },
+      options: {
+        indexAxis: 'y', 
+        responsive: true,
+        maintainAspectRatio: false, 
+        scales: {
+          x: {
+            type: 'time',
+            min: new Date(2025, 10, 1),
+            max: new Date(2026,4, 1),
+            time: { unit: 'month' }
+          },
+          y: {ticks: {
+        autoSkip: false,  // don't skip any labels
+        maxRotation: 0,   // don't rotate labels
+        minRotation: 0,
+        font: {
+          size: 12,       // font size for site labels
+          family: 'Inter'
+        }
+      } }
+        },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const start = new Date(context.raw.x[0]);
+                const end = new Date(context.raw.x[1]);
+                return `${context.raw.y}: ${start.toLocaleDateString()} → ${end.toLocaleDateString()}`;
+              }
+            }
+          },
+          legend: { display: false },
+          title: {
+            display: false
+          }
+        }
+      }
+    });
+  });
+
+
+//INDONESIA PAGE 
+// Initial Reporting Page Setup
+let haChartInstanceIndo = null;
+let treeChartInstanceIndo = null;
+let haPieChartInstanceIndo = null;
+let treePieChartInstanceIndo = null;
+
+
+
+// load Indo data 
+
+  const dataSelectorIndo = document.getElementById('dataSelector2Indo');
+  const chartsHaIndo = document.getElementById('chartsHaIndo');
+  const chartsTreeIndo = document.getElementById('chartsTreeIndo'); 
+  const haBarCtxIndo = document.getElementById('haSiteIndo').getContext('2d');
+  const treeBarCtxIndo = document.getElementById('treeSiteIndo').getContext('2d');
+  const haPieCtxIndo = document.getElementById('haPieIndo').getContext('2d');
+  const treePieCtxIndo = document.getElementById('treePieIndo').getContext('2d');
+
+  // toggle logic
+  toggleCharts(dataSelectorIndo.value);
+  dataSelectorIndo.addEventListener('input', function () { toggleCharts(this.value); });
+
+  function toggleCharts(selected) {
+    chartsHaIndo.style.display = selected==='ha' ? 'flex' : 'none';
+    chartsTreeIndo.style.display = selected==='tree' ? 'flex' : 'none';
+  }
+
+  const pieOptionsIndo = { maintainAspectRatio:false, responsive:true, plugins:{legend:{position:'right'}} };
+
+  fetch('./rPages/haSiteIndo.json').then(r=>r.json()).then(data=>{
+    const sitesIndo = data.map(row=>row.Site);
+    const reportedIndo = data.map(row=>row["Forecasted Hectares Planted"]||0);
+    const verifiedIndo = data.map(row=>row["Hectares Planted to Date"]||0);
+    window.haChartInstanceIndo = new Chart(haBarCtxIndo,{
+      type:'bar',
+      data:{labels:sitesIndo,datasets:[
+        {label:'Forecasted Hectares Restored',data:reportedIndo,backgroundColor:'#c1e3aa'},
+        {label:'Hectares Planted to Date',data:verifiedIndo,backgroundColor:'#627c49'}
+      ]},
+      options:{responsive:true,maintainAspectRatio:false,indexAxis: 'y', scales:{ 
+      y: {
+      ticks: {
+        autoSkip: false,font: {
+          size: 10   // <-- set tick font size
+        }
+      }
+    },x:{beginAtZero:true, title: {
+        display: true,
+        text: 'Hectares'}}}}
+    });
+    const totalArea = 1000, areaPlanted = 15;
+    window.haPieChartInstanceIndo = new Chart(haPieCtxIndo,{
+      type:'pie', data:{labels:['Available Hectares Left to Plant','Hectares Planted to Date'],datasets:[{data:[totalArea-areaPlanted,areaPlanted],backgroundColor:['#ec6e6e','#627c49']}]},
+      options:pieOptionsIndo
+    });
+  });
+
+  fetch('./rPages/treeSiteIndo.json').then(r=>r.json()).then(data=>{
+    console.log("Tree JSON data:", data);
+    const sites = data.map(r=>r.Site);
+    const reported = data.map(r=>r["Forecasted Trees Planted"]||0);
+    const planted = data.map(r=>r["Trees Planted to Date"]||0);
+    window.treeChartInstanceIndo = new Chart(treeBarCtxIndo,{
+      type:'bar',
+      data:{labels:sites,datasets:[{label:'Forecasted Trees Planted',data:reported,backgroundColor:'#c1e3aa'},{label:'Trees Planted to Date',data:planted,backgroundColor:'#627c49'}]},
+      options:{responsive:true,maintainAspectRatio:false,indexAxis: 'y', scales:{ 
+      y: {
+      ticks: {
+        autoSkip: false,font: {
+          size: 10   // <-- set tick font size
+        }
+      }
+    },x:{beginAtZero:true, title: {
+        display: true,
+        text: 'Trees'}}}}
+    });
+    const totalTree = 10000000, treesPlanted = 120000;
+    window.treePieChartInstanceIndo = new Chart(treePieCtxIndo,{
+      type:'pie',data:{labels:['Trees Left to Plant','Trees Planted to Date'],datasets:[{data:[totalTree-treesPlanted,treesPlanted],backgroundColor:['#ec6e6e','#627c49']}]},
+      options:pieOptionsIndo
+    });
+  });
+
+
+
+
+const scheduleIndo = document.getElementById("scheduleIndo");
+const pLogIndo = document.getElementById("logIndo");
+const speciesIndo = document.getElementById("speciesTableIndo");
+const stakeIndo = document.getElementById("stakeholdersIndo");
+const scheduleBtnIndo = document.getElementById("timeIndo");
+const pLogBtnIndo = document.getElementById("pLogIndo");
+const speciesBtnIndo = document.getElementById("speciesIndo");
+const stakeBtnIndo = document.getElementById("stakeIndo");
+
+// Buttons for audit information
+function showScheduleIndo() {
+  //toggle underline
+  const off = [pLogBtnIndo, speciesBtnIndo, stakeBtnIndo];
+  off.forEach(element => {
+      element.classList.remove("active-link");
+  });
+  const on = scheduleBtnIndo;
+  on.classList.add("active-link");
+  // hide/show section
+  const hide = [pLogIndo, speciesIndo, stakeIndo];
+    hide.forEach(element => {
+        element.style.display = "none";
+    });
+    const show = scheduleIndo;
+    show.style.display = "flex";
+}
+function showLogIndo() {
+  // toggle underline
+  const off = [scheduleBtnIndo, speciesBtnIndo, stakeBtnIndo];
+  off.forEach(element => {
+    element.classList.remove("active-link");
+  });
+  pLogBtnIndo.classList.add("active-link");
+
+  // hide other sections
+  const hide = [scheduleIndo, speciesIndo, stakeIndo];
+  hide.forEach(element => {
+    element.style.display = "none";
+  });
+
+  // show pLog section
+  pLogIndo.style.display = "flex";
+
+}
+
+
+function showSpeciesIndo() {
+  //toggle underline
+  const off = [scheduleBtnIndo, pLogBtnIndo, stakeBtnIndo];
+  off.forEach(element => {
+      element.classList.remove("active-link");
+  });
+  const on = speciesBtnIndo;
+  on.classList.add("active-link");
+  // hide/show section
+  const hide = [scheduleIndo, pLogIndo, stakeIndo];
+    hide.forEach(element => {
+        element.style.display = "none";
+    });
+    const show = speciesIndo;
+    show.style.display = "flex";
+}
+function showStakeholdersIndo() {
+  //toggle underline
+  const off = [scheduleBtnIndo, pLogBtnIndo, speciesBtnIndo];
+  off.forEach(element => {
+      element.classList.remove("active-link");
+  });
+  const on = stakeBtnIndo;
+  on.classList.add("active-link");
+  // hide/show section
+  const hide = [scheduleIndo, pLogIndo, speciesIndo];
+    hide.forEach(element => {
+        element.style.display = "none";
+    });
+    const show = stakeIndo;
+    show.style.display = "flex";
+}
+
+
+
+
+  fetch('./rPages/ganttDatesIndo.json')
+  .then(res => {
+    if (!res.ok) throw new Error("HTTP error " + res.status);
+    return res.json();
+  })
+  .then(data => {
+    console.log("Fetched gantt data:", data);
+
+    // Pick a color for each site
+    function generateRainbowColors(n) {
+      const colors = [];
+      for (let i = 0; i < n; i++) {
+        const hue = Math.round((360 * i) / n);
+        colors.push(`hsl(${hue}, 70%, 50%)`);
+      }
+      return colors;
+    }
+    const colors = generateRainbowColors(data.length);
+
+    const borderColors = colors.map(c => c.replace('0.5', '1'));
+
+    // Convert data into Chart.js horizontal bars
+    const tasks = data.map((d, i) => ({
+      x: [new Date(d["Start Date"]), new Date(d["End Date"])],
+      y: d.Site,
+      backgroundColor: colors[i % colors.length],
+      borderColor: borderColors[i % borderColors.length]
+    }));
+
+    const ctx_gantt2 = document.getElementById('ganttChartIndo').getContext('2d');
+    new Chart(ctx_gantt2, {
+      type: 'bar',
+      data: {
+        datasets: [{
+          label: 'Schedule',
+          data: tasks,
+          borderWidth: 1,
+          backgroundColor: colors,   // <-- array of colors for each bar
+          borderColor: borderColors, // <-- array of border colors
+          borderWidth: 1
+        }]
+      },
+      options: {
+        indexAxis: 'y', 
+        responsive: true,
+        maintainAspectRatio: false, 
+        scales: {
+          x: {
+            type: 'time',
+            min: new Date(2025, 9, 1),
+            max: new Date(2027, 1, 1),
+            time: { unit: 'month' }
+          },
+          y: {ticks: {
+        autoSkip: false,  // don't skip any labels
+        maxRotation: 0,   // don't rotate labels
+        minRotation: 0,
+        font: {
+          size: 12,       // font size for site labels
+          family: 'Inter'
+        }
+      } }
+        },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const start = new Date(context.raw.x[0]);
+                const end = new Date(context.raw.x[1]);
+                return `${start.toLocaleDateString()} → ${end.toLocaleDateString()}`;
+              }
+            }
+          },
+          legend: { display: false },
+          title: {
+            display: true,
+            text: 'Per Parcel Planting Schedule',
+            font: { size: 14, weight: 'bold' },
+            align: 'center'
+          }
+        }
+      }
+    });
+  });
+
+
+
+  // pLog database
+
+$('#ganttTableIndo').DataTable({
+  ajax: {
+    url: './rPages/rawLogIndo.json',
+    dataSrc: ''
+  },
+  columns: [
+    { data: 'Site' },
+    { data: 'Date Planted' },
+    { data: 'Trees Planted' },
+    { data: 'Area Planted' },
+    { data: 'Males Employed'},
+    { data: 'Females Employed'},
+    { data: 'Species Planted'}
+  ],
+  dom: 'Bflrtip',   // Show Buttons, filter, table, pagination
+  buttons: [
+  {
+    extend: 'csvHtml5',
+    text: 'Download CSV',
+    title: 'Tree_Planting_Data'
+  },
+  {
+    extend: 'excelHtml5',
+    text: 'Download Excel'
+  }
+]
+});
+
+
+//CANVA PAGE
 const instBtn1Canva = document.getElementById("instBtn1Canva");
 const instBtn2Canva = document.getElementById("instBtn2Canva");
 const inst1Canva = document.getElementById("inst1Canva");
